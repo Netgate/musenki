@@ -80,7 +80,7 @@ define Package/wifi/install
 	sed -i -e 's/<CLICON_RESTCONF_PRIVILEGES>drop_perm/<CLICON_RESTCONF_PRIVILEGES>none/g' $(PKG_INSTALL_DIR)/etc/wifi.xml
 	sed -i -e 's/<port>80<\/port>/<port>8080<\/port>/g' $(PKG_INSTALL_DIR)/var/wifi/startup_db
 	$(INSTALL_DIR) $(1)/etc
-	$(INSTALL_DATA) $(PKG_INSTALL_DIR)/etc/*.xml $(1)/etc/
+	$(INSTALL_DATA) $(PKG_INSTALL_DIR)/etc/wifi.xml $(1)/etc/clixon.xml
 	$(INSTALL_DIR) $(1)/usr/lib/wifi/clispec
 	$(INSTALL_DATA) $(PKG_INSTALL_DIR)/usr/lib/wifi/clispec/*.cli $(1)/usr/lib/wifi/clispec/
 	$(INSTALL_DIR) $(1)/usr/lib/wifi/backend
