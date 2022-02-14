@@ -5,13 +5,13 @@ This dir contains scripts for building and installing Musenki using clixon and o
      - musenki-vbox-install.sh: 
      - Makefile.musenki: Local Openwrt feed makefile used in the build script
 
-Build musenki module:
+Build a openwrt musenki module:
 ```
 git clone https://github.com/openwrt/openwrt.git
 ./musenki-openwrt-build.sh
 ```
 
-Create a virtualbox, install musenki, and run it
+Create an x86_64 virtualbox and install the musenki package:
 ```
 ./musenki-vbox-install.sh
 ```

@@ -96,7 +96,7 @@ CONFIG_PACKAGE_cligen=y
 CONFIG_PACKAGE_clixon=y
 CONFIG_PACKAGE_libnghttp2=y
 CONFIG_PACKAGE_libopenssl=y
-CONFIG_PACKAGE_wifi=m
+CONFIG_PACKAGE_musenki=m
 EOF
 
 # Expand to full config
@@ -116,9 +116,9 @@ make -j1 V=s # -j2 may break the machine?
 echo "Compile musenki app"
 echo "==================="
 
-make package/wifi/download
-make package/wifi/check V=s FIXUP=1
-make -j1 V=s package/wifi/compile
+make package/musenki/download
+make package/musenki/check V=s FIXUP=1
+make -j1 V=s package/musenki/compile
 
 sleep 1 # ensure OK is last
 echo OK

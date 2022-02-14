@@ -67,12 +67,12 @@ define Build/Configure
 endef
 
 # Check out all example but build only musenki
-MAKE_PATH:=src
+MAKE_PATH:=musenki-wifi/src
 define Build/Compile
 	$(call Build/Compile/Default, DESTDIR="$(PKG_INSTALL_DIR)")
 endef
 
-define Package/wifi/install
+define Package/musenki/install
 	# wifi.xml needs path patch /usr/local -> /usr/
 	sed -i -e 's/\/usr\/local\/etc\/wifi.xml/\/etc\/wifi.xml/g' $(PKG_INSTALL_DIR)/etc/wifi.xml
 	sed -i -e 's/\/usr\/local\//\/usr\//g' $(PKG_INSTALL_DIR)/etc/wifi.xml
@@ -98,4 +98,4 @@ define Package/wifi/install
 endef
 
 # This command is always the last, it uses the definitions and variables we give above in order to get the job done
-$(eval $(call BuildPackage,wifi))
+$(eval $(call BuildPackage,musenki))
