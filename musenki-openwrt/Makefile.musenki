@@ -15,11 +15,11 @@ PKG_RELEASE:=1
 PKG_MAINTAINER:=Olof Hagsand <olof@hagsand.se>
 
 PKG_SOURCE_PROTO:=git
-PKG_SOURCE_URL:=https://github.com/clicon/clixon-examples.git
+PKG_SOURCE_URL:=https://gitlab.netgate.com/dcornejo/musenki
 
 PKG_HASH:=779e95880edd78f262989c4b0501b88f84b25d9d49a5e2112d5d71423cf8429c
 # Set to skip and run check FIXUP=1
-PKG_MIRROR_HASH:=fb23ef53625460e9e835b15749f38167ae685950b99c12307c9c01852976c0cb
+PKG_MIRROR_HASH:=skip
 
 PKG_SOURCE_VERSION:=$(PKG_VERSION)
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
@@ -33,6 +33,7 @@ PKG_BUILD_DEPENDS:=cligen clixon
 
 include $(INCLUDE_DIR)/package.mk
 
+# Extra data: complete openconfig YANGs
 OPENCONFIG_ZIPFILE:=openconfig.zip
 define Download/openconfig
 	FILE:=master.zip
@@ -46,17 +47,17 @@ define Build/Prepare
 endef
 
 # Package definition; instructs on how and where our package will appear in the overall configuration menu ('make menuconfig')
-define Package/wifi
+define Package/musenki
 	SECTION:=utils
 	CATEGORY:=Utilities
-	URL:=http://www.clixon.org
-	TITLE:=Clixon openconfig wifi application
+	URL:=http://www.netgate.com
+	TITLE:=Netgate openconfig wifi application
 	DEPENDS:=+clixon
 endef
 
 # Package description; a more verbose description on what our package does
-define Package/wifi/description
-	Clixon openconfig wifi application
+define Package/musenki/description
+	Netgate openconfig wifi application
 endef
 
 CONFIGURE_ARGS += --with-cligen=$(STAGING_DIR_ROOT)/usr --with-clixon=$(STAGING_DIR_ROOT)/usr
@@ -65,8 +66,8 @@ define Build/Configure
 	$(call Build/Configure/Default, INSTALLFLAGS="")
 endef
 
-# Check out all example but build only wifi
-MAKE_PATH:=wifi/src
+# Check out all example but build only musenki
+MAKE_PATH:=src
 define Build/Compile
 	$(call Build/Compile/Default, DESTDIR="$(PKG_INSTALL_DIR)")
 endef
