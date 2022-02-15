@@ -7,7 +7,7 @@
 include $(TOPDIR)/rules.mk
 
 # Name, version and release number
-PKG_NAME:=mywifiname
+PKG_NAME:=musenki
 # Upstrean version
 PKG_VERSION:=HEAD
 # Version of packet itself
@@ -15,7 +15,7 @@ PKG_RELEASE:=1
 PKG_MAINTAINER:=Olof Hagsand <olof@hagsand.se>
 
 PKG_SOURCE_PROTO:=git
-PKG_SOURCE_URL:=https://gitlab.netgate.com/dcornejo/musenki
+PKG_SOURCE_URL:=https://gitlab.netgate.com/dcornejo/musenki.git
 
 PKG_HASH:=779e95880edd78f262989c4b0501b88f84b25d9d49a5e2112d5d71423cf8429c
 # Set to skip and run check FIXUP=1

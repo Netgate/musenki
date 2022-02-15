@@ -116,8 +116,8 @@ make -j1 V=s # -j2 may break the machine?
 echo "Compile musenki app"
 echo "==================="
 
-make package/musenki/download
-make package/musenki/check V=s FIXUP=1
+make -j1 V=s package/musenki/download
+make -j1 V=s package/musenki/check V=s FIXUP=1
 make -j1 V=s package/musenki/compile
 
 sleep 1 # ensure OK is last
