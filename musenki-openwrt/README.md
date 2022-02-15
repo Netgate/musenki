@@ -1,9 +1,9 @@
 # Musenki openwrt scripts
 
-This dir contains scripts for building and installing Musenki using clixon and openwrt
-     - musenki-openwrt-build.sh: Download and build Musenki WIFI app for x86_64
-     - musenki-vbox-install.sh: 
-     - Makefile.musenki: Local Openwrt feed makefile used in the build script
+This dir contains scripts for building and installing Musenki using clixon and openwrt:
+  * musenki-openwrt-build.sh: Download and build Musenki WIFI app for x86_64
+  * musenki-vbox-install.sh: Start a virtualbox and install openwrt and the musenki application
+  * Makefile.musenki: Local Openwrt feed makefile used in the build script
 
 Build a openwrt musenki module:
 ```
