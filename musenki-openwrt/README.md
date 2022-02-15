@@ -14,11 +14,16 @@ git clone https://github.com/openwrt/openwrt.git
 Create an x86_64 virtualbox and install the musenki package:
 ```
 ./musenki-vbox-install.sh
+...
+Continue or ^C to keep VM?^C
 ```
 
 Example run:
 ```
 ssh root@192.168.1.1
-root@OpenWrt:~# clixon_backend
-root@OpenWrt:~# clixon_cli
+root@OpenWrt:~# clixon_backend -f /etc/clixon.xml
+root@OpenWrt:~# clixon_cli -f /etc/clixon.xml
+wifi /> set access-point ?
+  <hostname>            Access Point FQDN.                                                         
+wifi /> set access-point 
 ```

@@ -8,7 +8,7 @@ test -d ${builddir} || exit -1
 
 # openwrt directory 
 : ${openwrtdir=${builddir}/openwrt}
-test -d ${openwrt} || exit -1
+test -d ${openwrtdir} || exit -1
 
 IMAGE=openwrt-x86-64-generic-ext4-combined.img
 sNAME=openwrtx64-clixon
@@ -17,7 +17,7 @@ VMNAME="${sNAME}"
 DISKSIZE='512000000'
 # Hardcoded to x86_64
 IMGC="${openwrtdir}/bin/targets/x86/64/${IMAGE}.gz"
-PKG=wifi_HEAD-1_x86_64.ipk
+PKG=musenki_HEAD-1_x86_64.ipk
 PKGPATH="${openwrtdir}/bin/packages/x86_64/local/${PKG}"
 IPADDR=192.168.1.1 # Default virtualbox host
 
@@ -82,12 +82,17 @@ VBoxManage storageattach $VMNAME \
 
 VBoxManage startvm ${VMNAME} --type headless
 
-sleep 20 # XXX wait for some liveness instead of fixed sleep?
-
 ssh-keygen -f "/home/olof/.ssh/known_hosts" -R "${IPADDR}"
 
+echo -n "Waiting for VM to boot"
+for (( i=1; i<10; i++ )); do  
+    echo -n "."
+    sleep 1
+    ssh -o StrictHostKeyChecking=no root@${IPADDR} pwd > /dev/null
+done
+
 # Install musenki package
-scp ${PKGPATH} root@${IPADDR}:/tmp
+scp -o StrictHostKeyChecking=no ${PKGPATH} root@${IPADDR}:/tmp
 ssh -o StrictHostKeyChecking=no root@${IPADDR} opkg install "/tmp/${PKG}"
 
 # Clixon setup things on vm
@@ -95,7 +100,7 @@ cat<<EOF > ${builddir}/setup.sh
 #!/usr/bin/env sh
 set -eux
 opkg update
-opkg install git-http shadow-useradd
+opkg install shadow-useradd
 useradd -M -U clicon || true
 useradd www-data -g clicon || true
 EOF
