@@ -7,4 +7,6 @@ Directories:
 - musenki-dhcp - DHCP management plugin
 - musenki-openwrt - Build scripts for Musenki on openwrt
 
+File:
+- configure.c - should really be in musenki-wifi but openwrt/buildroot requires configure placed in root
 

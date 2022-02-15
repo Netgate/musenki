@@ -36,7 +36,7 @@
 # in the directory containing this script.
 #
 
-AC_INIT(src/wifi.xml, 0.1)
+AC_INIT(musenki-wifi/src/wifi.xml, 0.1)
 
 # Default CFLAGS and INSTALLFLAGS unless set by environment
 : ${CFLAGS="-O2 -Wall"}
@@ -144,5 +144,5 @@ AC_MSG_RESULT(Clixon yang files are installed in ${YANG_INSTALLDIR})
 # Dummy to disable native language support (nls) to remove warnings in buildroot
 AC_ARG_ENABLE(nls)
 
-AC_OUTPUT([src/Makefile
+AC_OUTPUT([musenki-wifi/src/Makefile
 ])
