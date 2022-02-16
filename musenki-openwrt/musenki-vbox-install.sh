@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Create a virtualbox for x86_64 and install musenki wifi app
-set -eu
+set -eux
 
 # Where build is made
 : ${builddir=$(pwd)}

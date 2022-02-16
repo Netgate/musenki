@@ -53,8 +53,8 @@ test -d ${localfeeddir}/clixon || mkdir ${localfeeddir}/clixon
 cp clixon-openwrt/clixon/clixon/Makefile ${localfeeddir}/clixon/
 
 # Create local feed for wifi application
-test -d ${localfeeddir}/wifi || mkdir ${localfeeddir}/wifi
-cp ${srcdir}/Makefile.musenki ${localfeeddir}/wifi/Makefile
+test -d ${localfeeddir}/musenki || mkdir ${localfeeddir}/musenki
+cp ${srcdir}/Makefile.musenki ${localfeeddir}/musenki/Makefile
 
 rm -rf clixon-openwrt # remove the temporary git dir
 
@@ -113,12 +113,14 @@ echo "Make"
 echo "===="
 make -j1 V=s # -j2 may break the machine?
 
-echo "Compile musenki app"
-echo "==================="
-
-make -j1 V=s package/musenki/download
-make -j1 V=s package/musenki/check V=s FIXUP=1
-make -j1 V=s package/musenki/compile
+if false; then # Already compiled but may be useful for incremental builds
+    echo "Compile musenki app"
+    echo "==================="
+    
+    make -j1 V=s package/musenki/download
+    make -j1 V=s package/musenki/check V=s FIXUP=1
+    make -j1 V=s package/musenki/compile
+fi
 
 sleep 1 # ensure OK is last
 echo OK
