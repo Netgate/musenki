@@ -3,7 +3,7 @@
 set -eu
 
 # Where build is made
-: ${builddir=$(pwd)}
+: ${builddir:=$(pwd)}
 test -d ${builddir} || exit -1
 
 # Where this script and dependent file reside
@@ -11,14 +11,17 @@ test -d ${builddir} || exit -1
 test -d ${srcdir} || exit -1
 
 # openwrt directory 
-: ${openwrtdir=${builddir}/openwrt}
-test -d ${srcdir} || exit -1
+: ${openwrtdir:=${builddir}/openwrt}
+test -d ${openwrtdir} || exit -1
 
-# This is the (created) local feed dir (where the wifi application is defined)
+# Git openwrt verified tag, set TAG=HEAD for latest
+: ${TAG:=3d3d03479d5b4a976cf1320d29f4bd4937d5a4ba}
+
+# Make -j jobs
+: ${jobs:=1}
+
+# This is the local (created) feed dir (where the wifi application is defined)
 localfeeddir=${builddir}/tmplocalfeed
-
-# Git openwrt verified tag (Jan 23 2022)
-TAG=3d3d03479d5b4a976cf1320d29f4bd4937d5a4ba
 
 function usage()
 {
@@ -32,7 +35,10 @@ fi
 
 cd ${openwrtdir}
 
+git fetch
+
 if [ -n "${TAG}" ]; then 
+
     git checkout ${TAG}
 fi
 
@@ -40,10 +46,10 @@ echo "Make distclean"
 echo "=============="
 make distclean
 
+# Download cligen/clixon default feed to a locally created feed
 test ! -d ${localfeeddir} || rm -rf ${localfeeddir}
 test -d ${localfeeddir} || mkdir ${localfeeddir}
 
-# Dowwnload cligen/clixon default feed to a local feed
 git clone https://github.com/clicon/clixon-openwrt.git
 
 test -d ${localfeeddir}/cligen || mkdir ${localfeeddir}/cligen
@@ -58,8 +64,7 @@ cp ${srcdir}/Makefile.musenki ${localfeeddir}/musenki/Makefile
 
 rm -rf clixon-openwrt # remove the temporary git dir
 
-# This is taken from clixon-openwrt/clixon/clixon/Makefile
-
+# Create feeds config pointing to: standard packages and a local feed (generated above)
 cat <<EOF > feeds.conf
 src-git packages https://git.openwrt.org/feed/packages.git
 src-link local ${localfeeddir}
@@ -80,8 +85,6 @@ cat<<EOF > .config
 CONFIG_TARGET_x86=y
 CONFIG_TARGET_x86_64=y
 CONFIG_TARGET_x86_64_DEVICE_generic=y
-# CONFIG_FEED_clixon is not set
-# CONFIG_FEED_local is not set
 CONFIG_OPENSSL_ENGINE=y
 CONFIG_OPENSSL_OPTIMIZE_SPEED=y
 CONFIG_OPENSSL_WITH_ASM=y
@@ -111,7 +114,7 @@ make download
 
 echo "Make"
 echo "===="
-make -j1 V=s # -j2 may break the machine?
+make -j${jobs} V=s
 
 if false; then # Already compiled but may be useful for incremental builds
     echo "Compile musenki app"
