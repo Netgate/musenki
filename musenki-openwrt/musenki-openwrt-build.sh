@@ -114,7 +114,7 @@ make download
 
 echo "Make"
 echo "===="
-make -j${jobs} V=s
+make -j${jobs} # V=s # enable for debug
 
 if false; then # Already compiled but may be useful for incremental builds
     echo "Compile musenki app"
