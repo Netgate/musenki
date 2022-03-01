@@ -1,0 +1,2780 @@
+module: openconfig-access-points
+  +--rw access-points
+     +--rw access-point* [hostname]
+        +--rw hostname                -> ../config/hostname
+        +--rw config
+        |  +--rw hostname?   -> /ap-manager:provision-aps/provision-ap/config/hostname
+        +--rw radios
+        |  +--rw radio* [id operating-frequency]
+        |     +--rw id                     -> ../config/id
+        |     +--rw operating-frequency    -> ../config/operating-frequency
+        |     +--rw config
+        |     |  +--rw id?                       uint8
+        |     |  +--rw operating-frequency?      identityref
+        |     |  +--rw enabled?                  boolean
+        |     |  +--rw transmit-power?           int8
+        |     |  +--rw transmit-eirp?            uint8
+        |     |  +--rw channel?                  uint8
+        |     |  +--rw channel-width?            uint8
+        |     |  +--rw dca?                      boolean
+        |     |  +--rw allowed-channels*         oc-wifi-types:channels-type
+        |     |  +--rw dtp?                      boolean
+        |     |  +--rw dtp-min?                  int8
+        |     |  +--rw dtp-max?                  int8
+        |     |  +--rw antenna-gain?             int8
+        |     |  +--rw scanning?                 boolean
+        |     |  +--rw scanning-interval?        uint8
+        |     |  +--rw scanning-dwell-time?      uint16
+        |     |  +--rw scanning-defer-clients?   uint8
+        |     |  +--rw scanning-defer-traffic?   boolean
+        |     +--ro state
+        |     |  +--ro id?                             uint8
+        |     |  +--ro operating-frequency?            identityref
+        |     |  +--ro enabled?                        boolean
+        |     |  +--ro transmit-power?                 int8
+        |     |  +--ro transmit-eirp?                  uint8
+        |     |  +--ro channel?                        uint8
+        |     |  +--ro channel-width?                  uint8
+        |     |  +--ro dca?                            boolean
+        |     |  +--ro allowed-channels*               oc-wifi-types:channels-type
+        |     |  +--ro dtp?                            boolean
+        |     |  +--ro dtp-min?                        int8
+        |     |  +--ro dtp-max?                        int8
+        |     |  +--ro antenna-gain?                   int8
+        |     |  +--ro scanning?                       boolean
+        |     |  +--ro scanning-interval?              uint8
+        |     |  +--ro scanning-dwell-time?            uint16
+        |     |  +--ro scanning-defer-clients?         uint8
+        |     |  +--ro scanning-defer-traffic?         boolean
+        |     |  +--ro base-radio-mac?                 oc-yang:mac-address
+        |     |  +--ro allowed-regulatory-channels*    oc-wifi-types:channels-type
+        |     |  +--ro software-selectable?            boolean
+        |     |  +--ro dfs-hit-time?                   oc-types:timeticks64
+        |     |  +--ro supported-channels*             oc-wifi-types:channels-type
+        |     |  +--ro channel-change-reason?          identityref
+        |     |  +--ro total-channel-utilization?      oc-types:percentage
+        |     |  +--ro rx-dot11-channel-utilization?   oc-types:percentage
+        |     |  +--ro rx-noise-channel-utilization?   oc-types:percentage
+        |     |  +--ro tx-dot11-channel-utilization?   oc-types:percentage
+        |     |  +--ro counters
+        |     |     +--ro failed-fcs-frames?   oc-yang:counter64
+        |     |     +--ro noise-floor?         int8
+        |     +--rw neighbors
+        |        +--ro neighbor* [bssid]
+        |           +--ro bssid    -> ../state/bssid
+        |           +--ro state
+        |              +--ro bssid?             oc-yang:mac-address
+        |              +--ro ssid?              string
+        |              +--ro rssi?              int8
+        |              +--ro channel?           uint16
+        |              +--ro primary-channel?   uint16
+        |              +--ro last-seen?         oc-types:timeticks64
+        |              +--ro opmode?            enumeration
+        +--rw ssids
+        |  +--rw ssid* [name]
+        |     +--rw name             -> ../config/name
+        |     +--rw config
+        |     |  +--rw name?                      string
+        |     |  +--rw enabled?                   boolean
+        |     |  +--rw hidden?                    boolean
+        |     |  +--rw default-vlan?              oc-vlan-types:vlan-id
+        |     |  +--rw vlan-list*                 oc-vlan-types:vlan-id
+        |     |  +--rw operating-frequency?       identityref
+        |     |  +--rw basic-data-rates-2g*       identityref
+        |     |  +--rw supported-data-rates-2g*   identityref
+        |     |  +--rw basic-data-rates-5g*       identityref
+        |     |  +--rw supported-data-rates-5g*   identityref
+        |     |  +--rw broadcast-filter?          boolean
+        |     |  +--rw multicast-filter?          boolean
+        |     |  +--rw ipv6-ndp-filter?           boolean
+        |     |  +--rw ipv6-ndp-filter-timer?     uint16
+        |     |  +--rw station-isolation?         boolean
+        |     |  +--rw opmode?                    enumeration
+        |     |  +--rw wpa2-psk?                  string
+        |     |  +--rw server-group?              string
+        |     |  +--rw dva?                       boolean
+        |     |  +--rw dhcp-required?             boolean
+        |     |  +--rw qbss-load?                 boolean
+        |     |  +--rw advertise-apname?          boolean
+        |     |  +--rw csa?                       boolean
+        |     |  +--rw ptk-timeout?               uint16
+        |     |  +--rw gtk-timeout?               uint16
+        |     |  +--rw dot11k?                    boolean
+        |     |  +--rw okc?                       boolean
+        |     +--ro state
+        |     |  +--ro name?                      string
+        |     |  +--ro enabled?                   boolean
+        |     |  +--ro hidden?                    boolean
+        |     |  +--ro default-vlan?              oc-vlan-types:vlan-id
+        |     |  +--ro vlan-list*                 oc-vlan-types:vlan-id
+        |     |  +--ro operating-frequency?       identityref
+        |     |  +--ro basic-data-rates-2g*       identityref
+        |     |  +--ro supported-data-rates-2g*   identityref
+        |     |  +--ro basic-data-rates-5g*       identityref
+        |     |  +--ro supported-data-rates-5g*   identityref
+        |     |  +--ro broadcast-filter?          boolean
+        |     |  +--ro multicast-filter?          boolean
+        |     |  +--ro ipv6-ndp-filter?           boolean
+        |     |  +--ro ipv6-ndp-filter-timer?     uint16
+        |     |  +--ro station-isolation?         boolean
+        |     |  +--ro opmode?                    enumeration
+        |     |  +--ro wpa2-psk?                  string
+        |     |  +--ro server-group?              string
+        |     |  +--ro dva?                       boolean
+        |     |  +--ro dhcp-required?             boolean
+        |     |  +--ro qbss-load?                 boolean
+        |     |  +--ro advertise-apname?          boolean
+        |     |  +--ro csa?                       boolean
+        |     |  +--ro ptk-timeout?               uint16
+        |     |  +--ro gtk-timeout?               uint16
+        |     |  +--ro dot11k?                    boolean
+        |     |  +--ro okc?                       boolean
+        |     +--rw bssids
+        |     |  +--ro bssid* [radio-id bssid]
+        |     |     +--ro bssid       -> ../state/bssid
+        |     |     +--ro radio-id    -> ../state/radio-id
+        |     |     +--ro state
+        |     |        +--ro bssid?                    oc-yang:mac-address
+        |     |        +--ro radio-id?                 uint8
+        |     |        +--ro num-associated-clients?   uint8
+        |     |        +--ro counters
+        |     |           +--ro rx-bss-dot11-channel-utilization?   oc-types:percentage
+        |     |           +--ro rx-mgmt?                            oc-yang:counter64
+        |     |           +--ro rx-control?                         oc-yang:counter64
+        |     |           +--ro rx-data-dist
+        |     |           |  +--ro rx-0-64?             oc-yang:counter64
+        |     |           |  +--ro rx-65-128?           oc-yang:counter64
+        |     |           |  +--ro rx-129-256?          oc-yang:counter64
+        |     |           |  +--ro rx-257-512?          oc-yang:counter64
+        |     |           |  +--ro rx-513-1024?         oc-yang:counter64
+        |     |           |  +--ro rx-1025-2048?        oc-yang:counter64
+        |     |           |  +--ro rx-2049-4096?        oc-yang:counter64
+        |     |           |  +--ro rx-4097-8192?        oc-yang:counter64
+        |     |           |  +--ro rx-8193-16384?       oc-yang:counter64
+        |     |           |  +--ro rx-16385-32768?      oc-yang:counter64
+        |     |           |  +--ro rx-32769-65536?      oc-yang:counter64
+        |     |           |  +--ro rx-65537-131072?     oc-yang:counter64
+        |     |           |  +--ro rx-131073-262144?    oc-yang:counter64
+        |     |           |  +--ro rx-262145-524288?    oc-yang:counter64
+        |     |           |  +--ro rx-524289-1048576?   oc-yang:counter64
+        |     |           +--ro rx-data-wmm
+        |     |           |  +--ro vi?   oc-yang:counter64
+        |     |           |  +--ro vo?   oc-yang:counter64
+        |     |           |  +--ro be?   oc-yang:counter64
+        |     |           |  +--ro bk?   oc-yang:counter64
+        |     |           +--ro rx-mcs
+        |     |           |  +--ro mcs0?   oc-yang:counter64
+        |     |           |  +--ro mcs1?   oc-yang:counter64
+        |     |           |  +--ro mcs2?   oc-yang:counter64
+        |     |           |  +--ro mcs3?   oc-yang:counter64
+        |     |           |  +--ro mcs4?   oc-yang:counter64
+        |     |           |  +--ro mcs5?   oc-yang:counter64
+        |     |           |  +--ro mcs6?   oc-yang:counter64
+        |     |           |  +--ro mcs7?   oc-yang:counter64
+        |     |           |  +--ro mcs8?   oc-yang:counter64
+        |     |           |  +--ro mcs9?   oc-yang:counter64
+        |     |           +--ro rx-retries?                         oc-yang:counter64
+        |     |           +--ro rx-retries-data?                    oc-yang:counter64
+        |     |           +--ro rx-retries-subframe?                oc-yang:counter64
+        |     |           +--ro rx-bytes-data?                      oc-yang:counter64
+        |     |           +--ro tx-bss-dot11-channel-utilization?   oc-types:percentage
+        |     |           +--ro tx-mgmt?                            oc-yang:counter64
+        |     |           +--ro tx-control?                         oc-yang:counter64
+        |     |           +--ro tx-data-dist
+        |     |           |  +--ro tx-0-64?             oc-yang:counter64
+        |     |           |  +--ro tx-65-128?           oc-yang:counter64
+        |     |           |  +--ro tx-129-256?          oc-yang:counter64
+        |     |           |  +--ro tx-257-512?          oc-yang:counter64
+        |     |           |  +--ro tx-513-1024?         oc-yang:counter64
+        |     |           |  +--ro tx-1025-2048?        oc-yang:counter64
+        |     |           |  +--ro tx-2049-4096?        oc-yang:counter64
+        |     |           |  +--ro tx-4097-8192?        oc-yang:counter64
+        |     |           |  +--ro tx-8193-16384?       oc-yang:counter64
+        |     |           |  +--ro tx-16385-32768?      oc-yang:counter64
+        |     |           |  +--ro tx-32769-65536?      oc-yang:counter64
+        |     |           |  +--ro tx-65537-131072?     oc-yang:counter64
+        |     |           |  +--ro tx-131073-262144?    oc-yang:counter64
+        |     |           |  +--ro tx-262145-524288?    oc-yang:counter64
+        |     |           |  +--ro tx-524289-1048576?   oc-yang:counter64
+        |     |           +--ro tx-data-wmm
+        |     |           |  +--ro vi?   oc-yang:counter64
+        |     |           |  +--ro vo?   oc-yang:counter64
+        |     |           |  +--ro bk?   oc-yang:counter64
+        |     |           |  +--ro be?   oc-yang:counter64
+        |     |           +--ro tx-mcs
+        |     |           |  +--ro mcs0?   oc-yang:counter64
+        |     |           |  +--ro mcs1?   oc-yang:counter64
+        |     |           |  +--ro mcs2?   oc-yang:counter64
+        |     |           |  +--ro mcs3?   oc-yang:counter64
+        |     |           |  +--ro mcs4?   oc-yang:counter64
+        |     |           |  +--ro mcs5?   oc-yang:counter64
+        |     |           |  +--ro mcs6?   oc-yang:counter64
+        |     |           |  +--ro mcs7?   oc-yang:counter64
+        |     |           |  +--ro mcs8?   oc-yang:counter64
+        |     |           |  +--ro mcs9?   oc-yang:counter64
+        |     |           +--ro tx-retries?                         oc-yang:counter64
+        |     |           +--ro tx-retries-data?                    oc-yang:counter64
+        |     |           +--ro tx-retries-subframe?                oc-yang:counter64
+        |     |           +--ro tx-bytes-data?                      oc-yang:counter64
+        |     |           +--ro bss-channel-utilization?            oc-types:percentage
+        |     +--rw wmm
+        |     |  +--rw config
+        |     |  |  +--rw trust-dscp?      boolean
+        |     |  |  +--rw wmm-vo-remark*   uint8
+        |     |  |  +--rw wmm-vi-remark*   uint8
+        |     |  |  +--rw wmm-be-remark*   uint8
+        |     |  |  +--rw wmm-bk-remark*   uint8
+        |     |  +--ro state
+        |     |     +--ro trust-dscp?      boolean
+        |     |     +--ro wmm-vo-remark*   uint8
+        |     |     +--ro wmm-vi-remark*   uint8
+        |     |     +--ro wmm-be-remark*   uint8
+        |     |     +--ro wmm-bk-remark*   uint8
+        |     +--rw dot11r
+        |     |  +--rw config
+        |     |  |  +--rw dot11r?                 boolean
+        |     |  |  +--rw dot11r-domainid?        uint16
+        |     |  |  +--rw dot11r-method?          enumeration
+        |     |  |  +--rw dot11r-r1key-timeout?   uint16
+        |     |  +--ro state
+        |     |     +--ro dot11r?                 boolean
+        |     |     +--ro dot11r-domainid?        uint16
+        |     |     +--ro dot11r-method?          enumeration
+        |     |     +--ro dot11r-r1key-timeout?   uint16
+        |     +--rw dot11v
+        |     |  +--rw config
+        |     |  |  +--rw dot11v-dms?               boolean
+        |     |  |  +--rw dot11v-bssidle?           boolean
+        |     |  |  +--rw dot11v-bssidle-timeout?   uint16
+        |     |  |  +--rw dot11v-bsstransition?     boolean
+        |     |  +--ro state
+        |     |     +--ro dot11v-dms?               boolean
+        |     |     +--ro dot11v-bssidle?           boolean
+        |     |     +--ro dot11v-bssidle-timeout?   uint16
+        |     |     +--ro dot11v-bsstransition?     boolean
+        |     +--rw clients
+        |     |  +--ro client* [mac]
+        |     |     +--ro mac                    -> ../state/mac
+        |     |     +--ro state
+        |     |     |  +--ro mac?        oc-yang:mac-address
+        |     |     |  +--ro counters
+        |     |     |     +--ro tx-bytes?     oc-yang:counter64
+        |     |     |     +--ro rx-bytes?     oc-yang:counter64
+        |     |     |     +--ro rx-retries?   oc-yang:counter64
+        |     |     |     +--ro tx-retries?   oc-yang:counter64
+        |     |     +--ro client-rf
+        |     |     |  +--ro state
+        |     |     |     +--ro rssi?              int8
+        |     |     |     +--ro snr?               uint8
+        |     |     |     +--ro ss?                uint8
+        |     |     |     +--ro phy-rate?          uint16
+        |     |     |     +--ro connection-mode?   enumeration
+        |     |     |     +--ro frequency?         uint8
+        |     |     +--ro client-capabilities
+        |     |     |  +--ro state
+        |     |     |     +--ro client-capabilities*   identityref
+        |     |     |     +--ro channel-support*       uint8
+        |     |     +--ro dot11k-neighbors
+        |     |     |  +--ro state
+        |     |     |     +--ro neighbor-bssid?        oc-yang:mac-address
+        |     |     |     +--ro neighbor-channel?      uint8
+        |     |     |     +--ro neighbor-rssi?         int8
+        |     |     |     +--ro neighbor-antenna?      uint8
+        |     |     |     +--ro channel-load-report?   uint8
+        |     |     +--ro client-connection
+        |     |        +--ro state
+        |     |           +--ro client-state?       identityref
+        |     |           +--ro connection-time?    oc-types:timeticks64
+        |     |           +--ro username?           string
+        |     |           +--ro hostname?           string
+        |     |           +--ro ipv4-address*       oc-inet:ipv4-address
+        |     |           +--ro ipv6-addresses*     oc-inet:ipv6-address
+        |     |           +--ro operating-system?   string
+        |     +--rw dot1x-timers
+        |     |  +--rw config
+        |     |  |  +--rw max-auth-failures?   uint8
+        |     |  |  +--rw blacklist-time?      uint16
+        |     |  +--ro state
+        |     |     +--ro max-auth-failures?   uint8
+        |     |     +--ro blacklist-time?      uint16
+        |     +--rw band-steering
+        |        +--rw config
+        |        |  +--rw band-steering?   boolean
+        |        |  +--rw steering-rssi?   int8
+        |        +--ro state
+        |           +--ro band-steering?   boolean
+        |           +--ro steering-rssi?   int8
+        +--rw system
+        |  +--rw config
+        |  |  +--rw hostname?       oc-inet:domain-name
+        |  |  +--rw domain-name?    oc-inet:domain-name
+        |  |  +--rw login-banner?   string
+        |  |  +--rw motd-banner?    string
+        |  +--ro state
+        |  |  +--ro hostname?           oc-inet:domain-name
+        |  |  +--ro domain-name?        oc-inet:domain-name
+        |  |  +--ro login-banner?       string
+        |  |  +--ro motd-banner?        string
+        |  |  +--ro current-datetime?   oc-yang:date-and-time
+        |  |  +--ro boot-time?          oc-types:timeticks64
+        |  +--rw clock
+        |  |  +--rw config
+        |  |  |  +--rw timezone-name?   timezone-name-type
+        |  |  +--ro state
+        |  |     +--ro timezone-name?   timezone-name-type
+        |  +--rw dns
+        |  |  +--rw config
+        |  |  |  +--rw search*   oc-inet:domain-name
+        |  |  +--ro state
+        |  |  |  +--ro search*   oc-inet:domain-name
+        |  |  +--rw servers
+        |  |  |  +--rw server* [address]
+        |  |  |     +--rw address    -> ../config/address
+        |  |  |     +--rw config
+        |  |  |     |  +--rw address?   oc-inet:ip-address
+        |  |  |     |  +--rw port?      oc-inet:port-number
+        |  |  |     +--ro state
+        |  |  |        +--ro address?   oc-inet:ip-address
+        |  |  |        +--ro port?      oc-inet:port-number
+        |  |  +--rw host-entries
+        |  |     +--rw host-entry* [hostname]
+        |  |        +--rw hostname    -> ../config/hostname
+        |  |        +--rw config
+        |  |        |  +--rw hostname?       string
+        |  |        |  +--rw alias*          string
+        |  |        |  +--rw ipv4-address*   oc-inet:ipv4-address
+        |  |        |  +--rw ipv6-address*   oc-inet:ipv6-address
+        |  |        +--ro state
+        |  |           +--ro hostname?       string
+        |  |           +--ro alias*          string
+        |  |           +--ro ipv4-address*   oc-inet:ipv4-address
+        |  |           +--ro ipv6-address*   oc-inet:ipv6-address
+        |  +--rw ntp
+        |  |  +--rw config
+        |  |  |  +--rw enabled?              boolean
+        |  |  |  +--rw ntp-source-address?   oc-inet:ip-address
+        |  |  |  +--rw enable-ntp-auth?      boolean
+        |  |  +--ro state
+        |  |  |  +--ro enabled?              boolean
+        |  |  |  +--ro ntp-source-address?   oc-inet:ip-address
+        |  |  |  +--ro enable-ntp-auth?      boolean
+        |  |  |  +--ro auth-mismatch?        oc-yang:counter64
+        |  |  +--rw ntp-keys
+        |  |  |  +--rw ntp-key* [key-id]
+        |  |  |     +--rw key-id    -> ../config/key-id
+        |  |  |     +--rw config
+        |  |  |     |  +--rw key-id?      uint16
+        |  |  |     |  +--rw key-type?    identityref
+        |  |  |     |  +--rw key-value?   string
+        |  |  |     +--ro state
+        |  |  |        +--ro key-id?      uint16
+        |  |  |        +--ro key-type?    identityref
+        |  |  |        +--ro key-value?   string
+        |  |  +--rw servers
+        |  |     +--rw server* [address]
+        |  |        +--rw address    -> ../config/address
+        |  |        +--rw config
+        |  |        |  +--rw address?            oc-inet:host
+        |  |        |  +--rw port?               oc-inet:port-number
+        |  |        |  +--rw version?            uint8
+        |  |        |  +--rw association-type?   enumeration
+        |  |        |  +--rw iburst?             boolean
+        |  |        |  +--rw prefer?             boolean
+        |  |        +--ro state
+        |  |           +--ro address?            oc-inet:host
+        |  |           +--ro port?               oc-inet:port-number
+        |  |           +--ro version?            uint8
+        |  |           +--ro association-type?   enumeration
+        |  |           +--ro iburst?             boolean
+        |  |           +--ro prefer?             boolean
+        |  |           +--ro stratum?            uint8
+        |  |           +--ro root-delay?         uint32
+        |  |           +--ro root-dispersion?    uint64
+        |  |           +--ro offset?             uint64
+        |  |           +--ro poll-interval?      uint32
+        |  +--rw ssh-server
+        |  |  +--rw config
+        |  |  |  +--rw enable?             boolean
+        |  |  |  +--rw protocol-version?   enumeration
+        |  |  |  +--rw timeout?            uint16
+        |  |  |  +--rw rate-limit?         uint16
+        |  |  |  +--rw session-limit?      uint16
+        |  |  +--ro state
+        |  |     +--ro enable?             boolean
+        |  |     +--ro protocol-version?   enumeration
+        |  |     +--ro timeout?            uint16
+        |  |     +--ro rate-limit?         uint16
+        |  |     +--ro session-limit?      uint16
+        |  +--rw telnet-server
+        |  |  +--rw config
+        |  |  |  +--rw enable?          boolean
+        |  |  |  +--rw timeout?         uint16
+        |  |  |  +--rw rate-limit?      uint16
+        |  |  |  +--rw session-limit?   uint16
+        |  |  +--ro state
+        |  |     +--ro enable?          boolean
+        |  |     +--ro timeout?         uint16
+        |  |     +--ro rate-limit?      uint16
+        |  |     +--ro session-limit?   uint16
+        |  +--rw logging
+        |  |  +--rw console
+        |  |  |  +--rw config
+        |  |  |  +--ro state
+        |  |  |  +--rw selectors
+        |  |  |     +--rw selector* [facility severity]
+        |  |  |        +--rw facility    -> ../config/facility
+        |  |  |        +--rw severity    -> ../config/severity
+        |  |  |        +--rw config
+        |  |  |        |  +--rw facility?   identityref
+        |  |  |        |  +--rw severity?   syslog-severity
+        |  |  |        +--ro state
+        |  |  |           +--ro facility?   identityref
+        |  |  |           +--ro severity?   syslog-severity
+        |  |  +--rw remote-servers
+        |  |     +--rw remote-server* [host]
+        |  |        +--rw host         -> ../config/host
+        |  |        +--rw config
+        |  |        |  +--rw host?             oc-inet:host
+        |  |        |  +--rw source-address?   oc-inet:ip-address
+        |  |        |  +--rw remote-port?      oc-inet:port-number
+        |  |        +--ro state
+        |  |        |  +--ro host?             oc-inet:host
+        |  |        |  +--ro source-address?   oc-inet:ip-address
+        |  |        |  +--ro remote-port?      oc-inet:port-number
+        |  |        +--rw selectors
+        |  |           +--rw selector* [facility severity]
+        |  |              +--rw facility    -> ../config/facility
+        |  |              +--rw severity    -> ../config/severity
+        |  |              +--rw config
+        |  |              |  +--rw facility?   identityref
+        |  |              |  +--rw severity?   syslog-severity
+        |  |              +--ro state
+        |  |                 +--ro facility?   identityref
+        |  |                 +--ro severity?   syslog-severity
+        |  +--rw aaa
+        |  |  +--rw config
+        |  |  +--ro state
+        |  |  +--rw authentication
+        |  |  |  +--rw config
+        |  |  |  |  +--rw authentication-method*   union
+        |  |  |  +--ro state
+        |  |  |  |  +--ro authentication-method*   union
+        |  |  |  +--rw admin-user
+        |  |  |  |  +--rw config
+        |  |  |  |  |  +--rw admin-password?          string
+        |  |  |  |  |  +--rw admin-password-hashed?   oc-aaa-types:crypt-password-type
+        |  |  |  |  +--ro state
+        |  |  |  |     +--ro admin-password?          string
+        |  |  |  |     +--ro admin-password-hashed?   oc-aaa-types:crypt-password-type
+        |  |  |  |     +--ro admin-username?          string
+        |  |  |  +--rw users
+        |  |  |     +--rw user* [username]
+        |  |  |        +--rw username    -> ../config/username
+        |  |  |        +--rw config
+        |  |  |        |  +--rw username?          string
+        |  |  |        |  +--rw password?          string
+        |  |  |        |  +--rw password-hashed?   oc-aaa-types:crypt-password-type
+        |  |  |        |  +--rw ssh-key?           string
+        |  |  |        |  +--rw role?              union
+        |  |  |        +--ro state
+        |  |  |           +--ro username?          string
+        |  |  |           +--ro password?          string
+        |  |  |           +--ro password-hashed?   oc-aaa-types:crypt-password-type
+        |  |  |           +--ro ssh-key?           string
+        |  |  |           +--ro role?              union
+        |  |  +--rw authorization
+        |  |  |  +--rw config
+        |  |  |  |  +--rw authorization-method*   union
+        |  |  |  +--ro state
+        |  |  |  |  +--ro authorization-method*   union
+        |  |  |  +--rw events
+        |  |  |     +--rw event* [event-type]
+        |  |  |        +--rw event-type    -> ../config/event-type
+        |  |  |        +--rw config
+        |  |  |        |  +--rw event-type?   identityref
+        |  |  |        +--ro state
+        |  |  |           +--ro event-type?   identityref
+        |  |  +--rw accounting
+        |  |  |  +--rw config
+        |  |  |  |  +--rw accounting-method*   union
+        |  |  |  +--ro state
+        |  |  |  |  +--ro accounting-method*   union
+        |  |  |  +--rw events
+        |  |  |     +--rw event* [event-type]
+        |  |  |        +--rw event-type    -> ../config/event-type
+        |  |  |        +--rw config
+        |  |  |        |  +--rw event-type?   identityref
+        |  |  |        |  +--rw record?       enumeration
+        |  |  |        +--ro state
+        |  |  |           +--ro event-type?   identityref
+        |  |  |           +--ro record?       enumeration
+        |  |  +--rw server-groups
+        |  |     +--rw server-group* [name]
+        |  |        +--rw name       -> ../config/name
+        |  |        +--rw config
+        |  |        |  +--rw name?   string
+        |  |        |  +--rw type?   identityref
+        |  |        +--ro state
+        |  |        |  +--ro name?   string
+        |  |        |  +--ro type?   identityref
+        |  |        +--rw servers
+        |  |           +--rw server* [address]
+        |  |              +--rw address    -> ../config/address
+        |  |              +--rw config
+        |  |              |  +--rw name?      string
+        |  |              |  +--rw address?   oc-inet:ip-address
+        |  |              |  +--rw timeout?   uint16
+        |  |              +--ro state
+        |  |              |  +--ro name?                  string
+        |  |              |  +--ro address?               oc-inet:ip-address
+        |  |              |  +--ro timeout?               uint16
+        |  |              |  +--ro connection-opens?      oc-yang:counter64
+        |  |              |  +--ro connection-closes?     oc-yang:counter64
+        |  |              |  +--ro connection-aborts?     oc-yang:counter64
+        |  |              |  +--ro connection-failures?   oc-yang:counter64
+        |  |              |  +--ro connection-timeouts?   oc-yang:counter64
+        |  |              |  +--ro messages-sent?         oc-yang:counter64
+        |  |              |  +--ro messages-received?     oc-yang:counter64
+        |  |              |  +--ro errors-received?       oc-yang:counter64
+        |  |              +--rw tacacs
+        |  |              |  +--rw config
+        |  |              |  |  +--rw port?                oc-inet:port-number
+        |  |              |  |  +--rw secret-key?          oc-types:routing-password
+        |  |              |  |  +--rw secret-key-hashed?   oc-aaa-types:crypt-password-type
+        |  |              |  |  +--rw source-address?      oc-inet:ip-address
+        |  |              |  +--ro state
+        |  |              |     +--ro port?                oc-inet:port-number
+        |  |              |     +--ro secret-key?          oc-types:routing-password
+        |  |              |     +--ro secret-key-hashed?   oc-aaa-types:crypt-password-type
+        |  |              |     +--ro source-address?      oc-inet:ip-address
+        |  |              +--rw radius
+        |  |                 +--rw config
+        |  |                 |  +--rw auth-port?             oc-inet:port-number
+        |  |                 |  +--rw acct-port?             oc-inet:port-number
+        |  |                 |  +--rw secret-key?            oc-types:routing-password
+        |  |                 |  +--rw secret-key-hashed?     oc-aaa-types:crypt-password-type
+        |  |                 |  +--rw source-address?        oc-inet:ip-address
+        |  |                 |  +--rw retransmit-attempts?   uint8
+        |  |                 +--ro state
+        |  |                    +--ro auth-port?             oc-inet:port-number
+        |  |                    +--ro acct-port?             oc-inet:port-number
+        |  |                    +--ro secret-key?            oc-types:routing-password
+        |  |                    +--ro secret-key-hashed?     oc-aaa-types:crypt-password-type
+        |  |                    +--ro source-address?        oc-inet:ip-address
+        |  |                    +--ro retransmit-attempts?   uint8
+        |  |                    +--ro counters
+        |  |                       +--ro retried-access-requests?   oc-yang:counter64
+        |  |                       +--ro access-accepts?            oc-yang:counter64
+        |  |                       +--ro access-rejects?            oc-yang:counter64
+        |  |                       +--ro timeout-access-requests?   oc-yang:counter64
+        |  +--rw memory
+        |  |  +--rw config
+        |  |  +--ro state
+        |  |     +--ro physical?   uint64
+        |  |     +--ro reserved?   uint64
+        |  +--ro cpus
+        |  |  +--ro cpu* [index]
+        |  |     +--ro index    -> ../state/index
+        |  |     +--ro state
+        |  |        +--ro index?                union
+        |  |        +--ro total
+        |  |        |  +--ro instant?    oc-types:percentage
+        |  |        |  +--ro avg?        oc-types:percentage
+        |  |        |  +--ro min?        oc-types:percentage
+        |  |        |  +--ro max?        oc-types:percentage
+        |  |        |  +--ro interval?   oc-types:stat-interval
+        |  |        |  +--ro min-time?   oc-types:timeticks64
+        |  |        |  +--ro max-time?   oc-types:timeticks64
+        |  |        +--ro user
+        |  |        |  +--ro instant?    oc-types:percentage
+        |  |        |  +--ro avg?        oc-types:percentage
+        |  |        |  +--ro min?        oc-types:percentage
+        |  |        |  +--ro max?        oc-types:percentage
+        |  |        |  +--ro interval?   oc-types:stat-interval
+        |  |        |  +--ro min-time?   oc-types:timeticks64
+        |  |        |  +--ro max-time?   oc-types:timeticks64
+        |  |        +--ro kernel
+        |  |        |  +--ro instant?    oc-types:percentage
+        |  |        |  +--ro avg?        oc-types:percentage
+        |  |        |  +--ro min?        oc-types:percentage
+        |  |        |  +--ro max?        oc-types:percentage
+        |  |        |  +--ro interval?   oc-types:stat-interval
+        |  |        |  +--ro min-time?   oc-types:timeticks64
+        |  |        |  +--ro max-time?   oc-types:timeticks64
+        |  |        +--ro nice
+        |  |        |  +--ro instant?    oc-types:percentage
+        |  |        |  +--ro avg?        oc-types:percentage
+        |  |        |  +--ro min?        oc-types:percentage
+        |  |        |  +--ro max?        oc-types:percentage
+        |  |        |  +--ro interval?   oc-types:stat-interval
+        |  |        |  +--ro min-time?   oc-types:timeticks64
+        |  |        |  +--ro max-time?   oc-types:timeticks64
+        |  |        +--ro idle
+        |  |        |  +--ro instant?    oc-types:percentage
+        |  |        |  +--ro avg?        oc-types:percentage
+        |  |        |  +--ro min?        oc-types:percentage
+        |  |        |  +--ro max?        oc-types:percentage
+        |  |        |  +--ro interval?   oc-types:stat-interval
+        |  |        |  +--ro min-time?   oc-types:timeticks64
+        |  |        |  +--ro max-time?   oc-types:timeticks64
+        |  |        +--ro wait
+        |  |        |  +--ro instant?    oc-types:percentage
+        |  |        |  +--ro avg?        oc-types:percentage
+        |  |        |  +--ro min?        oc-types:percentage
+        |  |        |  +--ro max?        oc-types:percentage
+        |  |        |  +--ro interval?   oc-types:stat-interval
+        |  |        |  +--ro min-time?   oc-types:timeticks64
+        |  |        |  +--ro max-time?   oc-types:timeticks64
+        |  |        +--ro hardware-interrupt
+        |  |        |  +--ro instant?    oc-types:percentage
+        |  |        |  +--ro avg?        oc-types:percentage
+        |  |        |  +--ro min?        oc-types:percentage
+        |  |        |  +--ro max?        oc-types:percentage
+        |  |        |  +--ro interval?   oc-types:stat-interval
+        |  |        |  +--ro min-time?   oc-types:timeticks64
+        |  |        |  +--ro max-time?   oc-types:timeticks64
+        |  |        +--ro software-interrupt
+        |  |           +--ro instant?    oc-types:percentage
+        |  |           +--ro avg?        oc-types:percentage
+        |  |           +--ro min?        oc-types:percentage
+        |  |           +--ro max?        oc-types:percentage
+        |  |           +--ro interval?   oc-types:stat-interval
+        |  |           +--ro min-time?   oc-types:timeticks64
+        |  |           +--ro max-time?   oc-types:timeticks64
+        |  +--rw processes
+        |  |  +--ro process* [pid]
+        |  |     +--ro pid      -> ../state/pid
+        |  |     +--ro state
+        |  |        +--ro pid?                  uint64
+        |  |        +--ro name?                 string
+        |  |        +--ro args*                 string
+        |  |        +--ro start-time?           oc-types:timeticks64
+        |  |        +--ro cpu-usage-user?       oc-yang:counter64
+        |  |        +--ro cpu-usage-system?     oc-yang:counter64
+        |  |        +--ro cpu-utilization?      oc-types:percentage
+        |  |        +--ro memory-usage?         uint64
+        |  |        +--ro memory-utilization?   oc-types:percentage
+        |  +--ro alarms
+        |  |  +--ro alarm* [id]
+        |  |     +--ro id        -> ../state/id
+        |  |     +--ro config
+        |  |     +--ro state
+        |  |        +--ro id?             string
+        |  |        +--ro resource?       string
+        |  |        +--ro text?           string
+        |  |        +--ro time-created?   oc-types:timeticks64
+        |  |        +--ro severity?       identityref
+        |  |        +--ro type-id?        union
+        |  +--rw messages
+        |  |  +--rw config
+        |  |  |  +--rw severity?   oc-log:syslog-severity
+        |  |  +--ro state
+        |  |  |  +--ro severity?   oc-log:syslog-severity
+        |  |  |  +--ro message
+        |  |  |     +--ro msg?        string
+        |  |  |     +--ro priority?   uint8
+        |  |  |     +--ro app-name?   string
+        |  |  |     +--ro procid?     string
+        |  |  |     +--ro msgid?      string
+        |  |  +--rw debug-entries
+        |  |     +--rw debug-service* [service]
+        |  |        +--rw service    -> ../config/service
+        |  |        +--rw config
+        |  |        |  +--rw service?   identityref
+        |  |        |  +--rw enabled?   boolean
+        |  |        +--ro state
+        |  |           +--ro service?   identityref
+        |  |           +--ro enabled?   boolean
+        |  +--rw license
+        |     +--rw licenses
+        |        +--rw license* [license-id]
+        |           +--rw license-id    -> ../config/license-id
+        |           +--rw config
+        |           |  +--rw license-id?     string
+        |           |  +--rw license-data?   union
+        |           |  +--rw active?         boolean
+        |           +--ro state
+        |              +--ro license-id?        string
+        |              +--ro license-data?      union
+        |              +--ro active?            boolean
+        |              +--ro description?       string
+        |              +--ro issue-date?        uint64
+        |              +--ro expiration-date?   uint64
+        |              +--ro in-use?            boolean
+        |              +--ro expired?           boolean
+        |              +--ro valid?             boolean
+        +--rw assigned-ap-managers
+        |  +--rw ap-manager* [id]
+        |     +--rw id        -> ../config/id
+        |     +--rw config
+        |     |  +--rw id?                        string
+        |     |  +--rw fqdn?                      oc-inet:domain-name
+        |     |  +--rw ap-manager-ipv4-address?   oc-inet:ipv4-address
+        |     |  +--rw ap-manager-ipv6-address*   oc-inet:ipv6-address
+        |     +--ro state
+        |        +--ro id?                        string
+        |        +--ro fqdn?                      oc-inet:domain-name
+        |        +--ro ap-manager-ipv4-address?   oc-inet:ipv4-address
+        |        +--ro ap-manager-ipv6-address*   oc-inet:ipv6-address
+        |        +--ro joined?                    boolean
+        +--rw oc-ap-if:interfaces
+           +--rw oc-ap-if:interface* [name]
+              +--rw oc-ap-if:name             -> ../config/name
+              +--rw oc-ap-if:config
+              |  +--rw oc-ap-if:name?            string
+              |  +--rw oc-ap-if:type             identityref
+              |  +--rw oc-ap-if:mtu?             uint16
+              |  +--rw oc-ap-if:loopback-mode?   boolean
+              |  +--rw oc-ap-if:description?     string
+              |  +--rw oc-ap-if:enabled?         boolean
+              +--ro oc-ap-if:state
+              |  +--ro oc-ap-if:name?            string
+              |  +--ro oc-ap-if:type             identityref
+              |  +--ro oc-ap-if:mtu?             uint16
+              |  +--ro oc-ap-if:loopback-mode?   boolean
+              |  +--ro oc-ap-if:description?     string
+              |  +--ro oc-ap-if:enabled?         boolean
+              |  +--ro oc-ap-if:ifindex?         uint32
+              |  +--ro oc-ap-if:admin-status     enumeration
+              |  +--ro oc-ap-if:oper-status      enumeration
+              |  +--ro oc-ap-if:last-change?     oc-types:timeticks64
+              |  +--ro oc-ap-if:logical?         boolean
+              |  +--ro oc-ap-if:management?      boolean
+              |  +--ro oc-ap-if:cpu?             boolean
+              |  +--ro oc-ap-if:counters
+              |     +--ro oc-ap-if:in-octets?             oc-yang:counter64
+              |     +--ro oc-ap-if:in-pkts?               oc-yang:counter64
+              |     +--ro oc-ap-if:in-unicast-pkts?       oc-yang:counter64
+              |     +--ro oc-ap-if:in-broadcast-pkts?     oc-yang:counter64
+              |     +--ro oc-ap-if:in-multicast-pkts?     oc-yang:counter64
+              |     +--ro oc-ap-if:in-discards?           oc-yang:counter64
+              |     +--ro oc-ap-if:in-errors?             oc-yang:counter64
+              |     +--ro oc-ap-if:in-unknown-protos?     oc-yang:counter64
+              |     +--ro oc-ap-if:in-fcs-errors?         oc-yang:counter64
+              |     +--ro oc-ap-if:out-octets?            oc-yang:counter64
+              |     +--ro oc-ap-if:out-pkts?              oc-yang:counter64
+              |     +--ro oc-ap-if:out-unicast-pkts?      oc-yang:counter64
+              |     +--ro oc-ap-if:out-broadcast-pkts?    oc-yang:counter64
+              |     +--ro oc-ap-if:out-multicast-pkts?    oc-yang:counter64
+              |     +--ro oc-ap-if:out-discards?          oc-yang:counter64
+              |     +--ro oc-ap-if:out-errors?            oc-yang:counter64
+              |     +--ro oc-ap-if:carrier-transitions?   oc-yang:counter64
+              |     +--ro oc-ap-if:last-clear?            oc-types:timeticks64
+              +--rw oc-ap-if:ethernet
+              |  +--rw oc-ap-if:config
+              |  |  +--rw oc-ap-if:mac-address?                oc-yang:mac-address
+              |  |  +--rw oc-ap-if:auto-negotiate?             boolean
+              |  |  +--rw oc-ap-if:standalone-link-training?   boolean
+              |  |  +--rw oc-ap-if:duplex-mode?                enumeration
+              |  |  +--rw oc-ap-if:port-speed?                 identityref
+              |  |  +--rw oc-ap-if:enable-flow-control?        boolean
+              |  +--ro oc-ap-if:state
+              |  |  +--ro oc-ap-if:mac-address?                oc-yang:mac-address
+              |  |  +--ro oc-ap-if:auto-negotiate?             boolean
+              |  |  +--ro oc-ap-if:standalone-link-training?   boolean
+              |  |  +--ro oc-ap-if:duplex-mode?                enumeration
+              |  |  +--ro oc-ap-if:port-speed?                 identityref
+              |  |  +--ro oc-ap-if:enable-flow-control?        boolean
+              |  |  +--ro oc-ap-if:hw-mac-address?             oc-yang:mac-address
+              |  |  +--ro oc-ap-if:negotiated-duplex-mode?     enumeration
+              |  |  +--ro oc-ap-if:negotiated-port-speed?      identityref
+              |  |  +--ro oc-ap-if:counters
+              |  |     +--ro oc-ap-if:in-mac-control-frames?    oc-yang:counter64
+              |  |     +--ro oc-ap-if:in-mac-pause-frames?      oc-yang:counter64
+              |  |     +--ro oc-ap-if:in-oversize-frames?       oc-yang:counter64
+              |  |     +--ro oc-ap-if:in-undersize-frames?      oc-yang:counter64
+              |  |     +--ro oc-ap-if:in-jabber-frames?         oc-yang:counter64
+              |  |     +--ro oc-ap-if:in-fragment-frames?       oc-yang:counter64
+              |  |     +--ro oc-ap-if:in-8021q-frames?          oc-yang:counter64
+              |  |     +--ro oc-ap-if:in-crc-errors?            oc-yang:counter64
+              |  |     +--ro oc-ap-if:in-block-errors?          oc-yang:counter64
+              |  |     +--ro oc-ap-if:in-carrier-errors?        oc-yang:counter64
+              |  |     +--ro oc-ap-if:in-interrupted-tx?        oc-yang:counter64
+              |  |     +--ro oc-ap-if:in-late-collision?        oc-yang:counter64
+              |  |     +--ro oc-ap-if:in-mac-errors-rx?         oc-yang:counter64
+              |  |     +--ro oc-ap-if:in-single-collision?      oc-yang:counter64
+              |  |     +--ro oc-ap-if:in-symbol-error?          oc-yang:counter64
+              |  |     +--ro oc-ap-if:in-maxsize-exceeded?      oc-yang:counter64
+              |  |     +--ro oc-ap-if:out-mac-control-frames?   oc-yang:counter64
+              |  |     +--ro oc-ap-if:out-mac-pause-frames?     oc-yang:counter64
+              |  |     +--ro oc-ap-if:out-8021q-frames?         oc-yang:counter64
+              |  |     +--ro oc-ap-if:out-mac-errors-tx?        oc-yang:counter64
+              |  +--rw oc-ap-if:dot1x
+              |  |  +--rw oc-ap-if:config
+              |  |  |  +--rw oc-ap-if:authenticate-port?         boolean
+              |  |  |  +--rw oc-ap-if:host-mode?                 enumeration
+              |  |  |  +--rw oc-ap-if:reauthenticate-interval?   uint16
+              |  |  |  +--rw oc-ap-if:retransmit-interval?       uint16
+              |  |  |  +--rw oc-ap-if:supplicant-timeout?        uint16
+              |  |  |  +--rw oc-ap-if:max-requests?              uint16
+              |  |  |  +--rw oc-ap-if:server-fail-vlan?          union
+              |  |  |  +--rw oc-ap-if:auth-fail-vlan?            union
+              |  |  +--ro oc-ap-if:state
+              |  |     +--ro oc-ap-if:authenticate-port?         boolean
+              |  |     +--ro oc-ap-if:host-mode?                 enumeration
+              |  |     +--ro oc-ap-if:reauthenticate-interval?   uint16
+              |  |     +--ro oc-ap-if:retransmit-interval?       uint16
+              |  |     +--ro oc-ap-if:supplicant-timeout?        uint16
+              |  |     +--ro oc-ap-if:max-requests?              uint16
+              |  |     +--ro oc-ap-if:server-fail-vlan?          union
+              |  |     +--ro oc-ap-if:auth-fail-vlan?            union
+              |  +--rw oc-ap-if:authenticated-sessions
+              |  |  +--ro oc-ap-if:authenticated-session* [mac]
+              |  |     +--ro oc-ap-if:mac      -> ../state/mac
+              |  |     +--ro oc-ap-if:state
+              |  |        +--ro oc-ap-if:mac?          oc-yang:mac-address
+              |  |        +--ro oc-ap-if:session-id?   string
+              |  |        +--ro oc-ap-if:status?       enumeration
+              |  +--rw oc-ap-if:switched-vlan
+              |  |  +--rw oc-ap-if:config
+              |  |  |  +--rw oc-ap-if:interface-mode?   oc-vlan-types:vlan-mode-type
+              |  |  |  +--rw oc-ap-if:native-vlan?      oc-vlan-types:vlan-id
+              |  |  |  +--rw oc-ap-if:access-vlan?      oc-vlan-types:vlan-id
+              |  |  |  +--rw oc-ap-if:trunk-vlans*      union
+              |  |  +--ro oc-ap-if:state
+              |  |  |  +--ro oc-ap-if:interface-mode?   oc-vlan-types:vlan-mode-type
+              |  |  |  +--ro oc-ap-if:native-vlan?      oc-vlan-types:vlan-id
+              |  |  |  +--ro oc-ap-if:access-vlan?      oc-vlan-types:vlan-id
+              |  |  |  +--ro oc-ap-if:trunk-vlans*      union
+              |  |  +--rw oc-ap-if:dot1x-vlan-map
+              |  |     +--rw oc-ap-if:vlan-name* [vlan-name]
+              |  |        +--rw oc-ap-if:vlan-name    -> ../config/vlan-name
+              |  |        +--rw oc-ap-if:config
+              |  |        |  +--rw oc-ap-if:vlan-name    string
+              |  |        |  +--rw oc-ap-if:id           oc-vlan-types:vlan-id
+              |  |        +--ro oc-ap-if:state
+              |  |           +--ro oc-ap-if:vlan-name    string
+              |  |           +--ro oc-ap-if:id           oc-vlan-types:vlan-id
+              |  +--rw oc-ap-if:poe
+              |     +--rw oc-ap-if:config
+              |     |  +--rw oc-ap-if:enabled?   boolean
+              |     +--ro oc-ap-if:state
+              |        +--ro oc-ap-if:enabled?       boolean
+              |        +--ro oc-ap-if:power-used?    decimal64
+              |        +--ro oc-ap-if:power-class?   uint8
+              +--rw oc-ap-if:subinterfaces
+              |  +--rw oc-ap-if:subinterface* [index]
+              |     +--rw oc-ap-if:index     -> ../config/index
+              |     +--rw oc-ap-if:config
+              |     |  +--rw oc-ap-if:index?         uint32
+              |     |  +--rw oc-ap-if:description?   string
+              |     |  +--rw oc-ap-if:enabled?       boolean
+              |     +--ro oc-ap-if:state
+              |     |  +--ro oc-ap-if:index?          uint32
+              |     |  +--ro oc-ap-if:description?    string
+              |     |  +--ro oc-ap-if:enabled?        boolean
+              |     |  +--ro oc-ap-if:name?           string
+              |     |  +--ro oc-ap-if:ifindex?        uint32
+              |     |  +--ro oc-ap-if:admin-status    enumeration
+              |     |  +--ro oc-ap-if:oper-status     enumeration
+              |     |  +--ro oc-ap-if:last-change?    oc-types:timeticks64
+              |     |  +--ro oc-ap-if:logical?        boolean
+              |     |  +--ro oc-ap-if:management?     boolean
+              |     |  +--ro oc-ap-if:cpu?            boolean
+              |     |  +--ro oc-ap-if:counters
+              |     |     +--ro oc-ap-if:in-octets?             oc-yang:counter64
+              |     |     +--ro oc-ap-if:in-pkts?               oc-yang:counter64
+              |     |     +--ro oc-ap-if:in-unicast-pkts?       oc-yang:counter64
+              |     |     +--ro oc-ap-if:in-broadcast-pkts?     oc-yang:counter64
+              |     |     +--ro oc-ap-if:in-multicast-pkts?     oc-yang:counter64
+              |     |     +--ro oc-ap-if:in-discards?           oc-yang:counter64
+              |     |     +--ro oc-ap-if:in-errors?             oc-yang:counter64
+              |     |     +--ro oc-ap-if:in-unknown-protos?     oc-yang:counter64
+              |     |     +--ro oc-ap-if:in-fcs-errors?         oc-yang:counter64
+              |     |     +--ro oc-ap-if:out-octets?            oc-yang:counter64
+              |     |     +--ro oc-ap-if:out-pkts?              oc-yang:counter64
+              |     |     +--ro oc-ap-if:out-unicast-pkts?      oc-yang:counter64
+              |     |     +--ro oc-ap-if:out-broadcast-pkts?    oc-yang:counter64
+              |     |     +--ro oc-ap-if:out-multicast-pkts?    oc-yang:counter64
+              |     |     +--ro oc-ap-if:out-discards?          oc-yang:counter64
+              |     |     +--ro oc-ap-if:out-errors?            oc-yang:counter64
+              |     |     +--ro oc-ap-if:carrier-transitions?   oc-yang:counter64
+              |     |     +--ro oc-ap-if:last-clear?            oc-types:timeticks64
+              |     +--rw oc-ap-if:ipv4
+              |     |  +--rw oc-ap-if:addresses
+              |     |  |  +--rw oc-ap-if:address* [ip]
+              |     |  |     +--rw oc-ap-if:ip        -> ../config/ip
+              |     |  |     +--rw oc-ap-if:config
+              |     |  |     |  +--rw oc-ap-if:ip?              oc-inet:ipv4-address
+              |     |  |     |  +--rw oc-ap-if:prefix-length?   uint8
+              |     |  |     +--ro oc-ap-if:state
+              |     |  |        +--ro oc-ap-if:ip?              oc-inet:ipv4-address
+              |     |  |        +--ro oc-ap-if:prefix-length?   uint8
+              |     |  |        +--ro oc-ap-if:origin?          ip-address-origin
+              |     |  +--rw oc-ap-if:proxy-arp
+              |     |  |  +--rw oc-ap-if:config
+              |     |  |  |  +--rw oc-ap-if:mode?   enumeration
+              |     |  |  +--ro oc-ap-if:state
+              |     |  |     +--ro oc-ap-if:mode?   enumeration
+              |     |  +--rw oc-ap-if:neighbors
+              |     |  |  +--rw oc-ap-if:neighbor* [ip]
+              |     |  |     +--rw oc-ap-if:ip        -> ../config/ip
+              |     |  |     +--rw oc-ap-if:config
+              |     |  |     |  +--rw oc-ap-if:ip?                   oc-inet:ipv4-address
+              |     |  |     |  +--rw oc-ap-if:link-layer-address    oc-yang:phys-address
+              |     |  |     +--ro oc-ap-if:state
+              |     |  |        +--ro oc-ap-if:ip?                   oc-inet:ipv4-address
+              |     |  |        +--ro oc-ap-if:link-layer-address    oc-yang:phys-address
+              |     |  |        +--ro oc-ap-if:origin?               neighbor-origin
+              |     |  +--rw oc-ap-if:config
+              |     |  |  +--rw oc-ap-if:enabled?       boolean
+              |     |  |  +--rw oc-ap-if:mtu?           uint16
+              |     |  |  +--rw oc-ap-if:dhcp-client?   boolean
+              |     |  +--ro oc-ap-if:state
+              |     |     +--ro oc-ap-if:enabled?       boolean
+              |     |     +--ro oc-ap-if:mtu?           uint16
+              |     |     +--ro oc-ap-if:dhcp-client?   boolean
+              |     |     +--ro oc-ap-if:counters
+              |     |        +--ro oc-ap-if:in-pkts?                oc-yang:counter64
+              |     |        +--ro oc-ap-if:in-octets?              oc-yang:counter64
+              |     |        +--ro oc-ap-if:in-error-pkts?          oc-yang:counter64
+              |     |        +--ro oc-ap-if:in-forwarded-pkts?      oc-yang:counter64
+              |     |        +--ro oc-ap-if:in-forwarded-octets?    oc-yang:counter64
+              |     |        +--ro oc-ap-if:in-discarded-pkts?      oc-yang:counter64
+              |     |        +--ro oc-ap-if:out-pkts?               oc-yang:counter64
+              |     |        +--ro oc-ap-if:out-octets?             oc-yang:counter64
+              |     |        +--ro oc-ap-if:out-error-pkts?         oc-yang:counter64
+              |     |        +--ro oc-ap-if:out-forwarded-pkts?     oc-yang:counter64
+              |     |        +--ro oc-ap-if:out-forwarded-octets?   oc-yang:counter64
+              |     |        +--ro oc-ap-if:out-discarded-pkts?     oc-yang:counter64
+              |     +--rw oc-ap-if:ipv6
+              |        +--rw oc-ap-if:addresses
+              |        |  +--rw oc-ap-if:address* [ip]
+              |        |     +--rw oc-ap-if:ip        -> ../config/ip
+              |        |     +--rw oc-ap-if:config
+              |        |     |  +--rw oc-ap-if:ip?              oc-inet:ipv6-address
+              |        |     |  +--rw oc-ap-if:prefix-length    uint8
+              |        |     +--ro oc-ap-if:state
+              |        |        +--ro oc-ap-if:ip?              oc-inet:ipv6-address
+              |        |        +--ro oc-ap-if:prefix-length    uint8
+              |        |        +--ro oc-ap-if:origin?          ip-address-origin
+              |        |        +--ro oc-ap-if:status?          enumeration
+              |        +--rw oc-ap-if:router-advertisement
+              |        |  +--rw oc-ap-if:config
+              |        |  |  +--rw oc-ap-if:interval?   uint32
+              |        |  |  +--rw oc-ap-if:lifetime?   uint32
+              |        |  |  +--rw oc-ap-if:suppress?   boolean
+              |        |  +--ro oc-ap-if:state
+              |        |     +--ro oc-ap-if:interval?   uint32
+              |        |     +--ro oc-ap-if:lifetime?   uint32
+              |        |     +--ro oc-ap-if:suppress?   boolean
+              |        +--rw oc-ap-if:neighbors
+              |        |  +--rw oc-ap-if:neighbor* [ip]
+              |        |     +--rw oc-ap-if:ip        -> ../config/ip
+              |        |     +--rw oc-ap-if:config
+              |        |     |  +--rw oc-ap-if:ip?                   oc-inet:ipv6-address
+              |        |     |  +--rw oc-ap-if:link-layer-address    oc-yang:phys-address
+              |        |     +--ro oc-ap-if:state
+              |        |        +--ro oc-ap-if:ip?                   oc-inet:ipv6-address
+              |        |        +--ro oc-ap-if:link-layer-address    oc-yang:phys-address
+              |        |        +--ro oc-ap-if:origin?               neighbor-origin
+              |        |        +--ro oc-ap-if:is-router?            boolean
+              |        |        +--ro oc-ap-if:neighbor-state?       enumeration
+              |        +--rw oc-ap-if:config
+              |        |  +--rw oc-ap-if:enabled?                     boolean
+              |        |  +--rw oc-ap-if:mtu?                         uint32
+              |        |  +--rw oc-ap-if:dup-addr-detect-transmits?   uint32
+              |        |  +--rw oc-ap-if:dhcp-client?                 boolean
+              |        +--ro oc-ap-if:state
+              |           +--ro oc-ap-if:enabled?                     boolean
+              |           +--ro oc-ap-if:mtu?                         uint32
+              |           +--ro oc-ap-if:dup-addr-detect-transmits?   uint32
+              |           +--ro oc-ap-if:dhcp-client?                 boolean
+              |           +--ro oc-ap-if:counters
+              |              +--ro oc-ap-if:in-pkts?                oc-yang:counter64
+              |              +--ro oc-ap-if:in-octets?              oc-yang:counter64
+              |              +--ro oc-ap-if:in-error-pkts?          oc-yang:counter64
+              |              +--ro oc-ap-if:in-forwarded-pkts?      oc-yang:counter64
+              |              +--ro oc-ap-if:in-forwarded-octets?    oc-yang:counter64
+              |              +--ro oc-ap-if:in-discarded-pkts?      oc-yang:counter64
+              |              +--ro oc-ap-if:out-pkts?               oc-yang:counter64
+              |              +--ro oc-ap-if:out-octets?             oc-yang:counter64
+              |              +--ro oc-ap-if:out-error-pkts?         oc-yang:counter64
+              |              +--ro oc-ap-if:out-forwarded-pkts?     oc-yang:counter64
+              |              +--ro oc-ap-if:out-forwarded-octets?   oc-yang:counter64
+              |              +--ro oc-ap-if:out-discarded-pkts?     oc-yang:counter64
+              +--rw oc-ap-if:aggregation
+              |  +--rw oc-ap-if:config
+              |  |  +--rw oc-ap-if:lag-type?    aggregation-type
+              |  |  +--rw oc-ap-if:min-links?   uint16
+              |  +--ro oc-ap-if:state
+              |  |  +--ro oc-ap-if:lag-type?    aggregation-type
+              |  |  +--ro oc-ap-if:min-links?   uint16
+              |  |  +--ro oc-ap-if:lag-speed?   uint32
+              |  |  +--ro oc-ap-if:member*      oc-if:base-interface-ref
+              |  +--rw oc-ap-if:switched-vlan
+              |     +--rw oc-ap-if:config
+              |     |  +--rw oc-ap-if:interface-mode?   oc-vlan-types:vlan-mode-type
+              |     |  +--rw oc-ap-if:native-vlan?      oc-vlan-types:vlan-id
+              |     |  +--rw oc-ap-if:access-vlan?      oc-vlan-types:vlan-id
+              |     |  +--rw oc-ap-if:trunk-vlans*      union
+              |     +--ro oc-ap-if:state
+              |        +--ro oc-ap-if:interface-mode?   oc-vlan-types:vlan-mode-type
+              |        +--ro oc-ap-if:native-vlan?      oc-vlan-types:vlan-id
+              |        +--ro oc-ap-if:access-vlan?      oc-vlan-types:vlan-id
+              |        +--ro oc-ap-if:trunk-vlans*      union
+              +--rw oc-ap-if:tunnel
+                 +--rw oc-ap-if:config
+                 |  +--rw oc-ap-if:src?       oc-inet:ip-address
+                 |  +--rw oc-ap-if:dst?       oc-inet:ip-address
+                 |  +--rw oc-ap-if:ttl?       uint8
+                 |  +--rw oc-ap-if:gre-key?   uint32
+                 +--ro oc-ap-if:state
+                 |  +--ro oc-ap-if:src?       oc-inet:ip-address
+                 |  +--ro oc-ap-if:dst?       oc-inet:ip-address
+                 |  +--ro oc-ap-if:ttl?       uint8
+                 |  +--ro oc-ap-if:gre-key?   uint32
+                 +--rw oc-ap-if:ipv4
+                 |  +--rw oc-ap-if:addresses
+                 |  |  +--rw oc-ap-if:address* [ip]
+                 |  |     +--rw oc-ap-if:ip        -> ../config/ip
+                 |  |     +--rw oc-ap-if:config
+                 |  |     |  +--rw oc-ap-if:ip?              oc-inet:ipv4-address
+                 |  |     |  +--rw oc-ap-if:prefix-length?   uint8
+                 |  |     +--ro oc-ap-if:state
+                 |  |        +--ro oc-ap-if:ip?              oc-inet:ipv4-address
+                 |  |        +--ro oc-ap-if:prefix-length?   uint8
+                 |  |        +--ro oc-ap-if:origin?          ip-address-origin
+                 |  +--rw oc-ap-if:proxy-arp
+                 |  |  +--rw oc-ap-if:config
+                 |  |  |  +--rw oc-ap-if:mode?   enumeration
+                 |  |  +--ro oc-ap-if:state
+                 |  |     +--ro oc-ap-if:mode?   enumeration
+                 |  +--rw oc-ap-if:neighbors
+                 |  |  +--rw oc-ap-if:neighbor* [ip]
+                 |  |     +--rw oc-ap-if:ip        -> ../config/ip
+                 |  |     +--rw oc-ap-if:config
+                 |  |     |  +--rw oc-ap-if:ip?                   oc-inet:ipv4-address
+                 |  |     |  +--rw oc-ap-if:link-layer-address    oc-yang:phys-address
+                 |  |     +--ro oc-ap-if:state
+                 |  |        +--ro oc-ap-if:ip?                   oc-inet:ipv4-address
+                 |  |        +--ro oc-ap-if:link-layer-address    oc-yang:phys-address
+                 |  |        +--ro oc-ap-if:origin?               neighbor-origin
+                 |  +--rw oc-ap-if:config
+                 |  |  +--rw oc-ap-if:enabled?       boolean
+                 |  |  +--rw oc-ap-if:mtu?           uint16
+                 |  |  +--rw oc-ap-if:dhcp-client?   boolean
+                 |  +--ro oc-ap-if:state
+                 |     +--ro oc-ap-if:enabled?       boolean
+                 |     +--ro oc-ap-if:mtu?           uint16
+                 |     +--ro oc-ap-if:dhcp-client?   boolean
+                 |     +--ro oc-ap-if:counters
+                 |        +--ro oc-ap-if:in-pkts?                oc-yang:counter64
+                 |        +--ro oc-ap-if:in-octets?              oc-yang:counter64
+                 |        +--ro oc-ap-if:in-error-pkts?          oc-yang:counter64
+                 |        +--ro oc-ap-if:in-forwarded-pkts?      oc-yang:counter64
+                 |        +--ro oc-ap-if:in-forwarded-octets?    oc-yang:counter64
+                 |        +--ro oc-ap-if:in-discarded-pkts?      oc-yang:counter64
+                 |        +--ro oc-ap-if:out-pkts?               oc-yang:counter64
+                 |        +--ro oc-ap-if:out-octets?             oc-yang:counter64
+                 |        +--ro oc-ap-if:out-error-pkts?         oc-yang:counter64
+                 |        +--ro oc-ap-if:out-forwarded-pkts?     oc-yang:counter64
+                 |        +--ro oc-ap-if:out-forwarded-octets?   oc-yang:counter64
+                 |        +--ro oc-ap-if:out-discarded-pkts?     oc-yang:counter64
+                 +--rw oc-ap-if:ipv6
+                    +--rw oc-ap-if:addresses
+                    |  +--rw oc-ap-if:address* [ip]
+                    |     +--rw oc-ap-if:ip        -> ../config/ip
+                    |     +--rw oc-ap-if:config
+                    |     |  +--rw oc-ap-if:ip?              oc-inet:ipv6-address
+                    |     |  +--rw oc-ap-if:prefix-length    uint8
+                    |     +--ro oc-ap-if:state
+                    |        +--ro oc-ap-if:ip?              oc-inet:ipv6-address
+                    |        +--ro oc-ap-if:prefix-length    uint8
+                    |        +--ro oc-ap-if:origin?          ip-address-origin
+                    |        +--ro oc-ap-if:status?          enumeration
+                    +--rw oc-ap-if:router-advertisement
+                    |  +--rw oc-ap-if:config
+                    |  |  +--rw oc-ap-if:interval?   uint32
+                    |  |  +--rw oc-ap-if:lifetime?   uint32
+                    |  |  +--rw oc-ap-if:suppress?   boolean
+                    |  +--ro oc-ap-if:state
+                    |     +--ro oc-ap-if:interval?   uint32
+                    |     +--ro oc-ap-if:lifetime?   uint32
+                    |     +--ro oc-ap-if:suppress?   boolean
+                    +--rw oc-ap-if:neighbors
+                    |  +--rw oc-ap-if:neighbor* [ip]
+                    |     +--rw oc-ap-if:ip        -> ../config/ip
+                    |     +--rw oc-ap-if:config
+                    |     |  +--rw oc-ap-if:ip?                   oc-inet:ipv6-address
+                    |     |  +--rw oc-ap-if:link-layer-address    oc-yang:phys-address
+                    |     +--ro oc-ap-if:state
+                    |        +--ro oc-ap-if:ip?                   oc-inet:ipv6-address
+                    |        +--ro oc-ap-if:link-layer-address    oc-yang:phys-address
+                    |        +--ro oc-ap-if:origin?               neighbor-origin
+                    |        +--ro oc-ap-if:is-router?            boolean
+                    |        +--ro oc-ap-if:neighbor-state?       enumeration
+                    +--rw oc-ap-if:config
+                    |  +--rw oc-ap-if:enabled?                     boolean
+                    |  +--rw oc-ap-if:mtu?                         uint32
+                    |  +--rw oc-ap-if:dup-addr-detect-transmits?   uint32
+                    |  +--rw oc-ap-if:dhcp-client?                 boolean
+                    +--ro oc-ap-if:state
+                       +--ro oc-ap-if:enabled?                     boolean
+                       +--ro oc-ap-if:mtu?                         uint32
+                       +--ro oc-ap-if:dup-addr-detect-transmits?   uint32
+                       +--ro oc-ap-if:dhcp-client?                 boolean
+                       +--ro oc-ap-if:counters
+                          +--ro oc-ap-if:in-pkts?                oc-yang:counter64
+                          +--ro oc-ap-if:in-octets?              oc-yang:counter64
+                          +--ro oc-ap-if:in-error-pkts?          oc-yang:counter64
+                          +--ro oc-ap-if:in-forwarded-pkts?      oc-yang:counter64
+                          +--ro oc-ap-if:in-forwarded-octets?    oc-yang:counter64
+                          +--ro oc-ap-if:in-discarded-pkts?      oc-yang:counter64
+                          +--ro oc-ap-if:out-pkts?               oc-yang:counter64
+                          +--ro oc-ap-if:out-octets?             oc-yang:counter64
+                          +--ro oc-ap-if:out-error-pkts?         oc-yang:counter64
+                          +--ro oc-ap-if:out-forwarded-pkts?     oc-yang:counter64
+                          +--ro oc-ap-if:out-forwarded-octets?   oc-yang:counter64
+                          +--ro oc-ap-if:out-discarded-pkts?     oc-yang:counter64
+
+module: openconfig-ap-manager
+  +--rw provision-aps
+  |  +--rw provision-ap* [mac]
+  |     +--rw mac       -> ../config/mac
+  |     +--rw config
+  |     |  +--rw mac?            oc-yang:mac-address
+  |     |  +--rw hostname?       oc-inet:domain-name
+  |     |  +--rw country-code?   string
+  |     +--ro state
+  |        +--ro mac?            oc-yang:mac-address
+  |        +--ro hostname?       oc-inet:domain-name
+  |        +--ro country-code?   string
+  +--rw joined-aps
+     +--ro joined-ap* [hostname]
+        +--ro hostname    -> ../state/hostname
+        +--ro state
+           +--ro mac?                oc-yang:mac-address
+           +--ro hostname?           oc-inet:domain-name
+           +--ro opstate?            identityref
+           +--ro uptime?             uint32
+           +--ro enabled?            boolean
+           +--ro serial?             string
+           +--ro model?              string
+           +--ro software-version?   string
+           +--ro ipv4?               oc-inet:ipv4-address
+           +--ro ipv6?               oc-inet:ipv6-address
+           +--ro power-source?       enumeration
+
+module: openconfig-interfaces
+  +--rw interfaces
+     +--rw interface* [name]
+        +--rw name                   -> ../config/name
+        +--rw config
+        |  +--rw name?            string
+        |  +--rw type             identityref
+        |  +--rw mtu?             uint16
+        |  +--rw loopback-mode?   boolean
+        |  +--rw description?     string
+        |  +--rw enabled?         boolean
+        |  +--rw oc-vlan:tpid?    identityref
+        +--ro state
+        |  +--ro name?            string
+        |  +--ro type             identityref
+        |  +--ro mtu?             uint16
+        |  +--ro loopback-mode?   boolean
+        |  +--ro description?     string
+        |  +--ro enabled?         boolean
+        |  +--ro ifindex?         uint32
+        |  +--ro admin-status     enumeration
+        |  +--ro oper-status      enumeration
+        |  +--ro last-change?     oc-types:timeticks64
+        |  +--ro logical?         boolean
+        |  +--ro management?      boolean
+        |  +--ro cpu?             boolean
+        |  +--ro counters
+        |  |  +--ro in-octets?             oc-yang:counter64
+        |  |  +--ro in-pkts?               oc-yang:counter64
+        |  |  +--ro in-unicast-pkts?       oc-yang:counter64
+        |  |  +--ro in-broadcast-pkts?     oc-yang:counter64
+        |  |  +--ro in-multicast-pkts?     oc-yang:counter64
+        |  |  +--ro in-discards?           oc-yang:counter64
+        |  |  +--ro in-errors?             oc-yang:counter64
+        |  |  +--ro in-unknown-protos?     oc-yang:counter64
+        |  |  +--ro in-fcs-errors?         oc-yang:counter64
+        |  |  +--ro out-octets?            oc-yang:counter64
+        |  |  +--ro out-pkts?              oc-yang:counter64
+        |  |  +--ro out-unicast-pkts?      oc-yang:counter64
+        |  |  +--ro out-broadcast-pkts?    oc-yang:counter64
+        |  |  +--ro out-multicast-pkts?    oc-yang:counter64
+        |  |  +--ro out-discards?          oc-yang:counter64
+        |  |  +--ro out-errors?            oc-yang:counter64
+        |  |  +--ro carrier-transitions?   oc-yang:counter64
+        |  |  +--ro last-clear?            oc-types:timeticks64
+        |  +--ro oc-vlan:tpid?    identityref
+        +--rw hold-time
+        |  +--rw config
+        |  |  +--rw up?     uint32
+        |  |  +--rw down?   uint32
+        |  +--ro state
+        |     +--ro up?     uint32
+        |     +--ro down?   uint32
+        +--rw subinterfaces
+        |  +--rw subinterface* [index]
+        |     +--rw index           -> ../config/index
+        |     +--rw config
+        |     |  +--rw index?         uint32
+        |     |  +--rw description?   string
+        |     |  +--rw enabled?       boolean
+        |     +--ro state
+        |     |  +--ro index?          uint32
+        |     |  +--ro description?    string
+        |     |  +--ro enabled?        boolean
+        |     |  +--ro name?           string
+        |     |  +--ro ifindex?        uint32
+        |     |  +--ro admin-status    enumeration
+        |     |  +--ro oper-status     enumeration
+        |     |  +--ro last-change?    oc-types:timeticks64
+        |     |  +--ro logical?        boolean
+        |     |  +--ro management?     boolean
+        |     |  +--ro cpu?            boolean
+        |     |  +--ro counters
+        |     |     +--ro in-octets?             oc-yang:counter64
+        |     |     +--ro in-pkts?               oc-yang:counter64
+        |     |     +--ro in-unicast-pkts?       oc-yang:counter64
+        |     |     +--ro in-broadcast-pkts?     oc-yang:counter64
+        |     |     +--ro in-multicast-pkts?     oc-yang:counter64
+        |     |     +--ro in-discards?           oc-yang:counter64
+        |     |     +--ro in-errors?             oc-yang:counter64
+        |     |     +--ro in-unknown-protos?     oc-yang:counter64
+        |     |     +--ro in-fcs-errors?         oc-yang:counter64
+        |     |     +--ro out-octets?            oc-yang:counter64
+        |     |     +--ro out-pkts?              oc-yang:counter64
+        |     |     +--ro out-unicast-pkts?      oc-yang:counter64
+        |     |     +--ro out-broadcast-pkts?    oc-yang:counter64
+        |     |     +--ro out-multicast-pkts?    oc-yang:counter64
+        |     |     +--ro out-discards?          oc-yang:counter64
+        |     |     +--ro out-errors?            oc-yang:counter64
+        |     |     +--ro carrier-transitions?   oc-yang:counter64
+        |     |     +--ro last-clear?            oc-types:timeticks64
+        |     +--rw oc-vlan:vlan
+        |     |  +--rw oc-vlan:config
+        |     |  |  x--rw oc-vlan:vlan-id?   union
+        |     |  +--ro oc-vlan:state
+        |     |  |  x--ro oc-vlan:vlan-id?   union
+        |     |  +--rw oc-vlan:match
+        |     |  |  +--rw oc-vlan:single-tagged
+        |     |  |  |  +--rw oc-vlan:config
+        |     |  |  |  |  +--rw oc-vlan:vlan-id?   oc-vlan-types:vlan-id
+        |     |  |  |  +--ro oc-vlan:state
+        |     |  |  |     +--ro oc-vlan:vlan-id?   oc-vlan-types:vlan-id
+        |     |  |  +--rw oc-vlan:single-tagged-list
+        |     |  |  |  +--rw oc-vlan:config
+        |     |  |  |  |  +--rw oc-vlan:vlan-ids*   oc-vlan-types:vlan-id
+        |     |  |  |  +--ro oc-vlan:state
+        |     |  |  |     +--ro oc-vlan:vlan-ids*   oc-vlan-types:vlan-id
+        |     |  |  +--rw oc-vlan:single-tagged-range
+        |     |  |  |  +--rw oc-vlan:config
+        |     |  |  |  |  +--rw oc-vlan:low-vlan-id?    oc-vlan-types:vlan-id
+        |     |  |  |  |  +--rw oc-vlan:high-vlan-id?   oc-vlan-types:vlan-id
+        |     |  |  |  +--ro oc-vlan:state
+        |     |  |  |     +--ro oc-vlan:low-vlan-id?    oc-vlan-types:vlan-id
+        |     |  |  |     +--ro oc-vlan:high-vlan-id?   oc-vlan-types:vlan-id
+        |     |  |  +--rw oc-vlan:double-tagged
+        |     |  |  |  +--rw oc-vlan:config
+        |     |  |  |  |  +--rw oc-vlan:inner-vlan-id?   oc-vlan-types:vlan-id
+        |     |  |  |  |  +--rw oc-vlan:outer-vlan-id?   oc-vlan-types:vlan-id
+        |     |  |  |  +--ro oc-vlan:state
+        |     |  |  |     +--ro oc-vlan:inner-vlan-id?   oc-vlan-types:vlan-id
+        |     |  |  |     +--ro oc-vlan:outer-vlan-id?   oc-vlan-types:vlan-id
+        |     |  |  +--rw oc-vlan:double-tagged-inner-list
+        |     |  |  |  +--rw oc-vlan:config
+        |     |  |  |  |  +--rw oc-vlan:inner-vlan-ids*   oc-vlan-types:vlan-id
+        |     |  |  |  |  +--rw oc-vlan:outer-vlan-id?    oc-vlan-types:vlan-id
+        |     |  |  |  +--ro oc-vlan:state
+        |     |  |  |     +--ro oc-vlan:inner-vlan-ids*   oc-vlan-types:vlan-id
+        |     |  |  |     +--ro oc-vlan:outer-vlan-id?    oc-vlan-types:vlan-id
+        |     |  |  +--rw oc-vlan:double-tagged-outer-list
+        |     |  |  |  +--rw oc-vlan:config
+        |     |  |  |  |  +--rw oc-vlan:inner-vlan-id?    oc-vlan-types:vlan-id
+        |     |  |  |  |  +--rw oc-vlan:outer-vlan-ids*   oc-vlan-types:vlan-id
+        |     |  |  |  +--ro oc-vlan:state
+        |     |  |  |     +--ro oc-vlan:inner-vlan-id?    oc-vlan-types:vlan-id
+        |     |  |  |     +--ro oc-vlan:outer-vlan-ids*   oc-vlan-types:vlan-id
+        |     |  |  +--rw oc-vlan:double-tagged-inner-range
+        |     |  |  |  +--rw oc-vlan:config
+        |     |  |  |  |  +--rw oc-vlan:inner-low-vlan-id?    oc-vlan-types:vlan-id
+        |     |  |  |  |  +--rw oc-vlan:inner-high-vlan-id?   oc-vlan-types:vlan-id
+        |     |  |  |  |  +--rw oc-vlan:outer-vlan-id*        oc-vlan-types:vlan-id
+        |     |  |  |  +--ro oc-vlan:state
+        |     |  |  |     +--ro oc-vlan:inner-low-vlan-id?    oc-vlan-types:vlan-id
+        |     |  |  |     +--ro oc-vlan:inner-high-vlan-id?   oc-vlan-types:vlan-id
+        |     |  |  |     +--ro oc-vlan:outer-vlan-id*        oc-vlan-types:vlan-id
+        |     |  |  +--rw oc-vlan:double-tagged-outer-range
+        |     |  |  |  +--rw oc-vlan:config
+        |     |  |  |  |  +--rw oc-vlan:inner-vlan-id?        oc-vlan-types:vlan-id
+        |     |  |  |  |  +--rw oc-vlan:outer-low-vlan-id?    oc-vlan-types:vlan-id
+        |     |  |  |  |  +--rw oc-vlan:outer-high-vlan-id?   oc-vlan-types:vlan-id
+        |     |  |  |  +--ro oc-vlan:state
+        |     |  |  |     +--ro oc-vlan:inner-vlan-id?        oc-vlan-types:vlan-id
+        |     |  |  |     +--ro oc-vlan:outer-low-vlan-id?    oc-vlan-types:vlan-id
+        |     |  |  |     +--ro oc-vlan:outer-high-vlan-id?   oc-vlan-types:vlan-id
+        |     |  |  +--rw oc-vlan:double-tagged-inner-outer-range
+        |     |  |     +--rw oc-vlan:config
+        |     |  |     |  +--rw oc-vlan:inner-low-vlan-id?    oc-vlan-types:vlan-id
+        |     |  |     |  +--rw oc-vlan:inner-high-vlan-id?   oc-vlan-types:vlan-id
+        |     |  |     |  +--rw oc-vlan:outer-low-vlan-id?    oc-vlan-types:vlan-id
+        |     |  |     |  +--rw oc-vlan:outer-high-vlan-id?   oc-vlan-types:vlan-id
+        |     |  |     +--ro oc-vlan:state
+        |     |  |        +--ro oc-vlan:inner-low-vlan-id?    oc-vlan-types:vlan-id
+        |     |  |        +--ro oc-vlan:inner-high-vlan-id?   oc-vlan-types:vlan-id
+        |     |  |        +--ro oc-vlan:outer-low-vlan-id?    oc-vlan-types:vlan-id
+        |     |  |        +--ro oc-vlan:outer-high-vlan-id?   oc-vlan-types:vlan-id
+        |     |  +--rw oc-vlan:ingress-mapping
+        |     |  |  +--rw oc-vlan:config
+        |     |  |  |  +--rw oc-vlan:vlan-stack-action?   oc-vlan-types:vlan-stack-action
+        |     |  |  |  +--rw oc-vlan:vlan-id?             oc-vlan-types:vlan-id
+        |     |  |  |  +--rw oc-vlan:tpid?                identityref
+        |     |  |  +--ro oc-vlan:state
+        |     |  |     +--ro oc-vlan:vlan-stack-action?   oc-vlan-types:vlan-stack-action
+        |     |  |     +--ro oc-vlan:vlan-id?             oc-vlan-types:vlan-id
+        |     |  |     +--ro oc-vlan:tpid?                identityref
+        |     |  +--rw oc-vlan:egress-mapping
+        |     |     +--rw oc-vlan:config
+        |     |     |  +--rw oc-vlan:vlan-stack-action?   oc-vlan-types:vlan-stack-action
+        |     |     |  +--rw oc-vlan:vlan-id?             oc-vlan-types:vlan-id
+        |     |     |  +--rw oc-vlan:tpid?                identityref
+        |     |     +--ro oc-vlan:state
+        |     |        +--ro oc-vlan:vlan-stack-action?   oc-vlan-types:vlan-stack-action
+        |     |        +--ro oc-vlan:vlan-id?             oc-vlan-types:vlan-id
+        |     |        +--ro oc-vlan:tpid?                identityref
+        |     +--rw oc-ip:ipv4
+        |     |  +--rw oc-ip:addresses
+        |     |  |  +--rw oc-ip:address* [ip]
+        |     |  |     +--rw oc-ip:ip        -> ../config/ip
+        |     |  |     +--rw oc-ip:config
+        |     |  |     |  +--rw oc-ip:ip?              oc-inet:ipv4-address
+        |     |  |     |  +--rw oc-ip:prefix-length?   uint8
+        |     |  |     +--ro oc-ip:state
+        |     |  |     |  +--ro oc-ip:ip?              oc-inet:ipv4-address
+        |     |  |     |  +--ro oc-ip:prefix-length?   uint8
+        |     |  |     |  +--ro oc-ip:origin?          ip-address-origin
+        |     |  |     +--rw oc-ip:vrrp
+        |     |  |        +--rw oc-ip:vrrp-group* [virtual-router-id]
+        |     |  |           +--rw oc-ip:virtual-router-id     -> ../config/virtual-router-id
+        |     |  |           +--rw oc-ip:config
+        |     |  |           |  +--rw oc-ip:virtual-router-id?        uint8
+        |     |  |           |  +--rw oc-ip:virtual-address*          oc-inet:ip-address
+        |     |  |           |  +--rw oc-ip:priority?                 uint8
+        |     |  |           |  +--rw oc-ip:preempt?                  boolean
+        |     |  |           |  +--rw oc-ip:preempt-delay?            uint16
+        |     |  |           |  +--rw oc-ip:accept-mode?              boolean
+        |     |  |           |  +--rw oc-ip:advertisement-interval?   uint16
+        |     |  |           +--ro oc-ip:state
+        |     |  |           |  +--ro oc-ip:virtual-router-id?        uint8
+        |     |  |           |  +--ro oc-ip:virtual-address*          oc-inet:ip-address
+        |     |  |           |  +--ro oc-ip:priority?                 uint8
+        |     |  |           |  +--ro oc-ip:preempt?                  boolean
+        |     |  |           |  +--ro oc-ip:preempt-delay?            uint16
+        |     |  |           |  +--ro oc-ip:accept-mode?              boolean
+        |     |  |           |  +--ro oc-ip:advertisement-interval?   uint16
+        |     |  |           |  +--ro oc-ip:current-priority?         uint8
+        |     |  |           +--rw oc-ip:interface-tracking
+        |     |  |              +--rw oc-ip:config
+        |     |  |              |  +--rw oc-ip:track-interface*      -> /oc-if:interfaces/interface/name
+        |     |  |              |  +--rw oc-ip:priority-decrement?   uint8
+        |     |  |              +--ro oc-ip:state
+        |     |  |                 +--ro oc-ip:track-interface*      -> /oc-if:interfaces/interface/name
+        |     |  |                 +--ro oc-ip:priority-decrement?   uint8
+        |     |  +--rw oc-ip:proxy-arp
+        |     |  |  +--rw oc-ip:config
+        |     |  |  |  +--rw oc-ip:mode?   enumeration
+        |     |  |  +--ro oc-ip:state
+        |     |  |     +--ro oc-ip:mode?   enumeration
+        |     |  +--rw oc-ip:neighbors
+        |     |  |  +--rw oc-ip:neighbor* [ip]
+        |     |  |     +--rw oc-ip:ip        -> ../config/ip
+        |     |  |     +--rw oc-ip:config
+        |     |  |     |  +--rw oc-ip:ip?                   oc-inet:ipv4-address
+        |     |  |     |  +--rw oc-ip:link-layer-address    oc-yang:phys-address
+        |     |  |     +--ro oc-ip:state
+        |     |  |        +--ro oc-ip:ip?                   oc-inet:ipv4-address
+        |     |  |        +--ro oc-ip:link-layer-address    oc-yang:phys-address
+        |     |  |        +--ro oc-ip:origin?               neighbor-origin
+        |     |  +--rw oc-ip:unnumbered
+        |     |  |  +--rw oc-ip:config
+        |     |  |  |  +--rw oc-ip:enabled?   boolean
+        |     |  |  +--ro oc-ip:state
+        |     |  |  |  +--ro oc-ip:enabled?   boolean
+        |     |  |  +--rw oc-ip:interface-ref
+        |     |  |     +--rw oc-ip:config
+        |     |  |     |  +--rw oc-ip:interface?      -> /oc-if:interfaces/interface/name
+        |     |  |     |  +--rw oc-ip:subinterface?   -> /oc-if:interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+        |     |  |     +--ro oc-ip:state
+        |     |  |        +--ro oc-ip:interface?      -> /oc-if:interfaces/interface/name
+        |     |  |        +--ro oc-ip:subinterface?   -> /oc-if:interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+        |     |  +--rw oc-ip:config
+        |     |  |  +--rw oc-ip:enabled?       boolean
+        |     |  |  +--rw oc-ip:mtu?           uint16
+        |     |  |  +--rw oc-ip:dhcp-client?   boolean
+        |     |  +--ro oc-ip:state
+        |     |     +--ro oc-ip:enabled?       boolean
+        |     |     +--ro oc-ip:mtu?           uint16
+        |     |     +--ro oc-ip:dhcp-client?   boolean
+        |     |     +--ro oc-ip:counters
+        |     |        +--ro oc-ip:in-pkts?                oc-yang:counter64
+        |     |        +--ro oc-ip:in-octets?              oc-yang:counter64
+        |     |        +--ro oc-ip:in-error-pkts?          oc-yang:counter64
+        |     |        +--ro oc-ip:in-forwarded-pkts?      oc-yang:counter64
+        |     |        +--ro oc-ip:in-forwarded-octets?    oc-yang:counter64
+        |     |        +--ro oc-ip:in-discarded-pkts?      oc-yang:counter64
+        |     |        +--ro oc-ip:out-pkts?               oc-yang:counter64
+        |     |        +--ro oc-ip:out-octets?             oc-yang:counter64
+        |     |        +--ro oc-ip:out-error-pkts?         oc-yang:counter64
+        |     |        +--ro oc-ip:out-forwarded-pkts?     oc-yang:counter64
+        |     |        +--ro oc-ip:out-forwarded-octets?   oc-yang:counter64
+        |     |        +--ro oc-ip:out-discarded-pkts?     oc-yang:counter64
+        |     +--rw oc-ip:ipv6
+        |        +--rw oc-ip:addresses
+        |        |  +--rw oc-ip:address* [ip]
+        |        |     +--rw oc-ip:ip        -> ../config/ip
+        |        |     +--rw oc-ip:config
+        |        |     |  +--rw oc-ip:ip?              oc-inet:ipv6-address
+        |        |     |  +--rw oc-ip:prefix-length    uint8
+        |        |     +--ro oc-ip:state
+        |        |     |  +--ro oc-ip:ip?              oc-inet:ipv6-address
+        |        |     |  +--ro oc-ip:prefix-length    uint8
+        |        |     |  +--ro oc-ip:origin?          ip-address-origin
+        |        |     |  +--ro oc-ip:status?          enumeration
+        |        |     +--rw oc-ip:vrrp
+        |        |        +--rw oc-ip:vrrp-group* [virtual-router-id]
+        |        |           +--rw oc-ip:virtual-router-id     -> ../config/virtual-router-id
+        |        |           +--rw oc-ip:config
+        |        |           |  +--rw oc-ip:virtual-router-id?        uint8
+        |        |           |  +--rw oc-ip:virtual-address*          oc-inet:ip-address
+        |        |           |  +--rw oc-ip:priority?                 uint8
+        |        |           |  +--rw oc-ip:preempt?                  boolean
+        |        |           |  +--rw oc-ip:preempt-delay?            uint16
+        |        |           |  +--rw oc-ip:accept-mode?              boolean
+        |        |           |  +--rw oc-ip:advertisement-interval?   uint16
+        |        |           |  +--rw oc-ip:virtual-link-local?       oc-inet:ip-address
+        |        |           +--ro oc-ip:state
+        |        |           |  +--ro oc-ip:virtual-router-id?        uint8
+        |        |           |  +--ro oc-ip:virtual-address*          oc-inet:ip-address
+        |        |           |  +--ro oc-ip:priority?                 uint8
+        |        |           |  +--ro oc-ip:preempt?                  boolean
+        |        |           |  +--ro oc-ip:preempt-delay?            uint16
+        |        |           |  +--ro oc-ip:accept-mode?              boolean
+        |        |           |  +--ro oc-ip:advertisement-interval?   uint16
+        |        |           |  +--ro oc-ip:current-priority?         uint8
+        |        |           |  +--ro oc-ip:virtual-link-local?       oc-inet:ip-address
+        |        |           +--rw oc-ip:interface-tracking
+        |        |              +--rw oc-ip:config
+        |        |              |  +--rw oc-ip:track-interface*      -> /oc-if:interfaces/interface/name
+        |        |              |  +--rw oc-ip:priority-decrement?   uint8
+        |        |              +--ro oc-ip:state
+        |        |                 +--ro oc-ip:track-interface*      -> /oc-if:interfaces/interface/name
+        |        |                 +--ro oc-ip:priority-decrement?   uint8
+        |        +--rw oc-ip:router-advertisement
+        |        |  +--rw oc-ip:config
+        |        |  |  +--rw oc-ip:interval?   uint32
+        |        |  |  +--rw oc-ip:lifetime?   uint32
+        |        |  |  +--rw oc-ip:suppress?   boolean
+        |        |  +--ro oc-ip:state
+        |        |     +--ro oc-ip:interval?   uint32
+        |        |     +--ro oc-ip:lifetime?   uint32
+        |        |     +--ro oc-ip:suppress?   boolean
+        |        +--rw oc-ip:neighbors
+        |        |  +--rw oc-ip:neighbor* [ip]
+        |        |     +--rw oc-ip:ip        -> ../config/ip
+        |        |     +--rw oc-ip:config
+        |        |     |  +--rw oc-ip:ip?                   oc-inet:ipv6-address
+        |        |     |  +--rw oc-ip:link-layer-address    oc-yang:phys-address
+        |        |     +--ro oc-ip:state
+        |        |        +--ro oc-ip:ip?                   oc-inet:ipv6-address
+        |        |        +--ro oc-ip:link-layer-address    oc-yang:phys-address
+        |        |        +--ro oc-ip:origin?               neighbor-origin
+        |        |        +--ro oc-ip:is-router?            boolean
+        |        |        +--ro oc-ip:neighbor-state?       enumeration
+        |        +--rw oc-ip:unnumbered
+        |        |  +--rw oc-ip:config
+        |        |  |  +--rw oc-ip:enabled?   boolean
+        |        |  +--ro oc-ip:state
+        |        |  |  +--ro oc-ip:enabled?   boolean
+        |        |  +--rw oc-ip:interface-ref
+        |        |     +--rw oc-ip:config
+        |        |     |  +--rw oc-ip:interface?      -> /oc-if:interfaces/interface/name
+        |        |     |  +--rw oc-ip:subinterface?   -> /oc-if:interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+        |        |     +--ro oc-ip:state
+        |        |        +--ro oc-ip:interface?      -> /oc-if:interfaces/interface/name
+        |        |        +--ro oc-ip:subinterface?   -> /oc-if:interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+        |        +--rw oc-ip:config
+        |        |  +--rw oc-ip:enabled?                     boolean
+        |        |  +--rw oc-ip:mtu?                         uint32
+        |        |  +--rw oc-ip:dup-addr-detect-transmits?   uint32
+        |        |  +--rw oc-ip:dhcp-client?                 boolean
+        |        +--ro oc-ip:state
+        |           +--ro oc-ip:enabled?                     boolean
+        |           +--ro oc-ip:mtu?                         uint32
+        |           +--ro oc-ip:dup-addr-detect-transmits?   uint32
+        |           +--ro oc-ip:dhcp-client?                 boolean
+        |           +--ro oc-ip:counters
+        |              +--ro oc-ip:in-pkts?                oc-yang:counter64
+        |              +--ro oc-ip:in-octets?              oc-yang:counter64
+        |              +--ro oc-ip:in-error-pkts?          oc-yang:counter64
+        |              +--ro oc-ip:in-forwarded-pkts?      oc-yang:counter64
+        |              +--ro oc-ip:in-forwarded-octets?    oc-yang:counter64
+        |              +--ro oc-ip:in-discarded-pkts?      oc-yang:counter64
+        |              +--ro oc-ip:out-pkts?               oc-yang:counter64
+        |              +--ro oc-ip:out-octets?             oc-yang:counter64
+        |              +--ro oc-ip:out-error-pkts?         oc-yang:counter64
+        |              +--ro oc-ip:out-forwarded-pkts?     oc-yang:counter64
+        |              +--ro oc-ip:out-forwarded-octets?   oc-yang:counter64
+        |              +--ro oc-ip:out-discarded-pkts?     oc-yang:counter64
+        +--rw oc-eth:ethernet
+        |  +--rw oc-eth:config
+        |  |  +--rw oc-eth:mac-address?                oc-yang:mac-address
+        |  |  +--rw oc-eth:auto-negotiate?             boolean
+        |  |  +--rw oc-eth:standalone-link-training?   boolean
+        |  |  +--rw oc-eth:duplex-mode?                enumeration
+        |  |  +--rw oc-eth:port-speed?                 identityref
+        |  |  +--rw oc-eth:enable-flow-control?        boolean
+        |  |  +--rw oc-lag:aggregate-id?               -> /oc-if:interfaces/interface/name
+        |  +--ro oc-eth:state
+        |  |  +--ro oc-eth:mac-address?                oc-yang:mac-address
+        |  |  +--ro oc-eth:auto-negotiate?             boolean
+        |  |  +--ro oc-eth:standalone-link-training?   boolean
+        |  |  +--ro oc-eth:duplex-mode?                enumeration
+        |  |  +--ro oc-eth:port-speed?                 identityref
+        |  |  +--ro oc-eth:enable-flow-control?        boolean
+        |  |  +--ro oc-eth:hw-mac-address?             oc-yang:mac-address
+        |  |  +--ro oc-eth:negotiated-duplex-mode?     enumeration
+        |  |  +--ro oc-eth:negotiated-port-speed?      identityref
+        |  |  +--ro oc-eth:counters
+        |  |  |  +--ro oc-eth:in-mac-control-frames?    oc-yang:counter64
+        |  |  |  +--ro oc-eth:in-mac-pause-frames?      oc-yang:counter64
+        |  |  |  +--ro oc-eth:in-oversize-frames?       oc-yang:counter64
+        |  |  |  +--ro oc-eth:in-undersize-frames?      oc-yang:counter64
+        |  |  |  +--ro oc-eth:in-jabber-frames?         oc-yang:counter64
+        |  |  |  +--ro oc-eth:in-fragment-frames?       oc-yang:counter64
+        |  |  |  +--ro oc-eth:in-8021q-frames?          oc-yang:counter64
+        |  |  |  +--ro oc-eth:in-crc-errors?            oc-yang:counter64
+        |  |  |  +--ro oc-eth:in-block-errors?          oc-yang:counter64
+        |  |  |  +--ro oc-eth:in-carrier-errors?        oc-yang:counter64
+        |  |  |  +--ro oc-eth:in-interrupted-tx?        oc-yang:counter64
+        |  |  |  +--ro oc-eth:in-late-collision?        oc-yang:counter64
+        |  |  |  +--ro oc-eth:in-mac-errors-rx?         oc-yang:counter64
+        |  |  |  +--ro oc-eth:in-single-collision?      oc-yang:counter64
+        |  |  |  +--ro oc-eth:in-symbol-error?          oc-yang:counter64
+        |  |  |  +--ro oc-eth:in-maxsize-exceeded?      oc-yang:counter64
+        |  |  |  +--ro oc-eth:out-mac-control-frames?   oc-yang:counter64
+        |  |  |  +--ro oc-eth:out-mac-pause-frames?     oc-yang:counter64
+        |  |  |  +--ro oc-eth:out-8021q-frames?         oc-yang:counter64
+        |  |  |  +--ro oc-eth:out-mac-errors-tx?        oc-yang:counter64
+        |  |  +--ro oc-lag:aggregate-id?               -> /oc-if:interfaces/interface/name
+        |  +--rw oc-poe:poe
+        |  |  +--rw oc-poe:config
+        |  |  |  +--rw oc-poe:enabled?   boolean
+        |  |  +--ro oc-poe:state
+        |  |     +--ro oc-poe:enabled?       boolean
+        |  |     +--ro oc-poe:power-used?    decimal64
+        |  |     +--ro oc-poe:power-class?   uint8
+        |  +--rw oc-vlan:switched-vlan
+        |  |  +--rw oc-vlan:config
+        |  |  |  +--rw oc-vlan:interface-mode?   oc-vlan-types:vlan-mode-type
+        |  |  |  +--rw oc-vlan:native-vlan?      oc-vlan-types:vlan-id
+        |  |  |  +--rw oc-vlan:access-vlan?      oc-vlan-types:vlan-id
+        |  |  |  +--rw oc-vlan:trunk-vlans*      union
+        |  |  +--ro oc-vlan:state
+        |  |  |  +--ro oc-vlan:interface-mode?   oc-vlan-types:vlan-mode-type
+        |  |  |  +--ro oc-vlan:native-vlan?      oc-vlan-types:vlan-id
+        |  |  |  +--ro oc-vlan:access-vlan?      oc-vlan-types:vlan-id
+        |  |  |  +--ro oc-vlan:trunk-vlans*      union
+        |  |  +--rw oc-1x:dot1x-vlan-map
+        |  |     +--rw oc-1x:vlan-name* [vlan-name]
+        |  |        +--rw oc-1x:vlan-name    -> ../config/vlan-name
+        |  |        +--rw oc-1x:config
+        |  |        |  +--rw oc-1x:vlan-name    string
+        |  |        |  +--rw oc-1x:id           oc-vlan-types:vlan-id
+        |  |        +--ro oc-1x:state
+        |  |           +--ro oc-1x:vlan-name    string
+        |  |           +--ro oc-1x:id           oc-vlan-types:vlan-id
+        |  +--rw oc-1x:dot1x
+        |  |  +--rw oc-1x:config
+        |  |  |  +--rw oc-1x:authenticate-port?         boolean
+        |  |  |  +--rw oc-1x:host-mode?                 enumeration
+        |  |  |  +--rw oc-1x:reauthenticate-interval?   uint16
+        |  |  |  +--rw oc-1x:retransmit-interval?       uint16
+        |  |  |  +--rw oc-1x:supplicant-timeout?        uint16
+        |  |  |  +--rw oc-1x:max-requests?              uint16
+        |  |  |  +--rw oc-1x:server-fail-vlan?          union
+        |  |  |  +--rw oc-1x:auth-fail-vlan?            union
+        |  |  +--ro oc-1x:state
+        |  |     +--ro oc-1x:authenticate-port?         boolean
+        |  |     +--ro oc-1x:host-mode?                 enumeration
+        |  |     +--ro oc-1x:reauthenticate-interval?   uint16
+        |  |     +--ro oc-1x:retransmit-interval?       uint16
+        |  |     +--ro oc-1x:supplicant-timeout?        uint16
+        |  |     +--ro oc-1x:max-requests?              uint16
+        |  |     +--ro oc-1x:server-fail-vlan?          union
+        |  |     +--ro oc-1x:auth-fail-vlan?            union
+        |  +--rw oc-1x:authenticated-sessions
+        |     +--ro oc-1x:authenticated-session* [mac]
+        |        +--ro oc-1x:mac      -> ../state/mac
+        |        +--ro oc-1x:state
+        |           +--ro oc-1x:mac?          oc-yang:mac-address
+        |           +--ro oc-1x:session-id?   string
+        |           +--ro oc-1x:status?       enumeration
+        +--rw oc-lag:aggregation
+        |  +--rw oc-lag:config
+        |  |  +--rw oc-lag:lag-type?    aggregation-type
+        |  |  +--rw oc-lag:min-links?   uint16
+        |  +--ro oc-lag:state
+        |  |  +--ro oc-lag:lag-type?    aggregation-type
+        |  |  +--ro oc-lag:min-links?   uint16
+        |  |  +--ro oc-lag:lag-speed?   uint32
+        |  |  +--ro oc-lag:member*      oc-if:base-interface-ref
+        |  +--rw oc-vlan:switched-vlan
+        |     +--rw oc-vlan:config
+        |     |  +--rw oc-vlan:interface-mode?   oc-vlan-types:vlan-mode-type
+        |     |  +--rw oc-vlan:native-vlan?      oc-vlan-types:vlan-id
+        |     |  +--rw oc-vlan:access-vlan?      oc-vlan-types:vlan-id
+        |     |  +--rw oc-vlan:trunk-vlans*      union
+        |     +--ro oc-vlan:state
+        |        +--ro oc-vlan:interface-mode?   oc-vlan-types:vlan-mode-type
+        |        +--ro oc-vlan:native-vlan?      oc-vlan-types:vlan-id
+        |        +--ro oc-vlan:access-vlan?      oc-vlan-types:vlan-id
+        |        +--ro oc-vlan:trunk-vlans*      union
+        +--rw oc-vlan:routed-vlan
+        |  +--rw oc-vlan:config
+        |  |  +--rw oc-vlan:vlan?   union
+        |  +--ro oc-vlan:state
+        |  |  +--ro oc-vlan:vlan?   union
+        |  +--rw oc-ip:ipv4
+        |  |  +--rw oc-ip:addresses
+        |  |  |  +--rw oc-ip:address* [ip]
+        |  |  |     +--rw oc-ip:ip        -> ../config/ip
+        |  |  |     +--rw oc-ip:config
+        |  |  |     |  +--rw oc-ip:ip?              oc-inet:ipv4-address
+        |  |  |     |  +--rw oc-ip:prefix-length?   uint8
+        |  |  |     +--ro oc-ip:state
+        |  |  |     |  +--ro oc-ip:ip?              oc-inet:ipv4-address
+        |  |  |     |  +--ro oc-ip:prefix-length?   uint8
+        |  |  |     |  +--ro oc-ip:origin?          ip-address-origin
+        |  |  |     +--rw oc-ip:vrrp
+        |  |  |        +--rw oc-ip:vrrp-group* [virtual-router-id]
+        |  |  |           +--rw oc-ip:virtual-router-id     -> ../config/virtual-router-id
+        |  |  |           +--rw oc-ip:config
+        |  |  |           |  +--rw oc-ip:virtual-router-id?        uint8
+        |  |  |           |  +--rw oc-ip:virtual-address*          oc-inet:ip-address
+        |  |  |           |  +--rw oc-ip:priority?                 uint8
+        |  |  |           |  +--rw oc-ip:preempt?                  boolean
+        |  |  |           |  +--rw oc-ip:preempt-delay?            uint16
+        |  |  |           |  +--rw oc-ip:accept-mode?              boolean
+        |  |  |           |  +--rw oc-ip:advertisement-interval?   uint16
+        |  |  |           +--ro oc-ip:state
+        |  |  |           |  +--ro oc-ip:virtual-router-id?        uint8
+        |  |  |           |  +--ro oc-ip:virtual-address*          oc-inet:ip-address
+        |  |  |           |  +--ro oc-ip:priority?                 uint8
+        |  |  |           |  +--ro oc-ip:preempt?                  boolean
+        |  |  |           |  +--ro oc-ip:preempt-delay?            uint16
+        |  |  |           |  +--ro oc-ip:accept-mode?              boolean
+        |  |  |           |  +--ro oc-ip:advertisement-interval?   uint16
+        |  |  |           |  +--ro oc-ip:current-priority?         uint8
+        |  |  |           +--rw oc-ip:interface-tracking
+        |  |  |              +--rw oc-ip:config
+        |  |  |              |  +--rw oc-ip:track-interface*      -> /oc-if:interfaces/interface/name
+        |  |  |              |  +--rw oc-ip:priority-decrement?   uint8
+        |  |  |              +--ro oc-ip:state
+        |  |  |                 +--ro oc-ip:track-interface*      -> /oc-if:interfaces/interface/name
+        |  |  |                 +--ro oc-ip:priority-decrement?   uint8
+        |  |  +--rw oc-ip:proxy-arp
+        |  |  |  +--rw oc-ip:config
+        |  |  |  |  +--rw oc-ip:mode?   enumeration
+        |  |  |  +--ro oc-ip:state
+        |  |  |     +--ro oc-ip:mode?   enumeration
+        |  |  +--rw oc-ip:neighbors
+        |  |  |  +--rw oc-ip:neighbor* [ip]
+        |  |  |     +--rw oc-ip:ip        -> ../config/ip
+        |  |  |     +--rw oc-ip:config
+        |  |  |     |  +--rw oc-ip:ip?                   oc-inet:ipv4-address
+        |  |  |     |  +--rw oc-ip:link-layer-address    oc-yang:phys-address
+        |  |  |     +--ro oc-ip:state
+        |  |  |        +--ro oc-ip:ip?                   oc-inet:ipv4-address
+        |  |  |        +--ro oc-ip:link-layer-address    oc-yang:phys-address
+        |  |  |        +--ro oc-ip:origin?               neighbor-origin
+        |  |  +--rw oc-ip:unnumbered
+        |  |  |  +--rw oc-ip:config
+        |  |  |  |  +--rw oc-ip:enabled?   boolean
+        |  |  |  +--ro oc-ip:state
+        |  |  |  |  +--ro oc-ip:enabled?   boolean
+        |  |  |  +--rw oc-ip:interface-ref
+        |  |  |     +--rw oc-ip:config
+        |  |  |     |  +--rw oc-ip:interface?      -> /oc-if:interfaces/interface/name
+        |  |  |     |  +--rw oc-ip:subinterface?   -> /oc-if:interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+        |  |  |     +--ro oc-ip:state
+        |  |  |        +--ro oc-ip:interface?      -> /oc-if:interfaces/interface/name
+        |  |  |        +--ro oc-ip:subinterface?   -> /oc-if:interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+        |  |  +--rw oc-ip:config
+        |  |  |  +--rw oc-ip:enabled?       boolean
+        |  |  |  +--rw oc-ip:mtu?           uint16
+        |  |  |  +--rw oc-ip:dhcp-client?   boolean
+        |  |  +--ro oc-ip:state
+        |  |     +--ro oc-ip:enabled?       boolean
+        |  |     +--ro oc-ip:mtu?           uint16
+        |  |     +--ro oc-ip:dhcp-client?   boolean
+        |  |     +--ro oc-ip:counters
+        |  |        +--ro oc-ip:in-pkts?                oc-yang:counter64
+        |  |        +--ro oc-ip:in-octets?              oc-yang:counter64
+        |  |        +--ro oc-ip:in-error-pkts?          oc-yang:counter64
+        |  |        +--ro oc-ip:in-forwarded-pkts?      oc-yang:counter64
+        |  |        +--ro oc-ip:in-forwarded-octets?    oc-yang:counter64
+        |  |        +--ro oc-ip:in-discarded-pkts?      oc-yang:counter64
+        |  |        +--ro oc-ip:out-pkts?               oc-yang:counter64
+        |  |        +--ro oc-ip:out-octets?             oc-yang:counter64
+        |  |        +--ro oc-ip:out-error-pkts?         oc-yang:counter64
+        |  |        +--ro oc-ip:out-forwarded-pkts?     oc-yang:counter64
+        |  |        +--ro oc-ip:out-forwarded-octets?   oc-yang:counter64
+        |  |        +--ro oc-ip:out-discarded-pkts?     oc-yang:counter64
+        |  +--rw oc-ip:ipv6
+        |     +--rw oc-ip:addresses
+        |     |  +--rw oc-ip:address* [ip]
+        |     |     +--rw oc-ip:ip        -> ../config/ip
+        |     |     +--rw oc-ip:config
+        |     |     |  +--rw oc-ip:ip?              oc-inet:ipv6-address
+        |     |     |  +--rw oc-ip:prefix-length    uint8
+        |     |     +--ro oc-ip:state
+        |     |     |  +--ro oc-ip:ip?              oc-inet:ipv6-address
+        |     |     |  +--ro oc-ip:prefix-length    uint8
+        |     |     |  +--ro oc-ip:origin?          ip-address-origin
+        |     |     |  +--ro oc-ip:status?          enumeration
+        |     |     +--rw oc-ip:vrrp
+        |     |        +--rw oc-ip:vrrp-group* [virtual-router-id]
+        |     |           +--rw oc-ip:virtual-router-id     -> ../config/virtual-router-id
+        |     |           +--rw oc-ip:config
+        |     |           |  +--rw oc-ip:virtual-router-id?        uint8
+        |     |           |  +--rw oc-ip:virtual-address*          oc-inet:ip-address
+        |     |           |  +--rw oc-ip:priority?                 uint8
+        |     |           |  +--rw oc-ip:preempt?                  boolean
+        |     |           |  +--rw oc-ip:preempt-delay?            uint16
+        |     |           |  +--rw oc-ip:accept-mode?              boolean
+        |     |           |  +--rw oc-ip:advertisement-interval?   uint16
+        |     |           |  +--rw oc-ip:virtual-link-local?       oc-inet:ip-address
+        |     |           +--ro oc-ip:state
+        |     |           |  +--ro oc-ip:virtual-router-id?        uint8
+        |     |           |  +--ro oc-ip:virtual-address*          oc-inet:ip-address
+        |     |           |  +--ro oc-ip:priority?                 uint8
+        |     |           |  +--ro oc-ip:preempt?                  boolean
+        |     |           |  +--ro oc-ip:preempt-delay?            uint16
+        |     |           |  +--ro oc-ip:accept-mode?              boolean
+        |     |           |  +--ro oc-ip:advertisement-interval?   uint16
+        |     |           |  +--ro oc-ip:current-priority?         uint8
+        |     |           |  +--ro oc-ip:virtual-link-local?       oc-inet:ip-address
+        |     |           +--rw oc-ip:interface-tracking
+        |     |              +--rw oc-ip:config
+        |     |              |  +--rw oc-ip:track-interface*      -> /oc-if:interfaces/interface/name
+        |     |              |  +--rw oc-ip:priority-decrement?   uint8
+        |     |              +--ro oc-ip:state
+        |     |                 +--ro oc-ip:track-interface*      -> /oc-if:interfaces/interface/name
+        |     |                 +--ro oc-ip:priority-decrement?   uint8
+        |     +--rw oc-ip:router-advertisement
+        |     |  +--rw oc-ip:config
+        |     |  |  +--rw oc-ip:interval?   uint32
+        |     |  |  +--rw oc-ip:lifetime?   uint32
+        |     |  |  +--rw oc-ip:suppress?   boolean
+        |     |  +--ro oc-ip:state
+        |     |     +--ro oc-ip:interval?   uint32
+        |     |     +--ro oc-ip:lifetime?   uint32
+        |     |     +--ro oc-ip:suppress?   boolean
+        |     +--rw oc-ip:neighbors
+        |     |  +--rw oc-ip:neighbor* [ip]
+        |     |     +--rw oc-ip:ip        -> ../config/ip
+        |     |     +--rw oc-ip:config
+        |     |     |  +--rw oc-ip:ip?                   oc-inet:ipv6-address
+        |     |     |  +--rw oc-ip:link-layer-address    oc-yang:phys-address
+        |     |     +--ro oc-ip:state
+        |     |        +--ro oc-ip:ip?                   oc-inet:ipv6-address
+        |     |        +--ro oc-ip:link-layer-address    oc-yang:phys-address
+        |     |        +--ro oc-ip:origin?               neighbor-origin
+        |     |        +--ro oc-ip:is-router?            boolean
+        |     |        +--ro oc-ip:neighbor-state?       enumeration
+        |     +--rw oc-ip:unnumbered
+        |     |  +--rw oc-ip:config
+        |     |  |  +--rw oc-ip:enabled?   boolean
+        |     |  +--ro oc-ip:state
+        |     |  |  +--ro oc-ip:enabled?   boolean
+        |     |  +--rw oc-ip:interface-ref
+        |     |     +--rw oc-ip:config
+        |     |     |  +--rw oc-ip:interface?      -> /oc-if:interfaces/interface/name
+        |     |     |  +--rw oc-ip:subinterface?   -> /oc-if:interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+        |     |     +--ro oc-ip:state
+        |     |        +--ro oc-ip:interface?      -> /oc-if:interfaces/interface/name
+        |     |        +--ro oc-ip:subinterface?   -> /oc-if:interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+        |     +--rw oc-ip:config
+        |     |  +--rw oc-ip:enabled?                     boolean
+        |     |  +--rw oc-ip:mtu?                         uint32
+        |     |  +--rw oc-ip:dup-addr-detect-transmits?   uint32
+        |     |  +--rw oc-ip:dhcp-client?                 boolean
+        |     +--ro oc-ip:state
+        |        +--ro oc-ip:enabled?                     boolean
+        |        +--ro oc-ip:mtu?                         uint32
+        |        +--ro oc-ip:dup-addr-detect-transmits?   uint32
+        |        +--ro oc-ip:dhcp-client?                 boolean
+        |        +--ro oc-ip:counters
+        |           +--ro oc-ip:in-pkts?                oc-yang:counter64
+        |           +--ro oc-ip:in-octets?              oc-yang:counter64
+        |           +--ro oc-ip:in-error-pkts?          oc-yang:counter64
+        |           +--ro oc-ip:in-forwarded-pkts?      oc-yang:counter64
+        |           +--ro oc-ip:in-forwarded-octets?    oc-yang:counter64
+        |           +--ro oc-ip:in-discarded-pkts?      oc-yang:counter64
+        |           +--ro oc-ip:out-pkts?               oc-yang:counter64
+        |           +--ro oc-ip:out-octets?             oc-yang:counter64
+        |           +--ro oc-ip:out-error-pkts?         oc-yang:counter64
+        |           +--ro oc-ip:out-forwarded-pkts?     oc-yang:counter64
+        |           +--ro oc-ip:out-forwarded-octets?   oc-yang:counter64
+        |           +--ro oc-ip:out-discarded-pkts?     oc-yang:counter64
+        +--rw oc-tun:tunnel
+           +--rw oc-tun:config
+           |  +--rw oc-tun:src?       oc-inet:ip-address
+           |  +--rw oc-tun:dst?       oc-inet:ip-address
+           |  +--rw oc-tun:ttl?       uint8
+           |  +--rw oc-tun:gre-key?   uint32
+           +--ro oc-tun:state
+           |  +--ro oc-tun:src?       oc-inet:ip-address
+           |  +--ro oc-tun:dst?       oc-inet:ip-address
+           |  +--ro oc-tun:ttl?       uint8
+           |  +--ro oc-tun:gre-key?   uint32
+           +--rw oc-tun:ipv4
+           |  +--rw oc-tun:addresses
+           |  |  +--rw oc-tun:address* [ip]
+           |  |     +--rw oc-tun:ip        -> ../config/ip
+           |  |     +--rw oc-tun:config
+           |  |     |  +--rw oc-tun:ip?              oc-inet:ipv4-address
+           |  |     |  +--rw oc-tun:prefix-length?   uint8
+           |  |     +--ro oc-tun:state
+           |  |        +--ro oc-tun:ip?              oc-inet:ipv4-address
+           |  |        +--ro oc-tun:prefix-length?   uint8
+           |  |        +--ro oc-tun:origin?          ip-address-origin
+           |  +--rw oc-tun:proxy-arp
+           |  |  +--rw oc-tun:config
+           |  |  |  +--rw oc-tun:mode?   enumeration
+           |  |  +--ro oc-tun:state
+           |  |     +--ro oc-tun:mode?   enumeration
+           |  +--rw oc-tun:neighbors
+           |  |  +--rw oc-tun:neighbor* [ip]
+           |  |     +--rw oc-tun:ip        -> ../config/ip
+           |  |     +--rw oc-tun:config
+           |  |     |  +--rw oc-tun:ip?                   oc-inet:ipv4-address
+           |  |     |  +--rw oc-tun:link-layer-address    oc-yang:phys-address
+           |  |     +--ro oc-tun:state
+           |  |        +--ro oc-tun:ip?                   oc-inet:ipv4-address
+           |  |        +--ro oc-tun:link-layer-address    oc-yang:phys-address
+           |  |        +--ro oc-tun:origin?               neighbor-origin
+           |  +--rw oc-tun:unnumbered
+           |  |  +--rw oc-tun:config
+           |  |  |  +--rw oc-tun:enabled?   boolean
+           |  |  +--ro oc-tun:state
+           |  |  |  +--ro oc-tun:enabled?   boolean
+           |  |  +--rw oc-tun:interface-ref
+           |  |     +--rw oc-tun:config
+           |  |     |  +--rw oc-tun:interface?      -> /oc-if:interfaces/interface/name
+           |  |     |  +--rw oc-tun:subinterface?   -> /oc-if:interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+           |  |     +--ro oc-tun:state
+           |  |        +--ro oc-tun:interface?      -> /oc-if:interfaces/interface/name
+           |  |        +--ro oc-tun:subinterface?   -> /oc-if:interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+           |  +--rw oc-tun:config
+           |  |  +--rw oc-tun:enabled?       boolean
+           |  |  +--rw oc-tun:mtu?           uint16
+           |  |  +--rw oc-tun:dhcp-client?   boolean
+           |  +--ro oc-tun:state
+           |     +--ro oc-tun:enabled?       boolean
+           |     +--ro oc-tun:mtu?           uint16
+           |     +--ro oc-tun:dhcp-client?   boolean
+           |     +--ro oc-tun:counters
+           |        +--ro oc-tun:in-pkts?                oc-yang:counter64
+           |        +--ro oc-tun:in-octets?              oc-yang:counter64
+           |        +--ro oc-tun:in-error-pkts?          oc-yang:counter64
+           |        +--ro oc-tun:in-forwarded-pkts?      oc-yang:counter64
+           |        +--ro oc-tun:in-forwarded-octets?    oc-yang:counter64
+           |        +--ro oc-tun:in-discarded-pkts?      oc-yang:counter64
+           |        +--ro oc-tun:out-pkts?               oc-yang:counter64
+           |        +--ro oc-tun:out-octets?             oc-yang:counter64
+           |        +--ro oc-tun:out-error-pkts?         oc-yang:counter64
+           |        +--ro oc-tun:out-forwarded-pkts?     oc-yang:counter64
+           |        +--ro oc-tun:out-forwarded-octets?   oc-yang:counter64
+           |        +--ro oc-tun:out-discarded-pkts?     oc-yang:counter64
+           +--rw oc-tun:ipv6
+              +--rw oc-tun:addresses
+              |  +--rw oc-tun:address* [ip]
+              |     +--rw oc-tun:ip        -> ../config/ip
+              |     +--rw oc-tun:config
+              |     |  +--rw oc-tun:ip?              oc-inet:ipv6-address
+              |     |  +--rw oc-tun:prefix-length    uint8
+              |     +--ro oc-tun:state
+              |        +--ro oc-tun:ip?              oc-inet:ipv6-address
+              |        +--ro oc-tun:prefix-length    uint8
+              |        +--ro oc-tun:origin?          ip-address-origin
+              |        +--ro oc-tun:status?          enumeration
+              +--rw oc-tun:router-advertisement
+              |  +--rw oc-tun:config
+              |  |  +--rw oc-tun:interval?   uint32
+              |  |  +--rw oc-tun:lifetime?   uint32
+              |  |  +--rw oc-tun:suppress?   boolean
+              |  +--ro oc-tun:state
+              |     +--ro oc-tun:interval?   uint32
+              |     +--ro oc-tun:lifetime?   uint32
+              |     +--ro oc-tun:suppress?   boolean
+              +--rw oc-tun:neighbors
+              |  +--rw oc-tun:neighbor* [ip]
+              |     +--rw oc-tun:ip        -> ../config/ip
+              |     +--rw oc-tun:config
+              |     |  +--rw oc-tun:ip?                   oc-inet:ipv6-address
+              |     |  +--rw oc-tun:link-layer-address    oc-yang:phys-address
+              |     +--ro oc-tun:state
+              |        +--ro oc-tun:ip?                   oc-inet:ipv6-address
+              |        +--ro oc-tun:link-layer-address    oc-yang:phys-address
+              |        +--ro oc-tun:origin?               neighbor-origin
+              |        +--ro oc-tun:is-router?            boolean
+              |        +--ro oc-tun:neighbor-state?       enumeration
+              +--rw oc-tun:unnumbered
+              |  +--rw oc-tun:config
+              |  |  +--rw oc-tun:enabled?   boolean
+              |  +--ro oc-tun:state
+              |  |  +--ro oc-tun:enabled?   boolean
+              |  +--rw oc-tun:interface-ref
+              |     +--rw oc-tun:config
+              |     |  +--rw oc-tun:interface?      -> /oc-if:interfaces/interface/name
+              |     |  +--rw oc-tun:subinterface?   -> /oc-if:interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+              |     +--ro oc-tun:state
+              |        +--ro oc-tun:interface?      -> /oc-if:interfaces/interface/name
+              |        +--ro oc-tun:subinterface?   -> /oc-if:interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+              +--rw oc-tun:config
+              |  +--rw oc-tun:enabled?                     boolean
+              |  +--rw oc-tun:mtu?                         uint32
+              |  +--rw oc-tun:dup-addr-detect-transmits?   uint32
+              |  +--rw oc-tun:dhcp-client?                 boolean
+              +--ro oc-tun:state
+                 +--ro oc-tun:enabled?                     boolean
+                 +--ro oc-tun:mtu?                         uint32
+                 +--ro oc-tun:dup-addr-detect-transmits?   uint32
+                 +--ro oc-tun:dhcp-client?                 boolean
+                 +--ro oc-tun:counters
+                    +--ro oc-tun:in-pkts?                oc-yang:counter64
+                    +--ro oc-tun:in-octets?              oc-yang:counter64
+                    +--ro oc-tun:in-error-pkts?          oc-yang:counter64
+                    +--ro oc-tun:in-forwarded-pkts?      oc-yang:counter64
+                    +--ro oc-tun:in-forwarded-octets?    oc-yang:counter64
+                    +--ro oc-tun:in-discarded-pkts?      oc-yang:counter64
+                    +--ro oc-tun:out-pkts?               oc-yang:counter64
+                    +--ro oc-tun:out-octets?             oc-yang:counter64
+                    +--ro oc-tun:out-error-pkts?         oc-yang:counter64
+                    +--ro oc-tun:out-forwarded-pkts?     oc-yang:counter64
+                    +--ro oc-tun:out-forwarded-octets?   oc-yang:counter64
+                    +--ro oc-tun:out-discarded-pkts?     oc-yang:counter64
+
+module: openconfig-messages
+  +--rw messages
+     +--rw config
+     |  +--rw severity?   oc-log:syslog-severity
+     +--ro state
+     |  +--ro severity?   oc-log:syslog-severity
+     |  +--ro message
+     |     +--ro msg?        string
+     |     +--ro priority?   uint8
+     |     +--ro app-name?   string
+     |     +--ro procid?     string
+     |     +--ro msgid?      string
+     +--rw debug-entries
+        +--rw debug-service* [service]
+           +--rw service    -> ../config/service
+           +--rw config
+           |  +--rw service?   identityref
+           |  +--rw enabled?   boolean
+           +--ro state
+              +--ro service?   identityref
+              +--ro enabled?   boolean
+
+module: openconfig-platform
+  +--rw components
+     +--rw component* [name]
+        +--rw name                  -> ../config/name
+        +--rw config
+        |  +--rw name?   string
+        +--ro state
+        |  +--ro name?                           string
+        |  +--ro type?                           union
+        |  +--ro id?                             string
+        |  +--ro location?                       string
+        |  +--ro description?                    string
+        |  +--ro mfg-name?                       string
+        |  +--ro mfg-date?                       oc-yang:date
+        |  +--ro hardware-version?               string
+        |  +--ro firmware-version?               string
+        |  +--ro software-version?               string
+        |  +--ro serial-no?                      string
+        |  +--ro part-no?                        string
+        |  +--ro removable?                      boolean
+        |  +--ro oper-status?                    identityref
+        |  +--ro empty?                          boolean
+        |  +--ro parent?                         -> ../../../component/config/name
+        |  +--ro temperature
+        |  |  +--ro instant?           decimal64
+        |  |  +--ro avg?               decimal64
+        |  |  +--ro min?               decimal64
+        |  |  +--ro max?               decimal64
+        |  |  +--ro interval?          oc-types:stat-interval
+        |  |  +--ro min-time?          oc-types:timeticks64
+        |  |  +--ro max-time?          oc-types:timeticks64
+        |  |  +--ro alarm-status?      boolean
+        |  |  +--ro alarm-threshold?   uint32
+        |  |  +--ro alarm-severity?    identityref
+        |  +--ro memory
+        |  |  +--ro available?   uint64
+        |  |  +--ro utilized?    uint64
+        |  +--ro allocated-power?                uint32
+        |  +--ro used-power?                     uint32
+        |  +--ro oc-alarms:equipment-failure?    boolean
+        |  +--ro oc-alarms:equipment-mismatch?   boolean
+        +--rw properties
+        |  +--rw property* [name]
+        |     +--rw name      -> ../config/name
+        |     +--rw config
+        |     |  +--rw name?    string
+        |     |  +--rw value?   union
+        |     +--ro state
+        |        +--ro name?           string
+        |        +--ro value?          union
+        |        +--ro configurable?   boolean
+        +--rw subcomponents
+        |  +--rw subcomponent* [name]
+        |     +--rw name      -> ../config/name
+        |     +--rw config
+        |     |  +--rw name?   -> ../../../../../component/config/name
+        |     +--ro state
+        |        +--ro name?   -> ../../../../../component/config/name
+        +--rw chassis
+        |  +--rw config
+        |  +--ro state
+        +--rw port
+        |  +--rw config
+        |  +--ro state
+        +--rw power-supply
+        |  +--rw config
+        |  +--ro state
+        +--rw fan
+        |  +--rw config
+        |  +--ro state
+        +--rw fabric
+        |  +--rw config
+        |  +--ro state
+        +--rw storage
+        |  +--rw config
+        |  +--ro state
+        +--rw cpu
+        |  +--rw config
+        |  +--ro state
+        +--rw integrated-circuit
+        |  +--rw config
+        |  +--ro state
+        +--rw backplane
+        |  +--rw config
+        |  +--ro state
+        +--rw software-module
+           +--rw config
+           +--ro state
+
+module: openconfig-system
+  +--rw system
+     +--rw config
+     |  +--rw domain-name?    oc-inet:domain-name
+     |  +--rw login-banner?   string
+     |  +--rw motd-banner?    string
+     +--ro state
+     |  +--ro domain-name?        oc-inet:domain-name
+     |  +--ro login-banner?       string
+     |  +--ro motd-banner?        string
+     |  +--ro current-datetime?   oc-yang:date-and-time
+     |  +--ro boot-time?          oc-types:timeticks64
+     +--rw clock
+     |  +--rw config
+     |  |  +--rw timezone-name?   timezone-name-type
+     |  +--ro state
+     |     +--ro timezone-name?   timezone-name-type
+     +--rw dns
+     |  +--rw config
+     |  |  +--rw search*   oc-inet:domain-name
+     |  +--ro state
+     |  |  +--ro search*   oc-inet:domain-name
+     |  +--rw servers
+     |  |  +--rw server* [address]
+     |  |     +--rw address    -> ../config/address
+     |  |     +--rw config
+     |  |     |  +--rw address?   oc-inet:ip-address
+     |  |     |  +--rw port?      oc-inet:port-number
+     |  |     +--ro state
+     |  |        +--ro address?   oc-inet:ip-address
+     |  |        +--ro port?      oc-inet:port-number
+     |  +--rw host-entries
+     |     +--rw host-entry* [hostname]
+     |        +--rw hostname    -> ../config/hostname
+     |        +--rw config
+     |        |  +--rw hostname?       string
+     |        |  +--rw alias*          string
+     |        |  +--rw ipv4-address*   oc-inet:ipv4-address
+     |        |  +--rw ipv6-address*   oc-inet:ipv6-address
+     |        +--ro state
+     |           +--ro hostname?       string
+     |           +--ro alias*          string
+     |           +--ro ipv4-address*   oc-inet:ipv4-address
+     |           +--ro ipv6-address*   oc-inet:ipv6-address
+     +--rw ntp
+     |  +--rw config
+     |  |  +--rw enabled?              boolean
+     |  |  +--rw ntp-source-address?   oc-inet:ip-address
+     |  |  +--rw enable-ntp-auth?      boolean
+     |  +--ro state
+     |  |  +--ro enabled?              boolean
+     |  |  +--ro ntp-source-address?   oc-inet:ip-address
+     |  |  +--ro enable-ntp-auth?      boolean
+     |  |  +--ro auth-mismatch?        oc-yang:counter64
+     |  +--rw ntp-keys
+     |  |  +--rw ntp-key* [key-id]
+     |  |     +--rw key-id    -> ../config/key-id
+     |  |     +--rw config
+     |  |     |  +--rw key-id?      uint16
+     |  |     |  +--rw key-type?    identityref
+     |  |     |  +--rw key-value?   string
+     |  |     +--ro state
+     |  |        +--ro key-id?      uint16
+     |  |        +--ro key-type?    identityref
+     |  |        +--ro key-value?   string
+     |  +--rw servers
+     |     +--rw server* [address]
+     |        +--rw address    -> ../config/address
+     |        +--rw config
+     |        |  +--rw address?            oc-inet:host
+     |        |  +--rw port?               oc-inet:port-number
+     |        |  +--rw version?            uint8
+     |        |  +--rw association-type?   enumeration
+     |        |  +--rw iburst?             boolean
+     |        |  +--rw prefer?             boolean
+     |        +--ro state
+     |           +--ro address?            oc-inet:host
+     |           +--ro port?               oc-inet:port-number
+     |           +--ro version?            uint8
+     |           +--ro association-type?   enumeration
+     |           +--ro iburst?             boolean
+     |           +--ro prefer?             boolean
+     |           +--ro stratum?            uint8
+     |           +--ro root-delay?         uint32
+     |           +--ro root-dispersion?    uint64
+     |           +--ro offset?             uint64
+     |           +--ro poll-interval?      uint32
+     +--rw ssh-server
+     |  +--rw config
+     |  |  +--rw enable?             boolean
+     |  |  +--rw protocol-version?   enumeration
+     |  |  +--rw timeout?            uint16
+     |  |  +--rw rate-limit?         uint16
+     |  |  +--rw session-limit?      uint16
+     |  +--ro state
+     |     +--ro enable?             boolean
+     |     +--ro protocol-version?   enumeration
+     |     +--ro timeout?            uint16
+     |     +--ro rate-limit?         uint16
+     |     +--ro session-limit?      uint16
+     +--rw telnet-server
+     |  +--rw config
+     |  |  +--rw enable?          boolean
+     |  |  +--rw timeout?         uint16
+     |  |  +--rw rate-limit?      uint16
+     |  |  +--rw session-limit?   uint16
+     |  +--ro state
+     |     +--ro enable?          boolean
+     |     +--ro timeout?         uint16
+     |     +--ro rate-limit?      uint16
+     |     +--ro session-limit?   uint16
+     +--rw logging
+     |  +--rw console
+     |  |  +--rw config
+     |  |  +--ro state
+     |  |  +--rw selectors
+     |  |     +--rw selector* [facility severity]
+     |  |        +--rw facility    -> ../config/facility
+     |  |        +--rw severity    -> ../config/severity
+     |  |        +--rw config
+     |  |        |  +--rw facility?   identityref
+     |  |        |  +--rw severity?   syslog-severity
+     |  |        +--ro state
+     |  |           +--ro facility?   identityref
+     |  |           +--ro severity?   syslog-severity
+     |  +--rw remote-servers
+     |     +--rw remote-server* [host]
+     |        +--rw host         -> ../config/host
+     |        +--rw config
+     |        |  +--rw host?             oc-inet:host
+     |        |  +--rw source-address?   oc-inet:ip-address
+     |        |  +--rw remote-port?      oc-inet:port-number
+     |        +--ro state
+     |        |  +--ro host?             oc-inet:host
+     |        |  +--ro source-address?   oc-inet:ip-address
+     |        |  +--ro remote-port?      oc-inet:port-number
+     |        +--rw selectors
+     |           +--rw selector* [facility severity]
+     |              +--rw facility    -> ../config/facility
+     |              +--rw severity    -> ../config/severity
+     |              +--rw config
+     |              |  +--rw facility?   identityref
+     |              |  +--rw severity?   syslog-severity
+     |              +--ro state
+     |                 +--ro facility?   identityref
+     |                 +--ro severity?   syslog-severity
+     +--rw aaa
+     |  +--rw config
+     |  +--ro state
+     |  +--rw authentication
+     |  |  +--rw config
+     |  |  |  +--rw authentication-method*   union
+     |  |  +--ro state
+     |  |  |  +--ro authentication-method*   union
+     |  |  +--rw admin-user
+     |  |  |  +--rw config
+     |  |  |  |  +--rw admin-password?          string
+     |  |  |  |  +--rw admin-password-hashed?   oc-aaa-types:crypt-password-type
+     |  |  |  +--ro state
+     |  |  |     +--ro admin-password?          string
+     |  |  |     +--ro admin-password-hashed?   oc-aaa-types:crypt-password-type
+     |  |  |     +--ro admin-username?          string
+     |  |  +--rw users
+     |  |     +--rw user* [username]
+     |  |        +--rw username    -> ../config/username
+     |  |        +--rw config
+     |  |        |  +--rw username?          string
+     |  |        |  +--rw password?          string
+     |  |        |  +--rw password-hashed?   oc-aaa-types:crypt-password-type
+     |  |        |  +--rw ssh-key?           string
+     |  |        |  +--rw role?              union
+     |  |        +--ro state
+     |  |           +--ro username?          string
+     |  |           +--ro password?          string
+     |  |           +--ro password-hashed?   oc-aaa-types:crypt-password-type
+     |  |           +--ro ssh-key?           string
+     |  |           +--ro role?              union
+     |  +--rw authorization
+     |  |  +--rw config
+     |  |  |  +--rw authorization-method*   union
+     |  |  +--ro state
+     |  |  |  +--ro authorization-method*   union
+     |  |  +--rw events
+     |  |     +--rw event* [event-type]
+     |  |        +--rw event-type    -> ../config/event-type
+     |  |        +--rw config
+     |  |        |  +--rw event-type?   identityref
+     |  |        +--ro state
+     |  |           +--ro event-type?   identityref
+     |  +--rw accounting
+     |  |  +--rw config
+     |  |  |  +--rw accounting-method*   union
+     |  |  +--ro state
+     |  |  |  +--ro accounting-method*   union
+     |  |  +--rw events
+     |  |     +--rw event* [event-type]
+     |  |        +--rw event-type    -> ../config/event-type
+     |  |        +--rw config
+     |  |        |  +--rw event-type?   identityref
+     |  |        |  +--rw record?       enumeration
+     |  |        +--ro state
+     |  |           +--ro event-type?   identityref
+     |  |           +--ro record?       enumeration
+     |  +--rw server-groups
+     |     +--rw server-group* [name]
+     |        +--rw name       -> ../config/name
+     |        +--rw config
+     |        |  +--rw name?   string
+     |        |  +--rw type?   identityref
+     |        +--ro state
+     |        |  +--ro name?   string
+     |        |  +--ro type?   identityref
+     |        +--rw servers
+     |           +--rw server* [address]
+     |              +--rw address    -> ../config/address
+     |              +--rw config
+     |              |  +--rw name?      string
+     |              |  +--rw address?   oc-inet:ip-address
+     |              |  +--rw timeout?   uint16
+     |              +--ro state
+     |              |  +--ro name?                  string
+     |              |  +--ro address?               oc-inet:ip-address
+     |              |  +--ro timeout?               uint16
+     |              |  +--ro connection-opens?      oc-yang:counter64
+     |              |  +--ro connection-closes?     oc-yang:counter64
+     |              |  +--ro connection-aborts?     oc-yang:counter64
+     |              |  +--ro connection-failures?   oc-yang:counter64
+     |              |  +--ro connection-timeouts?   oc-yang:counter64
+     |              |  +--ro messages-sent?         oc-yang:counter64
+     |              |  +--ro messages-received?     oc-yang:counter64
+     |              |  +--ro errors-received?       oc-yang:counter64
+     |              +--rw tacacs
+     |              |  +--rw config
+     |              |  |  +--rw port?                oc-inet:port-number
+     |              |  |  +--rw secret-key?          oc-types:routing-password
+     |              |  |  +--rw secret-key-hashed?   oc-aaa-types:crypt-password-type
+     |              |  |  +--rw source-address?      oc-inet:ip-address
+     |              |  +--ro state
+     |              |     +--ro port?                oc-inet:port-number
+     |              |     +--ro secret-key?          oc-types:routing-password
+     |              |     +--ro secret-key-hashed?   oc-aaa-types:crypt-password-type
+     |              |     +--ro source-address?      oc-inet:ip-address
+     |              +--rw radius
+     |                 +--rw config
+     |                 |  +--rw auth-port?             oc-inet:port-number
+     |                 |  +--rw acct-port?             oc-inet:port-number
+     |                 |  +--rw secret-key?            oc-types:routing-password
+     |                 |  +--rw secret-key-hashed?     oc-aaa-types:crypt-password-type
+     |                 |  +--rw source-address?        oc-inet:ip-address
+     |                 |  +--rw retransmit-attempts?   uint8
+     |                 +--ro state
+     |                    +--ro auth-port?             oc-inet:port-number
+     |                    +--ro acct-port?             oc-inet:port-number
+     |                    +--ro secret-key?            oc-types:routing-password
+     |                    +--ro secret-key-hashed?     oc-aaa-types:crypt-password-type
+     |                    +--ro source-address?        oc-inet:ip-address
+     |                    +--ro retransmit-attempts?   uint8
+     |                    +--ro counters
+     |                       +--ro retried-access-requests?   oc-yang:counter64
+     |                       +--ro access-accepts?            oc-yang:counter64
+     |                       +--ro access-rejects?            oc-yang:counter64
+     |                       +--ro timeout-access-requests?   oc-yang:counter64
+     +--rw memory
+     |  +--rw config
+     |  +--ro state
+     |     +--ro physical?   uint64
+     |     +--ro reserved?   uint64
+     +--ro cpus
+     |  +--ro cpu* [index]
+     |     +--ro index    -> ../state/index
+     |     +--ro state
+     |        +--ro index?                union
+     |        +--ro total
+     |        |  +--ro instant?    oc-types:percentage
+     |        |  +--ro avg?        oc-types:percentage
+     |        |  +--ro min?        oc-types:percentage
+     |        |  +--ro max?        oc-types:percentage
+     |        |  +--ro interval?   oc-types:stat-interval
+     |        |  +--ro min-time?   oc-types:timeticks64
+     |        |  +--ro max-time?   oc-types:timeticks64
+     |        +--ro user
+     |        |  +--ro instant?    oc-types:percentage
+     |        |  +--ro avg?        oc-types:percentage
+     |        |  +--ro min?        oc-types:percentage
+     |        |  +--ro max?        oc-types:percentage
+     |        |  +--ro interval?   oc-types:stat-interval
+     |        |  +--ro min-time?   oc-types:timeticks64
+     |        |  +--ro max-time?   oc-types:timeticks64
+     |        +--ro kernel
+     |        |  +--ro instant?    oc-types:percentage
+     |        |  +--ro avg?        oc-types:percentage
+     |        |  +--ro min?        oc-types:percentage
+     |        |  +--ro max?        oc-types:percentage
+     |        |  +--ro interval?   oc-types:stat-interval
+     |        |  +--ro min-time?   oc-types:timeticks64
+     |        |  +--ro max-time?   oc-types:timeticks64
+     |        +--ro nice
+     |        |  +--ro instant?    oc-types:percentage
+     |        |  +--ro avg?        oc-types:percentage
+     |        |  +--ro min?        oc-types:percentage
+     |        |  +--ro max?        oc-types:percentage
+     |        |  +--ro interval?   oc-types:stat-interval
+     |        |  +--ro min-time?   oc-types:timeticks64
+     |        |  +--ro max-time?   oc-types:timeticks64
+     |        +--ro idle
+     |        |  +--ro instant?    oc-types:percentage
+     |        |  +--ro avg?        oc-types:percentage
+     |        |  +--ro min?        oc-types:percentage
+     |        |  +--ro max?        oc-types:percentage
+     |        |  +--ro interval?   oc-types:stat-interval
+     |        |  +--ro min-time?   oc-types:timeticks64
+     |        |  +--ro max-time?   oc-types:timeticks64
+     |        +--ro wait
+     |        |  +--ro instant?    oc-types:percentage
+     |        |  +--ro avg?        oc-types:percentage
+     |        |  +--ro min?        oc-types:percentage
+     |        |  +--ro max?        oc-types:percentage
+     |        |  +--ro interval?   oc-types:stat-interval
+     |        |  +--ro min-time?   oc-types:timeticks64
+     |        |  +--ro max-time?   oc-types:timeticks64
+     |        +--ro hardware-interrupt
+     |        |  +--ro instant?    oc-types:percentage
+     |        |  +--ro avg?        oc-types:percentage
+     |        |  +--ro min?        oc-types:percentage
+     |        |  +--ro max?        oc-types:percentage
+     |        |  +--ro interval?   oc-types:stat-interval
+     |        |  +--ro min-time?   oc-types:timeticks64
+     |        |  +--ro max-time?   oc-types:timeticks64
+     |        +--ro software-interrupt
+     |           +--ro instant?    oc-types:percentage
+     |           +--ro avg?        oc-types:percentage
+     |           +--ro min?        oc-types:percentage
+     |           +--ro max?        oc-types:percentage
+     |           +--ro interval?   oc-types:stat-interval
+     |           +--ro min-time?   oc-types:timeticks64
+     |           +--ro max-time?   oc-types:timeticks64
+     +--rw processes
+     |  +--ro process* [pid]
+     |     +--ro pid      -> ../state/pid
+     |     +--ro state
+     |        +--ro pid?                  uint64
+     |        +--ro name?                 string
+     |        +--ro args*                 string
+     |        +--ro start-time?           oc-types:timeticks64
+     |        +--ro cpu-usage-user?       oc-yang:counter64
+     |        +--ro cpu-usage-system?     oc-yang:counter64
+     |        +--ro cpu-utilization?      oc-types:percentage
+     |        +--ro memory-usage?         uint64
+     |        +--ro memory-utilization?   oc-types:percentage
+     +--ro alarms
+     |  +--ro alarm* [id]
+     |     +--ro id        -> ../state/id
+     |     +--ro config
+     |     +--ro state
+     |        +--ro id?             string
+     |        +--ro resource?       string
+     |        +--ro text?           string
+     |        +--ro time-created?   oc-types:timeticks64
+     |        +--ro severity?       identityref
+     |        +--ro type-id?        union
+     +--rw messages
+     |  +--rw config
+     |  |  +--rw severity?   oc-log:syslog-severity
+     |  +--ro state
+     |  |  +--ro severity?   oc-log:syslog-severity
+     |  |  +--ro message
+     |  |     +--ro msg?        string
+     |  |     +--ro priority?   uint8
+     |  |     +--ro app-name?   string
+     |  |     +--ro procid?     string
+     |  |     +--ro msgid?      string
+     |  +--rw debug-entries
+     |     +--rw debug-service* [service]
+     |        +--rw service    -> ../config/service
+     |        +--rw config
+     |        |  +--rw service?   identityref
+     |        |  +--rw enabled?   boolean
+     |        +--ro state
+     |           +--ro service?   identityref
+     |           +--ro enabled?   boolean
+     +--rw license
+        +--rw licenses
+           +--rw license* [license-id]
+              +--rw license-id    -> ../config/license-id
+              +--rw config
+              |  +--rw license-id?     string
+              |  +--rw license-data?   union
+              |  +--rw active?         boolean
+              +--ro state
+                 +--ro license-id?        string
+                 +--ro license-data?      union
+                 +--ro active?            boolean
+                 +--ro description?       string
+                 +--ro issue-date?        uint64
+                 +--ro expiration-date?   uint64
+                 +--ro in-use?            boolean
+                 +--ro expired?           boolean
+                 +--ro valid?             boolean
+
+module: openconfig-wifi-mac
+  +--rw ssids
+     +--rw ssid* [name]
+        +--rw name             -> ../config/name
+        +--rw config
+        |  +--rw name?                      string
+        |  +--rw enabled?                   boolean
+        |  +--rw hidden?                    boolean
+        |  +--rw default-vlan?              oc-vlan-types:vlan-id
+        |  +--rw vlan-list*                 oc-vlan-types:vlan-id
+        |  +--rw operating-frequency?       identityref
+        |  +--rw basic-data-rates-2g*       identityref
+        |  +--rw supported-data-rates-2g*   identityref
+        |  +--rw basic-data-rates-5g*       identityref
+        |  +--rw supported-data-rates-5g*   identityref
+        |  +--rw broadcast-filter?          boolean
+        |  +--rw multicast-filter?          boolean
+        |  +--rw ipv6-ndp-filter?           boolean
+        |  +--rw ipv6-ndp-filter-timer?     uint16
+        |  +--rw station-isolation?         boolean
+        |  +--rw opmode?                    enumeration
+        |  +--rw wpa2-psk?                  string
+        |  +--rw server-group?              string
+        |  +--rw dva?                       boolean
+        |  +--rw dhcp-required?             boolean
+        |  +--rw qbss-load?                 boolean
+        |  +--rw advertise-apname?          boolean
+        |  +--rw csa?                       boolean
+        |  +--rw ptk-timeout?               uint16
+        |  +--rw gtk-timeout?               uint16
+        |  +--rw dot11k?                    boolean
+        |  +--rw okc?                       boolean
+        +--ro state
+        |  +--ro name?                      string
+        |  +--ro enabled?                   boolean
+        |  +--ro hidden?                    boolean
+        |  +--ro default-vlan?              oc-vlan-types:vlan-id
+        |  +--ro vlan-list*                 oc-vlan-types:vlan-id
+        |  +--ro operating-frequency?       identityref
+        |  +--ro basic-data-rates-2g*       identityref
+        |  +--ro supported-data-rates-2g*   identityref
+        |  +--ro basic-data-rates-5g*       identityref
+        |  +--ro supported-data-rates-5g*   identityref
+        |  +--ro broadcast-filter?          boolean
+        |  +--ro multicast-filter?          boolean
+        |  +--ro ipv6-ndp-filter?           boolean
+        |  +--ro ipv6-ndp-filter-timer?     uint16
+        |  +--ro station-isolation?         boolean
+        |  +--ro opmode?                    enumeration
+        |  +--ro wpa2-psk?                  string
+        |  +--ro server-group?              string
+        |  +--ro dva?                       boolean
+        |  +--ro dhcp-required?             boolean
+        |  +--ro qbss-load?                 boolean
+        |  +--ro advertise-apname?          boolean
+        |  +--ro csa?                       boolean
+        |  +--ro ptk-timeout?               uint16
+        |  +--ro gtk-timeout?               uint16
+        |  +--ro dot11k?                    boolean
+        |  +--ro okc?                       boolean
+        +--rw bssids
+        |  +--ro bssid* [radio-id bssid]
+        |     +--ro bssid       -> ../state/bssid
+        |     +--ro radio-id    -> ../state/radio-id
+        |     +--ro state
+        |        +--ro bssid?                    oc-yang:mac-address
+        |        +--ro radio-id?                 uint8
+        |        +--ro num-associated-clients?   uint8
+        |        +--ro counters
+        |           +--ro rx-bss-dot11-channel-utilization?   oc-types:percentage
+        |           +--ro rx-mgmt?                            oc-yang:counter64
+        |           +--ro rx-control?                         oc-yang:counter64
+        |           +--ro rx-data-dist
+        |           |  +--ro rx-0-64?             oc-yang:counter64
+        |           |  +--ro rx-65-128?           oc-yang:counter64
+        |           |  +--ro rx-129-256?          oc-yang:counter64
+        |           |  +--ro rx-257-512?          oc-yang:counter64
+        |           |  +--ro rx-513-1024?         oc-yang:counter64
+        |           |  +--ro rx-1025-2048?        oc-yang:counter64
+        |           |  +--ro rx-2049-4096?        oc-yang:counter64
+        |           |  +--ro rx-4097-8192?        oc-yang:counter64
+        |           |  +--ro rx-8193-16384?       oc-yang:counter64
+        |           |  +--ro rx-16385-32768?      oc-yang:counter64
+        |           |  +--ro rx-32769-65536?      oc-yang:counter64
+        |           |  +--ro rx-65537-131072?     oc-yang:counter64
+        |           |  +--ro rx-131073-262144?    oc-yang:counter64
+        |           |  +--ro rx-262145-524288?    oc-yang:counter64
+        |           |  +--ro rx-524289-1048576?   oc-yang:counter64
+        |           +--ro rx-data-wmm
+        |           |  +--ro vi?   oc-yang:counter64
+        |           |  +--ro vo?   oc-yang:counter64
+        |           |  +--ro be?   oc-yang:counter64
+        |           |  +--ro bk?   oc-yang:counter64
+        |           +--ro rx-mcs
+        |           |  +--ro mcs0?   oc-yang:counter64
+        |           |  +--ro mcs1?   oc-yang:counter64
+        |           |  +--ro mcs2?   oc-yang:counter64
+        |           |  +--ro mcs3?   oc-yang:counter64
+        |           |  +--ro mcs4?   oc-yang:counter64
+        |           |  +--ro mcs5?   oc-yang:counter64
+        |           |  +--ro mcs6?   oc-yang:counter64
+        |           |  +--ro mcs7?   oc-yang:counter64
+        |           |  +--ro mcs8?   oc-yang:counter64
+        |           |  +--ro mcs9?   oc-yang:counter64
+        |           +--ro rx-retries?                         oc-yang:counter64
+        |           +--ro rx-retries-data?                    oc-yang:counter64
+        |           +--ro rx-retries-subframe?                oc-yang:counter64
+        |           +--ro rx-bytes-data?                      oc-yang:counter64
+        |           +--ro tx-bss-dot11-channel-utilization?   oc-types:percentage
+        |           +--ro tx-mgmt?                            oc-yang:counter64
+        |           +--ro tx-control?                         oc-yang:counter64
+        |           +--ro tx-data-dist
+        |           |  +--ro tx-0-64?             oc-yang:counter64
+        |           |  +--ro tx-65-128?           oc-yang:counter64
+        |           |  +--ro tx-129-256?          oc-yang:counter64
+        |           |  +--ro tx-257-512?          oc-yang:counter64
+        |           |  +--ro tx-513-1024?         oc-yang:counter64
+        |           |  +--ro tx-1025-2048?        oc-yang:counter64
+        |           |  +--ro tx-2049-4096?        oc-yang:counter64
+        |           |  +--ro tx-4097-8192?        oc-yang:counter64
+        |           |  +--ro tx-8193-16384?       oc-yang:counter64
+        |           |  +--ro tx-16385-32768?      oc-yang:counter64
+        |           |  +--ro tx-32769-65536?      oc-yang:counter64
+        |           |  +--ro tx-65537-131072?     oc-yang:counter64
+        |           |  +--ro tx-131073-262144?    oc-yang:counter64
+        |           |  +--ro tx-262145-524288?    oc-yang:counter64
+        |           |  +--ro tx-524289-1048576?   oc-yang:counter64
+        |           +--ro tx-data-wmm
+        |           |  +--ro vi?   oc-yang:counter64
+        |           |  +--ro vo?   oc-yang:counter64
+        |           |  +--ro bk?   oc-yang:counter64
+        |           |  +--ro be?   oc-yang:counter64
+        |           +--ro tx-mcs
+        |           |  +--ro mcs0?   oc-yang:counter64
+        |           |  +--ro mcs1?   oc-yang:counter64
+        |           |  +--ro mcs2?   oc-yang:counter64
+        |           |  +--ro mcs3?   oc-yang:counter64
+        |           |  +--ro mcs4?   oc-yang:counter64
+        |           |  +--ro mcs5?   oc-yang:counter64
+        |           |  +--ro mcs6?   oc-yang:counter64
+        |           |  +--ro mcs7?   oc-yang:counter64
+        |           |  +--ro mcs8?   oc-yang:counter64
+        |           |  +--ro mcs9?   oc-yang:counter64
+        |           +--ro tx-retries?                         oc-yang:counter64
+        |           +--ro tx-retries-data?                    oc-yang:counter64
+        |           +--ro tx-retries-subframe?                oc-yang:counter64
+        |           +--ro tx-bytes-data?                      oc-yang:counter64
+        |           +--ro bss-channel-utilization?            oc-types:percentage
+        +--rw wmm
+        |  +--rw config
+        |  |  +--rw trust-dscp?      boolean
+        |  |  +--rw wmm-vo-remark*   uint8
+        |  |  +--rw wmm-vi-remark*   uint8
+        |  |  +--rw wmm-be-remark*   uint8
+        |  |  +--rw wmm-bk-remark*   uint8
+        |  +--ro state
+        |     +--ro trust-dscp?      boolean
+        |     +--ro wmm-vo-remark*   uint8
+        |     +--ro wmm-vi-remark*   uint8
+        |     +--ro wmm-be-remark*   uint8
+        |     +--ro wmm-bk-remark*   uint8
+        +--rw dot11r
+        |  +--rw config
+        |  |  +--rw dot11r?                 boolean
+        |  |  +--rw dot11r-domainid?        uint16
+        |  |  +--rw dot11r-method?          enumeration
+        |  |  +--rw dot11r-r1key-timeout?   uint16
+        |  +--ro state
+        |     +--ro dot11r?                 boolean
+        |     +--ro dot11r-domainid?        uint16
+        |     +--ro dot11r-method?          enumeration
+        |     +--ro dot11r-r1key-timeout?   uint16
+        +--rw dot11v
+        |  +--rw config
+        |  |  +--rw dot11v-dms?               boolean
+        |  |  +--rw dot11v-bssidle?           boolean
+        |  |  +--rw dot11v-bssidle-timeout?   uint16
+        |  |  +--rw dot11v-bsstransition?     boolean
+        |  +--ro state
+        |     +--ro dot11v-dms?               boolean
+        |     +--ro dot11v-bssidle?           boolean
+        |     +--ro dot11v-bssidle-timeout?   uint16
+        |     +--ro dot11v-bsstransition?     boolean
+        +--rw clients
+        |  +--ro client* [mac]
+        |     +--ro mac                    -> ../state/mac
+        |     +--ro state
+        |     |  +--ro mac?        oc-yang:mac-address
+        |     |  +--ro counters
+        |     |     +--ro tx-bytes?     oc-yang:counter64
+        |     |     +--ro rx-bytes?     oc-yang:counter64
+        |     |     +--ro rx-retries?   oc-yang:counter64
+        |     |     +--ro tx-retries?   oc-yang:counter64
+        |     +--ro client-rf
+        |     |  +--ro state
+        |     |     +--ro rssi?              int8
+        |     |     +--ro snr?               uint8
+        |     |     +--ro ss?                uint8
+        |     |     +--ro phy-rate?          uint16
+        |     |     +--ro connection-mode?   enumeration
+        |     |     +--ro frequency?         uint8
+        |     +--ro client-capabilities
+        |     |  +--ro state
+        |     |     +--ro client-capabilities*   identityref
+        |     |     +--ro channel-support*       uint8
+        |     +--ro dot11k-neighbors
+        |     |  +--ro state
+        |     |     +--ro neighbor-bssid?        oc-yang:mac-address
+        |     |     +--ro neighbor-channel?      uint8
+        |     |     +--ro neighbor-rssi?         int8
+        |     |     +--ro neighbor-antenna?      uint8
+        |     |     +--ro channel-load-report?   uint8
+        |     +--ro client-connection
+        |        +--ro state
+        |           +--ro client-state?       identityref
+        |           +--ro connection-time?    oc-types:timeticks64
+        |           +--ro username?           string
+        |           +--ro hostname?           string
+        |           +--ro ipv4-address*       oc-inet:ipv4-address
+        |           +--ro ipv6-addresses*     oc-inet:ipv6-address
+        |           +--ro operating-system?   string
+        +--rw dot1x-timers
+        |  +--rw config
+        |  |  +--rw max-auth-failures?   uint8
+        |  |  +--rw blacklist-time?      uint16
+        |  +--ro state
+        |     +--ro max-auth-failures?   uint8
+        |     +--ro blacklist-time?      uint16
+        +--rw band-steering
+           +--rw config
+           |  +--rw band-steering?   boolean
+           |  +--rw steering-rssi?   int8
+           +--ro state
+              +--ro band-steering?   boolean
+              +--ro steering-rssi?   int8
+
+module: openconfig-wifi-phy
+  +--rw radios
+     +--rw radio* [id operating-frequency]
+        +--rw id                     -> ../config/id
+        +--rw operating-frequency    -> ../config/operating-frequency
+        +--rw config
+        |  +--rw id?                       uint8
+        |  +--rw operating-frequency?      identityref
+        |  +--rw enabled?                  boolean
+        |  +--rw transmit-power?           int8
+        |  +--rw transmit-eirp?            uint8
+        |  +--rw channel?                  uint8
+        |  +--rw channel-width?            uint8
+        |  +--rw dca?                      boolean
+        |  +--rw allowed-channels*         oc-wifi-types:channels-type
+        |  +--rw dtp?                      boolean
+        |  +--rw dtp-min?                  int8
+        |  +--rw dtp-max?                  int8
+        |  +--rw antenna-gain?             int8
+        |  +--rw scanning?                 boolean
+        |  +--rw scanning-interval?        uint8
+        |  +--rw scanning-dwell-time?      uint16
+        |  +--rw scanning-defer-clients?   uint8
+        |  +--rw scanning-defer-traffic?   boolean
+        +--ro state
+        |  +--ro id?                             uint8
+        |  +--ro operating-frequency?            identityref
+        |  +--ro enabled?                        boolean
+        |  +--ro transmit-power?                 int8
+        |  +--ro transmit-eirp?                  uint8
+        |  +--ro channel?                        uint8
+        |  +--ro channel-width?                  uint8
+        |  +--ro dca?                            boolean
+        |  +--ro allowed-channels*               oc-wifi-types:channels-type
+        |  +--ro dtp?                            boolean
+        |  +--ro dtp-min?                        int8
+        |  +--ro dtp-max?                        int8
+        |  +--ro antenna-gain?                   int8
+        |  +--ro scanning?                       boolean
+        |  +--ro scanning-interval?              uint8
+        |  +--ro scanning-dwell-time?            uint16
+        |  +--ro scanning-defer-clients?         uint8
+        |  +--ro scanning-defer-traffic?         boolean
+        |  +--ro base-radio-mac?                 oc-yang:mac-address
+        |  +--ro allowed-regulatory-channels*    oc-wifi-types:channels-type
+        |  +--ro software-selectable?            boolean
+        |  +--ro dfs-hit-time?                   oc-types:timeticks64
+        |  +--ro supported-channels*             oc-wifi-types:channels-type
+        |  +--ro channel-change-reason?          identityref
+        |  +--ro total-channel-utilization?      oc-types:percentage
+        |  +--ro rx-dot11-channel-utilization?   oc-types:percentage
+        |  +--ro rx-noise-channel-utilization?   oc-types:percentage
+        |  +--ro tx-dot11-channel-utilization?   oc-types:percentage
+        |  +--ro counters
+        |     +--ro failed-fcs-frames?   oc-yang:counter64
+        |     +--ro noise-floor?         int8
+        +--rw neighbors
+           +--ro neighbor* [bssid]
+clixon-wifi@2021-06-22.yang:5: warning: imported module "openconfig-access-points" not used
+clixon-wifi@2021-06-22.yang:12: warning: imported module "openconfig-ap-manager" not used
+              +--ro bssid    -> ../state/bssid
+              +--ro state
+                 +--ro bssid?             oc-yang:mac-address
+                 +--ro ssid?              string
+                 +--ro rssi?              int8
+                 +--ro channel?           uint16
+                 +--ro primary-channel?   uint16
+                 +--ro last-seen?         oc-types:timeticks64
+                 +--ro opmode?            enumeration
+

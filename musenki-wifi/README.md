@@ -1,9 +1,8 @@
+# Clixon wifi openconfig build
 
-# OpenWRT WiFi Management Plugin
+Openconfig YANGs from: [openconfig-wifi](https://github.com/openconfig/public/tree/master/release/models/wifi)
 
-To make local:
-```
-./configure
-cd src
-make
-```
+* [Local host build](src)
+* [Docker container build](docker)
+
+

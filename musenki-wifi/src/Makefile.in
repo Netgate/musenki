@@ -1,7 +1,7 @@
 #
 # ***** BEGIN LICENSE BLOCK *****
 # 
-# Copyright (C) 2020-2022 Olof Hagsand and Rubicon Communications, LLC
+# Copyright (C) 2020 Olof Hagsand and Rubicon Communications, LLC
 #
 # This file is part of CLIXON
 #
@@ -42,8 +42,6 @@ datarootdir	= @datarootdir@
 localstatedir   = @localstatedir@
 libdir          = @exec_prefix@/lib
 
-APPNAME	        = wifi
-
 CC		= @CC@
 CFLAGS  	= @CFLAGS@ -fPIC 
 INSTALLFLAGS  	= @INSTALLFLAGS@ 
@@ -55,13 +53,34 @@ CPPFLAGS  	= @CPPFLAGS@ -fPIC
 YANG_INSTALLDIR  = @YANG_INSTALLDIR@
 
 # Local yang files to install
-YANGSPECS	 = clixon-wifi@2021-06-22.yang
+YANGSPECS	 = clixon-wifi@2021-06-22.yang \
+		   iana-if-type@2021-06-21.yang openconfig-aaa-radius.yang \
+		   openconfig-aaa-tacacs.yang openconfig-aaa-types.yang \
+		   openconfig-aaa.yang openconfig-access-points.yang \
+		   openconfig-alarms.yang openconfig-alarm-types.yang \
+		   openconfig-ap-interfaces.yang openconfig-ap-manager.yang \
+		   openconfig-extensions.yang openconfig-if-8021x.yang \
+		   openconfig-if-aggregate.yang openconfig-if-ethernet.yang \
+		   openconfig-if-ip.yang openconfig-if-poe.yang \
+		   openconfig-if-tunnel.yang openconfig-if-types.yang \
+		   openconfig-inet-types.yang openconfig-interfaces.yang \
+		   openconfig-license.yang openconfig-messages.yang \
+		   openconfig-platform-types.yang openconfig-platform.yang \
+		   openconfig-procmon.yang openconfig-system-logging.yang \
+		   openconfig-system-terminal.yang openconfig-system.yang \
+		   openconfig-types.yang openconfig-vlan-types.yang \
+		   openconfig-vlan.yang openconfig-wifi-mac.yang \
+		   openconfig-wifi-phy.yang openconfig-wifi-types.yang \
+		   openconfig-yang-types.yang
 
 # Example backend plugin
 # There may also be restconf/cli/netconf plugins which are not covered here, see
 # eg clixon main example
-PLUGIN       = $(APPNAME)_backend_plugin.so
-PLUGIN_SRC   = $(APPNAME)_backend_plugin.c
+PLUGIN       = wifi_backend_plugin.so
+PLUGIN_SRC   = wifi_init.c do_command.c uci_interface.c wifi_controls.c \
+	       wifi_state_data.c wifi_transaction_begin.c wifi_transaction_commit.c \
+	       wifi_transaction_end.c wifi_transaction_validate.c
+
 PLUGIN_OBJ   = $(PLUGIN_SRC:%.c=%.o)
 
 .SUFFIXES: .c .o
@@ -74,9 +93,9 @@ PLUGIN_OBJ   = $(PLUGIN_SRC:%.c=%.o)
 all: $(PLUGIN)
 
 $(PLUGIN): $(PLUGIN_OBJ)
-	$(CC) -Wall -shared $(LDFLAGS) -o $@ -lc $< -lclixon -lclixon_backend
+	$(CC) -Wall -shared $(LDFLAGS) -o $@ -lc $(PLUGIN_OBJ) -lclixon -lclixon_backend
 
-CLISPECS = $(APPNAME)_cli.cli
+CLISPECS = wifi_cli.cli
 
 clean:
 	rm -f $(PLUGIN) $(PLUGIN_OBJ)
@@ -84,24 +103,26 @@ clean:
 distclean: clean
 	rm -f Makefile *~ .depend
 
-install: $(CLISPECS) $(APPNAME).xml $(PLUGIN)
+install: $(CLISPECS) wifi.xml clixon $(PLUGIN)
 	install -d -m 0755 $(DESTDIR)$(sysconfdir)
-	install -m 0644 $(APPNAME).xml $(DESTDIR)$(sysconfdir)
-	install -d -m 0755 $(DESTDIR)$(libdir)/$(APPNAME)
-	install -d -m 0755 $(DESTDIR)$(libdir)/$(APPNAME)/clispec
-	install -d -m 0755 $(DESTDIR)$(libdir)/$(APPNAME)/backend
-	install -m 0644 $(CLISPECS) $(DESTDIR)$(libdir)/$(APPNAME)/clispec
+	install -m 0644 wifi.xml $(DESTDIR)$(sysconfdir)
+	install -d -m 0755 $(DESTDIR)$(sysconfdir)/init.d
+	install -m 0755 clixon $(DESTDIR)$(sysconfdir)/init.d/
+	install -d -m 0755 $(DESTDIR)$(libdir)/wifi
+	install -d -m 0755 $(DESTDIR)$(libdir)/wifi/clispec
+	install -d -m 0755 $(DESTDIR)$(libdir)/wifi/backend
+	install -m 0644 $(CLISPECS) $(DESTDIR)$(libdir)/wifi/clispec
 	install -d -m 0755 $(DESTDIR)$(localstatedir)
-	install -d -m 0755 $(DESTDIR)$(localstatedir)/$(APPNAME)
-	install -m 0644 startup_db $(DESTDIR)$(localstatedir)/$(APPNAME)/
+	install -d -m 0755 $(DESTDIR)$(localstatedir)/wifi
+	install -m 0644 startup_db $(DESTDIR)$(localstatedir)/wifi/
 	install -d -m 0755 $(DESTDIR)$(YANG_INSTALLDIR)
 	install -m 0644 $(YANGSPECS) $(DESTDIR)$(YANG_INSTALLDIR)
-	install -m 0644 $(INSTALLFLAGS) $(PLUGIN) $(DESTDIR)$(libdir)/$(APPNAME)/backend
+	install -m 0644 $(INSTALLFLAGS) $(PLUGIN) $(DESTDIR)$(libdir)/wifi/backend
 
 uninstall: 
-	rm -rf $(DESTDIR)$(sysconfdir)/$(APPNAME).xml
-	rm -rf $(DESTDIR)$(libdir)/$(APPNAME)
-	rm -rf $(DESTDIR)$(localstatedir)/$(APPNAME)
+	rm -rf $(DESTDIR)$(sysconfdir)/wifi.xml
+	rm -rf $(DESTDIR)$(libdir)/wifi
+	rm -rf $(DESTDIR)$(localstatedir)/wifi
 	for i in $(YANGSPEC) ; \
 	do rm $(DESTDIR)$(YANG_INSTALLDIR)/$$i; done
 
