@@ -1,6 +1,10 @@
 # musenki
 
-the feed and local repositories for musenki, the OpenWRT WiFi project
+This project adds a CLI, RESTCONF, and NETCONF to OpenWRT using [clixon](https://github.com/clicon/clixon)
+
+Contributions should use the [OpenConfig YANG models](https://www.openconfig.net/projects/models/) when available.
+If an OpenConfig model is close, please use YANG `augment`. Completely new models will be scrutinized
+and should match the OpenConfig models structure and style.
 
 Directories:
 - musenki-wifi - Wifi management plugin
