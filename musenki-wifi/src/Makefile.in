@@ -53,25 +53,7 @@ CPPFLAGS  	= @CPPFLAGS@ -fPIC
 YANG_INSTALLDIR  = @YANG_INSTALLDIR@
 
 # Local yang files to install
-YANGSPECS	 = clixon-wifi@2021-06-22.yang \
-		   iana-if-type@2021-06-21.yang openconfig-aaa-radius.yang \
-		   openconfig-aaa-tacacs.yang openconfig-aaa-types.yang \
-		   openconfig-aaa.yang openconfig-access-points.yang \
-		   openconfig-alarms.yang openconfig-alarm-types.yang \
-		   openconfig-ap-interfaces.yang openconfig-ap-manager.yang \
-		   openconfig-extensions.yang openconfig-if-8021x.yang \
-		   openconfig-if-aggregate.yang openconfig-if-ethernet.yang \
-		   openconfig-if-ip.yang openconfig-if-poe.yang \
-		   openconfig-if-tunnel.yang openconfig-if-types.yang \
-		   openconfig-inet-types.yang openconfig-interfaces.yang \
-		   openconfig-license.yang openconfig-messages.yang \
-		   openconfig-platform-types.yang openconfig-platform.yang \
-		   openconfig-procmon.yang openconfig-system-logging.yang \
-		   openconfig-system-terminal.yang openconfig-system.yang \
-		   openconfig-types.yang openconfig-vlan-types.yang \
-		   openconfig-vlan.yang openconfig-wifi-mac.yang \
-		   openconfig-wifi-phy.yang openconfig-wifi-types.yang \
-		   openconfig-yang-types.yang
+YANGSPECS	 = yang/clixon-wifi@2021-06-22.yang
 
 # Example backend plugin
 # There may also be restconf/cli/netconf plugins which are not covered here, see

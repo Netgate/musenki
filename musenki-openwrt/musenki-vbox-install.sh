@@ -82,13 +82,19 @@ VBoxManage startvm ${VMNAME} --type headless
 
 ssh-keygen -R "${IPADDR}"
 
-echo -n "Waiting for VM to boot"
-for (( i=1; i<10; i++ )); do  
+ilimit=10
+for (( i=1; i<${ilimit}; i++ )); do  
     echo -n "."
     sleep 1
-    ssh -o StrictHostKeyChecking=no root@${IPADDR} pwd > /dev/null && break
-    # XXX should have terminating condition
+    if [ $(ssh -o StrictHostKeyChecking=no root@${IPADDR} pwd > /dev/null 2>&1) ]; then
+	break 	# OK, break loop
+    fi
+    # else error, continue loop and try again
 done
+# Timeout error
+if [ ${i} -eq ${ilimit} ]; then
+    echo Error
+fi
 
 # Install musenki package
 scp -o StrictHostKeyChecking=no ${PKGPATH} root@${IPADDR}:/tmp

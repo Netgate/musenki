@@ -68,7 +68,7 @@ int uci_delete (char *path, char *id, cbuf *result)
 {
 	/* uci delete <config>[.<section>[[.<option>][=<id>]]] */
 
-	char *argv[3];
+	char *argv[4];
 	char buf[128];
 
 	if (id == NULL) {
