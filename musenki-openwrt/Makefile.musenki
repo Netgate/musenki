@@ -15,9 +15,9 @@ PKG_RELEASE:=1
 PKG_MAINTAINER:=Olof Hagsand <olof@hagsand.se>
 
 PKG_SOURCE_PROTO:=git
-PKG_SOURCE_URL:=https://gitlab.netgate.com/dcornejo/musenki.git
+PKG_SOURCE_URL:=https://github.com/Netgate/musenki
 
-PKG_HASH:=779e95880edd78f262989c4b0501b88f84b25d9d49a5e2112d5d71423cf8429c
+PKG_HASH:=6f8248d4e0a2c3a4b48c079b8f8490d8
 # Set to skip and run check FIXUP=1
 PKG_MIRROR_HASH:=skip
 
@@ -38,7 +38,8 @@ OPENCONFIG_ZIPFILE:=openconfig.zip
 define Download/openconfig
 	FILE:=master.zip
 	URL:=https://github.com/openconfig/public/archive/refs/heads
-	HASH:=925c5f26b5fd7f4651ebc10a4febe286
+	# XXX If master changes so does hash
+	HASH:=aaadb7864b696cfde2d96b837af6104d
 endef
 $(eval $(call Download,openconfig))
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Openwrt build script for musenki wifi app
-set -eu
+set -eux
 
 # Where build is made
 : ${builddir:=$(pwd)}

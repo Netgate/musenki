@@ -11,6 +11,12 @@ git clone https://github.com/openwrt/openwrt.git
 ./musenki-openwrt-build.sh
 ```
 
+As input, the script takes `TARGET`, `SUBTARGET` and `PROFILE`  corresponding to selections in openwrt `make menuconfig`. For example, x86-64-generic(default) and Raspberry PI4, respectively:
+```
+TARGET=x86 SUBTARGET=64 PROFILE=generic ./musenki-openwrt-build.sh
+TARGET=bcm27xx SUBTARGET=bcm2711 PROFILE=rpi ./musenki-openwrt-build.sh
+```
+
 Create a virtualbox, install the image and load the musenki package:
 ```
 ./musenki-vbox-install.sh
