@@ -97,6 +97,7 @@ if [ ${i} -eq ${ilimit} ]; then
 fi
 
 # Install musenki package
+# XXX What is PKGPATH?
 scp -o StrictHostKeyChecking=no ${PKGPATH} root@${IPADDR}:/tmp
 ssh -o StrictHostKeyChecking=no root@${IPADDR} opkg install "/tmp/${PKG}"
 

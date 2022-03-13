@@ -15,8 +15,11 @@
 #include <clixon/clixon_xpath.h>
 
 #include "uci_interface.h"
+#include "do_command.h"
 
 #include "wifi.h"
+
+#define WIFI_CMD "/sbin/wifi"
 
 /* Access paths for openconfig wifi data
  * Notes: 
@@ -198,8 +201,8 @@ wifi_interface(clicon_handle h,
     }
     clicon_log (LOG_NOTICE, "%s: key: '%s'", __func__, key);
 
-    if (uci_set ("wireless.default_radio0", "default_radio0", NULL) < 0)
-	goto done;
+    if (uci_set ("wireless.default_radio0", "wifi-iface", NULL) < 0)
+    	goto done;
     if (uci_set ("wireless.default_radio0.device", "radio0", NULL) < 0)
 	goto done;
     if (uci_set ("wireless.default_radio0.network", "lan", NULL) < 0)
@@ -216,6 +219,14 @@ wifi_interface(clicon_handle h,
     retval = 0;
  done:
     return retval;
+}
+
+static int
+wifi_reload(clicon_handle h)
+{
+    char *argv[] = { "wifi", "reload", NULL };
+
+    return do_command (WIFI_CMD, argv, 10, NULL);
 }
 
 int
@@ -270,8 +281,10 @@ wifi_transaction_commit(clicon_handle    h,
     /* make it official */
     if (uci_commit ("wireless", NULL) < 0)
 	goto done;
-    
-    /* XXX wifi reload? */
+
+    /* reload wifi */
+    if (wifi_reload(h) < 0)
+	goto done;
 
  ok:
     retval = 0;

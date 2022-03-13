@@ -8,7 +8,6 @@
 #include <string.h>
 #include <syslog.h>
 #include <signal.h>
-#include <sys/queue.h>
 
 #include <cligen/cligen.h>
 #include <clixon/clixon.h>
