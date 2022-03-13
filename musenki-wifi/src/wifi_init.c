@@ -7,6 +7,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <syslog.h>
+#include <signal.h>
+#include <sys/queue.h>
 
 #include <cligen/cligen.h>
 #include <clixon/clixon.h>
@@ -15,7 +17,6 @@
 #include <clixon/clixon_xpath.h>
 
 #include "uthash.h"
-#include "queue.h"
 
 #include "wifi.h"
 

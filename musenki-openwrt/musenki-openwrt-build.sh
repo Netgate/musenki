@@ -2,6 +2,12 @@
 # Openwrt build script for musenki wifi app
 set -eux
 
+# Set openwrt CONFIG_TARGET parameters according to make menuconfig
+# Default is x86-64
+: ${TARGET:=x86}
+: ${SUBTARGET:=64}
+: ${PROFILE:=generic}
+
 # Where build is made
 : ${builddir:=$(pwd)}
 test -d ${builddir} || exit -1
@@ -82,9 +88,9 @@ echo "=============="
 # Write changes to .config
 # Create this by: ./scripts/diffconfig.sh > diffconfig (after make menuconfig; make download)
 cat<<EOF > .config
-CONFIG_TARGET_x86=y
-CONFIG_TARGET_x86_64=y
-CONFIG_TARGET_x86_64_DEVICE_generic=y
+CONFIG_TARGET_${TARGET}=y
+CONFIG_TARGET_${TARGET}_${SUBTARGET}=y
+CONFIG_TARGET_${TARGET}_${SUBTARGET}_DEVICE_${PROFILE}=y
 CONFIG_OPENSSL_ENGINE=y
 CONFIG_OPENSSL_OPTIMIZE_SPEED=y
 CONFIG_OPENSSL_WITH_ASM=y

@@ -5,6 +5,7 @@
 #include <string.h>
 #include <syslog.h>
 #include <errno.h>
+#include <signal.h>
 #include <sys/utsname.h>
 
 #include <cligen/cligen.h>

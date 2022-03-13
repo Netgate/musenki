@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <syslog.h>
+#include <signal.h>
 
 #include <cligen/cligen.h>
 #include <clixon/clixon.h>
