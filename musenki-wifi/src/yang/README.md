@@ -1,3 +1,5 @@
 # YANG models specific to this plugin
 
-This pacakge depends upon common base models in musenki-models
+Musenki models based on openconfig:
+
+* `clixon-wifi@2021-06-22.yang`: Top-level customized YANG file importing relevant openconfig wifi config files

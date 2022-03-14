@@ -24,28 +24,9 @@ Create a virtualbox, install the image and load the musenki package:
 Continue or ^C to keep VM?^C
 ```
 
-(Re-)compile the musenki package:
+Re-compile the musenki package:
 ```
 	(cd openwrt; make -j1 V=s package/musenki/compile)
 ```
 
-Copy the musenki-wifi package, install and run on target (RPI4 example)
-XXX: Also copy a ready-made startup-db (more info here):
-```
-scp openwrt/bin/packages/aarch64_cortex-a72/local/musenki_HEAD-1_aarch64_cortex-a72.ipk root@pi4.hagsand.com:
-# XXX Copy correct startup (or edit config)
-scp startup_db root@pi4.hagsand.com:/usr/var/wifi/
-ssh root@pi4.hagsand.com
-opkg install ./musenki_HEAD-1_aarch64_cortex-a72.ipk
-sudo clixon_backend -s startup
-```
-
-Example run:
-```
-ssh root@192.168.1.1
-root@OpenWrt:~# clixon_backend -f /etc/clixon.xml
-root@OpenWrt:~# clixon_cli -f /etc/clixon.xml
-wifi /> set access-point ?
-  <hostname>            Access Point FQDN.                                                         
-wifi /> set access-point 
-```
+See [quickstart](../README.md#quickstart) for how to config an example musenki AP
