@@ -24,6 +24,8 @@ VDI="${sNAME}.vdi"
 VMNAME="${sNAME}"
 IMGC="${openwrtdir}/bin/targets/${TARGET}/${SUBTARGET}/${IMAGE}.gz"
 IPADDR=192.168.1.1 # Default virtualbox host
+PKG=musenki_HEAD-1_${TARGET}_${SUBTARGET}.ipk
+PKGPATH=bin/packages/${TARGET}_${SUBTARGET}/local/$PKG
 
 function usage()
 {
@@ -105,7 +107,7 @@ ssh -o StrictHostKeyChecking=no root@${IPADDR} opkg install "/tmp/${PKG}"
 cat<<EOF > ${builddir}/setup.sh
 #!/usr/bin/env sh
 set -eux
-opkg update
+opkg update || true
 opkg install shadow-useradd
 useradd -M -U clicon || true
 useradd www-data -g clicon || true
