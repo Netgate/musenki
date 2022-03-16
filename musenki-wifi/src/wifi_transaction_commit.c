@@ -160,7 +160,7 @@ wifi_interface(clicon_handle h,
     int    retval = -1;
     cxobj *cx;
     char  *ssid = NULL;
-    char  *key;
+    char  *key = NULL;
     char  *opmode = NULL;
     char  *encryption;
 
@@ -237,7 +237,7 @@ wifi_transaction_commit(clicon_handle    h,
     cxobj *xmlconfig;
     cvec *nsc;
     cxobj *cx;
-    char *hostname;
+    char *hostname = NULL;
     
     clicon_log (LOG_NOTICE, "called %s", __func__);
 

@@ -12,6 +12,9 @@ set -eux
 : ${builddir:=$(pwd)}
 test -d ${builddir} || exit -1
 
+# This is the local (created) feed dir (where the wifi application is defined)
+: ${localfeeddir=/tmp/musenkilocalfeed}
+
 # Where this script and dependent file reside
 : ${srcdir:=$(pwd)}
 test -d ${srcdir} || exit -1
@@ -25,9 +28,6 @@ test -d ${openwrtdir} || exit -1
 
 # Make -j jobs
 : ${jobs:=1}
-
-# This is the local (created) feed dir (where the wifi application is defined)
-localfeeddir=${builddir}/tmplocalfeed
 
 function usage()
 {
@@ -111,6 +111,8 @@ EOF
 # Expand to full config
 
 make defconfig
+
+# rm -rf ${localfeeddir}
 
 #make clean
 
