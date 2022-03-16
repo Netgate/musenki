@@ -20,6 +20,8 @@ git clone https://github.com/openwrt/openwrt.git
 TARGET=bcm27xx SUBTARGET=bcm2711 PROFILE=rpi ./musenki-openwrt-build.sh
 ```
 
+If you prefer a manual build, follow the [manual build instructions](musenki-openwrt/musenkilocalfeed/README.md).
+
 Flash a SD with an openwrt image:
 ```
 cd openwrt//bin/targets/bcm27xx/bcm2711
