@@ -26,7 +26,8 @@ For manual openwrt build, see [local feed description](musenkilocalfeed).
 Create a virtualbox, install the image and load the musenki package:
 ```
 ./musenki-vbox-install.sh
-...
+```
+
 Continue or ^C to keep VM?^C
 ```
 

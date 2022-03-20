@@ -17,6 +17,11 @@ Register the local feed as follows:
 
 Thereafter run `make menuconfig`, include cligen and clixon from the utility section into the image (mark with `*`) and mark musenki as a module (`M`).
 
-Finally make the image with `make`
+Install dropbear patch to enable an ssh subsystem for netconf:
+```
+cp ../patches/950-netconf-subsystem.patch ./package/network/services/dropbear/patches/
+```
+
+Finally make the image with `make V=s`
 
 

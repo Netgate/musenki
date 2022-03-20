@@ -105,12 +105,13 @@ ssh -o StrictHostKeyChecking=no root@${IPADDR} opkg install "/tmp/${PKG}"
 
 # Clixon setup things on vm
 cat<<EOF > ${builddir}/setup.sh
-#!/usr/bin/env sh
+#!/usr/bin/env ash
 set -eux
 opkg update || true
 opkg install shadow-useradd
 useradd -M -U clicon || true
 useradd www-data -g clicon || true
+/etc/init.d/clixon start
 EOF
 chmod 755 ${builddir}/setup.sh
 

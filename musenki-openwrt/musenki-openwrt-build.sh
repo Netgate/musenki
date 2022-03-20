@@ -52,23 +52,19 @@ echo "Make distclean"
 echo "=============="
 make distclean
 
-# Download cligen/clixon default feed to a locally created feed
+# Download cligen/clixon git feed and copy them to a locally created feed
 test ! -d ${localfeeddir} || rm -rf ${localfeeddir}
 test -d ${localfeeddir} || mkdir ${localfeeddir}
 
 git clone https://github.com/clicon/clixon-openwrt.git
 
-test -d ${localfeeddir}/cligen || mkdir ${localfeeddir}/cligen
-cp clixon-openwrt/clixon/cligen/Makefile ${localfeeddir}/cligen/
+cp -R clixon-openwrt/clixon/* ${localfeeddir}
 
-test -d ${localfeeddir}/clixon || mkdir ${localfeeddir}/clixon
-cp clixon-openwrt/clixon/clixon/Makefile ${localfeeddir}/clixon/
+rm -rf clixon-openwrt # remove the temporary git dir
 
 # Create local feed for wifi application
 test -d ${localfeeddir}/musenki || mkdir ${localfeeddir}/musenki
 cp ${srcdir}/Makefile.musenki ${localfeeddir}/musenki/Makefile
-
-rm -rf clixon-openwrt # remove the temporary git dir
 
 # Create feeds config pointing to: standard packages and a local feed (generated above)
 cat <<EOF > feeds.conf
@@ -82,6 +78,8 @@ echo "=============="
 ./scripts/feeds update -a
 ./scripts/feeds update local
 ./scripts/feeds install -a -p local
+
+cp ${srcdir}/patches/950-netconf-subsystem.patch ${openwrtdir}/package/network/services/dropbear/patches/
 
 # see https://openwrt.org/docs/guide-developer/toolchain/use-buildsystem#configure_using_config_diff_file
 
@@ -122,7 +120,7 @@ make download
 
 echo "Make"
 echo "===="
-make -j${jobs} # V=s # enable for debug
+make -j${jobs} V=s # enable for debug
 
 if false; then # Already compiled but may be useful for incremental builds
     echo "Compile musenki app"

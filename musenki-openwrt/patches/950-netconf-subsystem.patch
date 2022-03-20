@@ -1,0 +1,28 @@
+--- a/default_options.h
++++ b/default_options.h
+@@ -271,6 +271,10 @@ Homedir is prepended unless path begins
+ #define DROPBEAR_SFTPSERVER 1
+ #define SFTPSERVER_PATH "/usr/libexec/sftp-server"
+ 
++/* Enable netconf sub-server, the netconf server is not provided by Dropbear itself */
++#define DROPBEAR_NETCONF 1
++#define NETCONF_PATH "/usr/bin/clixon_netconf"
++
+ /* This is used by the scp binary when used as a client binary. If you're
+  * not using the Dropbear client, you'll need to change it */
+ #define DROPBEAR_PATH_SSH_PROGRAM "/usr/bin/dbclient"
+--- a/svr-chansession.c
++++ b/svr-chansession.c
+@@ -677,6 +677,12 @@ static int sessioncommand(struct Channel
+ 			}
+ 		}
+ 		if (issubsys) {
++#if DROPBEAR_NETCONF
++			if ((cmdlen == 7) && strncmp(chansess->cmd, "netconf", 7) == 0) {
++                                m_free(chansess->cmd);
++                                chansess->cmd = m_strdup(NETCONF_PATH);
++                        } else 
++#endif
+ #if DROPBEAR_SFTPSERVER
+ 			if ((cmdlen == 4) && strncmp(chansess->cmd, "sftp", 4) == 0) {
+ 				m_free(chansess->cmd);

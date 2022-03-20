@@ -24,7 +24,7 @@ If you prefer a manual build, follow the [manual build instructions](musenki-ope
 
 Flash a SD with an openwrt image:
 ```
-cd openwrt//bin/targets/bcm27xx/bcm2711
+cd openwrt/bin/targets/bcm27xx/bcm2711
 gunzip openwrt-bcm27xx-bcm2711-rpi-4-squashfs-factory.img.gz
 sudo dd if=openwrt-bcm27xx-bcm2711-rpi-4-squashfs-factory.img of=/dev/mmcblk0 bs=2M conv=fsync
 ```
@@ -36,7 +36,9 @@ cd openwrt/bin/packages/aarch64_cortex-a72/local/
 scp musenki_HEAD-1_aarch64_cortex-a72.ipk root@pi4.hagsand.com:
 ssh root@pi4.hagsand.com
 opkg install ./musenki_HEAD-1_aarch64_cortex-a72.ipk
-sudo clixon_backend -s startup
+useradd -M -U clicon
+useradd www-data -g clicon
+/etc/init.d/clixon start
 ```
 
 Configure wifi:
@@ -64,11 +66,20 @@ root@pi4:~# wifi status
 root@pi4:~# logread
 ```
 
+## Virtualbox
+
+As an alternative to flashing and running on a physical box, you can use virtualbox:
+```
+cd musenki-openwrt
+TARGET=x86 SUBTARGET=64  ./musenki-openwrt-build.sh
+./musenki-vbox-install.sh
+```
+
 ## Netconf
 
-Send local netconf command:
+Send netconf command using ssh:
 ```
-root@pi4:~# clixon_netconf -q
+ssh -s root@pi4.hagsand.com netconf
   <?xml version="1.0" encoding="UTF-8"?>
   <hello xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
      <capabilities><capability>urn:ietf:params:netconf:base:1.1</capability></capabilities>
