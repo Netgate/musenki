@@ -79,7 +79,7 @@ echo "=============="
 ./scripts/feeds update local
 ./scripts/feeds install -a -p local
 
-cp ${srcdir}/patches/950-netconf-subsystem.patch ${openwrtdir}/package/network/services/dropbear/patches/
+cp ${localfeeddir}/clixon/files/950-netconf-subsystem.patch ${openwrtdir}/package/network/services/dropbear/patches/
 
 # see https://openwrt.org/docs/guide-developer/toolchain/use-buildsystem#configure_using_config_diff_file
 
