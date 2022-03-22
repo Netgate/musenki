@@ -2,14 +2,19 @@
    <restconf xmlns="http://clicon.org/restconf">
       <enable>true</enable>
       <auth-type>none</auth-type>
+      <!--auth-type>user</auth-type-->
       <pretty>true</pretty>
       <debug>0</debug>
       <log-destination>file</log-destination>
+      <!-- Required certs -->
+      <server-key-path>/etc/ssl/private/clixon-server-key.pem</server-key-path>
+      <server-cert-path>/etc/ssl/certs/clixon-server-crt.pem</server-cert-path>
+      <server-ca-cert-path>/etc/ssl/certs/clixon-ca-crt.pem</server-ca-cert-path>
       <socket>
          <namespace>default</namespace>
 	 <address>0.0.0.0</address>
-	 <port>80</port>
-	 <ssl>false</ssl>
+	 <port>443</port>
+	 <ssl>true</ssl>
       </socket>
    </restconf>
 </config>

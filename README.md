@@ -29,12 +29,12 @@ gunzip openwrt-bcm27xx-bcm2711-rpi-4-squashfs-factory.img.gz
 sudo dd if=openwrt-bcm27xx-bcm2711-rpi-4-squashfs-factory.img of=/dev/mmcblk0 bs=2M conv=fsync
 ```
 
-Boot the RPI4, set IP addresses, etc (here target is at `root@pi4.hagsand.com`).
+Boot the RPI4, set IP addresses, etc (here target is at `root@192.168.1.1`).
 Copy the Musenki package to target, install it and start clixon:
 ```
 cd openwrt/bin/packages/aarch64_cortex-a72/local/
-scp musenki_HEAD-1_aarch64_cortex-a72.ipk root@pi4.hagsand.com:
-ssh root@pi4.hagsand.com
+scp musenki_HEAD-1_aarch64_cortex-a72.ipk root@192.168.1.1:
+ssh root@192.168.1.1
 opkg install ./musenki_HEAD-1_aarch64_cortex-a72.ipk
 useradd -M -U clicon
 useradd www-data -g clicon
@@ -79,7 +79,7 @@ TARGET=x86 SUBTARGET=64  ./musenki-openwrt-build.sh
 
 Send netconf command using ssh:
 ```
-ssh -s root@pi4.hagsand.com netconf
+ssh -s root@192.168.1.1 netconf
   <?xml version="1.0" encoding="UTF-8"?>
   <hello xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
      <capabilities><capability>urn:ietf:params:netconf:base:1.1</capability></capabilities>
@@ -89,7 +89,18 @@ ssh -s root@pi4.hagsand.com netconf
 
 ## Restconf
 
+The musenki-wifi has an example RESTCONF configuration, needs keys and certs under /etc/ssl.
+Edit the startup-db to change them.
+Example with generated certs:
+```
+scp clixon-server-key.pem root@192.168.1.1:/etc/ssl/private/
+scp clixon-server-crt.pem  root@192.168.1.1:/etc/ssl/certs/
+scp clixon-ca-crt.pem  root@192.168.1.1:/etc/ssl/certs/
+ssh root@192.168.1.1 
+root@pi4:~# service clixon restart
+```
+
 Send restconf commands using curl:
 ```
-curl -Ssik -X GET http://pi4.hagsand.com:8080/restconf/data
+curl -k -X GET https://192.168.1.1/restconf/data
 ```
