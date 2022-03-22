@@ -15,7 +15,8 @@ Directories:
 
 Build openwrt for RPI4 with clixon base and a musenki module:
 ```
-cd musenki-openwrt
+git clone https://github.com/Netgate/musenki.git
+cd musenki/musenki-openwrt
 git clone https://github.com/openwrt/openwrt.git
 TARGET=bcm27xx SUBTARGET=bcm2711 PROFILE=rpi ./musenki-openwrt-build.sh
 ```
