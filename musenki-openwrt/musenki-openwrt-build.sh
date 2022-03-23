@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
+
 # Openwrt build script for musenki wifi app
-set -eux
+set -e
+
+STARTTIME=`date`
 
 # Set openwrt CONFIG_TARGET parameters according to make menuconfig
 # Default is x86-64
@@ -26,9 +29,6 @@ test -d ${openwrtdir} || exit -1
 # Git openwrt verified tag, set TAG=HEAD for latest
 : ${TAG:=3d3d03479d5b4a976cf1320d29f4bd4937d5a4ba}
 
-# Make -j jobs
-: ${jobs:=1}
-
 function usage()
 {
     echo "usage: $0"
@@ -43,14 +43,22 @@ cd ${openwrtdir}
 
 git fetch
 
-if [ -n "${TAG}" ]; then 
+if [ -z "${NCPUS}" ]; then
+    if [ -x "/usr/bin/nproc" ]; then
+	NCPUS=`/usr/bin/nproc`
+    else
+	NCPUS=1
+    fi
+fi
+echo "Builiding with $NCPUS cores"
 
+if [ -n "${TAG}" ]; then 
     git checkout ${TAG}
 fi
 
 echo "Make distclean"
 echo "=============="
-make distclean
+make -j${NCPUS} distclean
 
 # Download cligen/clixon git feed and copy them to a locally created feed
 test ! -d ${localfeeddir} || rm -rf ${localfeeddir}
@@ -108,11 +116,7 @@ EOF
 
 # Expand to full config
 
-make defconfig
-
-# rm -rf ${localfeeddir}
-
-#make clean
+make -j${NCPUS} defconfig
 
 echo "Download"
 echo "========"
@@ -120,7 +124,7 @@ make download
 
 echo "Make"
 echo "===="
-make -j${jobs} V=s # enable for debug
+make -j${NCPUS}
 
 if false; then # Already compiled but may be useful for incremental builds
     echo "Compile musenki app"
@@ -131,7 +135,6 @@ if false; then # Already compiled but may be useful for incremental builds
     make -j1 V=s package/musenki/compile
 fi
 
-sleep 1 # ensure OK is last
-echo OK
-
-
+echo "Build started at " ${STARTTIME}
+echo -n "Build ended at "
+date
