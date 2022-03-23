@@ -19,7 +19,7 @@ Thereafter run `make menuconfig`, include cligen and clixon from the utility sec
 
 Install dropbear patch to enable an ssh subsystem for netconf:
 ```
-cp ../patches/950-netconf-subsystem.patch ./package/network/services/dropbear/patches/
+cp <dir>/clixon/files/950-netconf-subsystem.patch ./package/network/services/dropbear/patches/
 ```
 
 Finally make the image with `make V=s`
