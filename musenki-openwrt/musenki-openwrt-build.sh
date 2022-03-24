@@ -1,19 +1,22 @@
 #!/usr/bin/env bash
 
 # Openwrt build script for musenki wifi app
-set -e
+set -eu
+
+function usage()
+{
+    echo "usage: $0 <config-file>"
+    exit 255
+}
 
 if [ $# -ne 1 ]; then
     usage
     exit -1;
 fi
 
-if [ ! -r $1 ]; then
-    echo "cofiguration file not found";
-    exit -1;
-fi
-
 CONFIGFILE=$1
+
+test -f ${CONFIGFILE} || exit -1
 
 STARTTIME=`date`
 
@@ -41,16 +44,11 @@ test -d ${openwrtdir} || exit -1
 # Git openwrt verified tag, set TAG=HEAD for latest
 : ${TAG:=3d3d03479d5b4a976cf1320d29f4bd4937d5a4ba}
 
-function usage()
-{
-    echo "usage: $0 <config file>"
-    exit 255
-}
-
 cd ${openwrtdir}
 
 git fetch
 
+: ${NCPUS=}
 if [ -z "${NCPUS}" ]; then
     if [ -x "/usr/bin/nproc" ]; then
 	NCPUS=`/usr/bin/nproc`
@@ -101,7 +99,7 @@ cp ${localfeeddir}/clixon/files/950-netconf-subsystem.patch ${openwrtdir}/packag
 
 # Write changes to .config
 # Create this by: ./scripts/diffconfig.sh > diffconfig (after make menuconfig; make download)
-cp $CONFIGFILE .config
+cp ${srcdir}/$CONFIGFILE .config
 
 # Expand to full config
 make -j${NCPUS} defconfig
