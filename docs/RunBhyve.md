@@ -1,6 +1,6 @@
 # Running musenki on bhyve
 
-musenki on bhyve has tier 1 support
+musenki on bhyve is a prime target of Musenki
 
 ## determine target PCI device
 
@@ -56,20 +56,6 @@ ppt0@pci0:3:0:0:	class=0x020000 rev=0x15 hdr=0x00 vendor=0x10ec device=0x8168 su
 If you don't get this, ask for help - these instructions are empirical and have not
 been widely tested.
 
-## Modify /etc/sysctl.conf
-
-Lastly, we need to disable Intel VT-x Virtual Interrupt Delivery.
-
-Add the following line to /etc/sysctl.conf:
-```shell
-hw.vmm.vmx.use_apic_vid=0
-```
-[Note: It is not clear to me why this needs to be done or how to check it]
-
 ## TODOs
 - how to start up the VM manually?
 - configure for start at boot time
-
-
-
-

@@ -4,3 +4,4 @@ config.status
 autom4te.cache/
 musenki-openwrt/openwrt
 musenki-wifi/*/Makefile
+.idea/
