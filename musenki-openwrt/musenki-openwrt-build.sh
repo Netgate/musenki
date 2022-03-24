@@ -3,6 +3,18 @@
 # Openwrt build script for musenki wifi app
 set -e
 
+if [ $# -ne 1 ]; then
+    usage
+    exit -1;
+fi
+
+if [ ! -r $1 ]; then
+    echo "cofiguration file not found";
+    exit -1;
+fi
+
+CONFIGFILE=$1
+
 STARTTIME=`date`
 
 # Set openwrt CONFIG_TARGET parameters according to make menuconfig
@@ -31,13 +43,9 @@ test -d ${openwrtdir} || exit -1
 
 function usage()
 {
-    echo "usage: $0"
+    echo "usage: $0 <config file>"
     exit 255
 }
-
-if [ $# -ne 0 ]; then 
-    usage
-fi
 
 cd ${openwrtdir}
 
@@ -93,29 +101,9 @@ cp ${localfeeddir}/clixon/files/950-netconf-subsystem.patch ${openwrtdir}/packag
 
 # Write changes to .config
 # Create this by: ./scripts/diffconfig.sh > diffconfig (after make menuconfig; make download)
-cat<<EOF > .config
-CONFIG_TARGET_${TARGET}=y
-CONFIG_TARGET_${TARGET}_${SUBTARGET}=y
-CONFIG_TARGET_${TARGET}_${SUBTARGET}_DEVICE_${PROFILE}=y
-CONFIG_OPENSSL_ENGINE=y
-CONFIG_OPENSSL_OPTIMIZE_SPEED=y
-CONFIG_OPENSSL_WITH_ASM=y
-CONFIG_OPENSSL_WITH_CHACHA_POLY1305=y
-CONFIG_OPENSSL_WITH_CMS=y
-CONFIG_OPENSSL_WITH_DEPRECATED=y
-CONFIG_OPENSSL_WITH_ERROR_MESSAGES=y
-CONFIG_OPENSSL_WITH_PSK=y
-CONFIG_OPENSSL_WITH_SRP=y
-CONFIG_OPENSSL_WITH_TLS13=y
-CONFIG_PACKAGE_cligen=y
-CONFIG_PACKAGE_clixon=y
-CONFIG_PACKAGE_libnghttp2=y
-CONFIG_PACKAGE_libopenssl=y
-CONFIG_PACKAGE_musenki=m
-EOF
+cp $CONFIGFILE .config
 
 # Expand to full config
-
 make -j${NCPUS} defconfig
 
 echo "Download"
