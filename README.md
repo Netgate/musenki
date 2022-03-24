@@ -92,16 +92,16 @@ ssh -s root@192.168.1.1 netconf
 
 The musenki-wifi has an example RESTCONF configuration, needs keys and certs under /etc/ssl.
 Edit the startup-db to change them.
-Example with generated certs:
+Example with generated (self-signed) certs:
 ```
-scp clixon-server-key.pem root@192.168.1.1:/etc/ssl/private/
-scp clixon-server-crt.pem  root@192.168.1.1:/etc/ssl/certs/
-scp clixon-ca-crt.pem  root@192.168.1.1:/etc/ssl/certs/
+scp srv_key.pem root@192.168.1.1:/etc/ssl/private/
+scp srv_cert.pem  root@192.168.1.1:/etc/ssl/certs/
+scp ca_cert.pem  root@192.168.1.1:/etc/ssl/certs/
 ssh root@192.168.1.1 
 root@pi4:~# service clixon restart
 ```
 
 Send restconf commands using curl:
 ```
-curl -k -X GET https://192.168.1.1/restconf/data
+curl -k -X GET --key ./guest.key --cert ./guest.crt https://192.168.1.1/restconf/data
 ```

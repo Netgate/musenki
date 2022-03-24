@@ -1,20 +1,62 @@
 <config>
-   <restconf xmlns="http://clicon.org/restconf">
-      <enable>true</enable>
-      <auth-type>none</auth-type>
-      <!--auth-type>user</auth-type-->
-      <pretty>true</pretty>
-      <debug>0</debug>
-      <log-destination>file</log-destination>
-      <!-- Required certs -->
-      <server-key-path>/etc/ssl/private/clixon-server-key.pem</server-key-path>
-      <server-cert-path>/etc/ssl/certs/clixon-server-crt.pem</server-cert-path>
-      <server-ca-cert-path>/etc/ssl/certs/clixon-ca-crt.pem</server-ca-cert-path>
-      <socket>
-         <namespace>default</namespace>
-	 <address>0.0.0.0</address>
-	 <port>443</port>
-	 <ssl>true</ssl>
-      </socket>
-   </restconf>
+  <restconf xmlns="http://clicon.org/restconf">
+    <enable>true</enable>
+    <auth-type>client-certificate</auth-type>
+    <!--auth-type>user</auth-type-->
+    <pretty>true</pretty>
+    <debug>0</debug>
+    <log-destination>file</log-destination>
+    <!-- Required certs -->
+    <server-key-path>/etc/ssl/private/srv_key.pem</server-key-path>
+    <server-cert-path>/etc/ssl/certs/srv_cert.pem</server-cert-path>
+    <server-ca-cert-path>/etc/ssl/certs/ca_cert.pem</server-ca-cert-path>
+    <socket>
+      <namespace>default</namespace>
+      <address>0.0.0.0</address>
+      <port>443</port>
+      <ssl>true</ssl>
+    </socket>
+  </restconf>
+  <nacm xmlns="urn:ietf:params:xml:ns:yang:ietf-netconf-acm">
+    <enable-nacm>true</enable-nacm>
+    <read-default>permit</read-default>
+    <write-default>deny</write-default>
+    <exec-default>deny</exec-default>
+    <groups>
+      <group>
+        <name>admin</name>
+        <user-name>root</user-name>
+      </group>
+      <group>
+        <name>guest</name>
+        <user-name>guest</user-name>
+      </group>
+    </groups>
+    <rule-list>
+      <name>guest-acl</name>
+      <group>guest</group>
+      <rule>
+        <name>deny-ncm</name>
+        <module-name>*</module-name>
+        <access-operations>*</access-operations>
+        <action>deny</action>
+        <comment>
+          Do not allow guests any access to the NETCONF
+        </comment>
+      </rule>
+    </rule-list>
+    <rule-list>
+      <name>admin-acl</name>
+      <group>admin</group>
+      <rule>
+        <name>permit-all</name>
+        <module-name>*</module-name>
+        <access-operations>*</access-operations>
+        <action>permit</action>
+        <comment>
+          Allow the 'admin' group complete access to all operations and data.
+        </comment>
+      </rule>
+    </rule-list>
+  </nacm>
 </config>

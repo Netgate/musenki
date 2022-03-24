@@ -53,7 +53,7 @@ CPPFLAGS  	= @CPPFLAGS@ -fPIC
 YANG_INSTALLDIR  = @YANG_INSTALLDIR@
 
 # Local yang files to install
-YANGSPECS	 = yang/clixon-wifi@2021-06-22.yang
+YANGSPECS	 = yang/musenki-wifi@2022-03-24.yang
 
 # Example backend plugin
 # There may also be restconf/cli/netconf plugins which are not covered here, see
