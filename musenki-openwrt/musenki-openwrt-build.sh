@@ -83,6 +83,7 @@ cp ${srcdir}/Makefile.musenki ${localfeeddir}/musenki/Makefile
 # Create feeds config pointing to: standard packages and a local feed (generated above)
 cat <<EOF > feeds.conf
 src-git packages https://git.openwrt.org/feed/packages.git
+src-git routing https://git.openwrt.org/feed/routing.git
 src-link local ${localfeeddir}
 EOF
 
@@ -92,6 +93,7 @@ echo "=============="
 ./scripts/feeds update -a
 ./scripts/feeds update local
 ./scripts/feeds install -a -p local
+./scripts/feeds install -a
 
 cp ${localfeeddir}/clixon/files/950-netconf-subsystem.patch ${openwrtdir}/package/network/services/dropbear/patches/
 
