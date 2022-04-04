@@ -39,7 +39,7 @@ define Download/openconfig
 	FILE:=master.zip
 	URL:=https://github.com/openconfig/public/archive/refs/heads
         # XXX If master changes so does hash
-	HASH:=274eb05b251029d782e5104838f74a60
+	HASH:=f3029ae61cf5820bfc2d8ecfa3e64c02
 endef
 $(eval $(call Download,openconfig))
 
