@@ -36,10 +36,9 @@ include $(INCLUDE_DIR)/package.mk
 # Extra data: complete openconfig YANGs
 OPENCONFIG_ZIPFILE:=openconfig.zip
 define Download/openconfig
-	FILE:=master.zip
-	URL:=https://github.com/openconfig/public/archive/refs/heads
-        # XXX If master changes so does hash
-	HASH:=f3029ae61cf5820bfc2d8ecfa3e64c02
+        FILE:=28630070cbf209399fdd1ce697aea052aeb2fec4
+        URL:=https://api.github.com/repos/openconfig/public/zipball/
+        HASH:=58a141dbccc58c92db2935dc60f10e5670b36b01cf4ff86c5702511ff1f04edb
 endef
 $(eval $(call Download,openconfig))
 
@@ -74,7 +73,7 @@ define Build/Compile
 endef
 
 define Package/musenki/install
-	# wifi.xml needs path patch /usr/local -> /usr/
+        # wifi.xml needs path patch /usr/local -> /usr/
 	sed -i -e 's/\/usr\/local\/etc\/wifi.xml/\/etc\/wifi.xml/g' $(PKG_INSTALL_DIR)/etc/wifi.xml
 	sed -i -e 's/\/usr\/local\//\/usr\//g' $(PKG_INSTALL_DIR)/etc/wifi.xml
 	sed -i -e 's/<CLICON_SOCK_GROUP>clicon/<CLICON_SOCK_GROUP>root/g' $(PKG_INSTALL_DIR)/etc/wifi.xml
@@ -89,12 +88,12 @@ define Package/musenki/install
 	$(INSTALL_DATA) $(PKG_INSTALL_DIR)/usr/lib/wifi/backend/*.so $(1)/usr/lib/wifi/backend/
 	$(INSTALL_DIR) $(1)/usr/share/clixon
 	$(INSTALL_DATA) $(PKG_INSTALL_DIR)/usr/share/clixon/*.yang $(1)/usr/share/clixon/
-	# Cant install dir into $(1)/var/wifi
+        # Cant install dir into $(1)/var/wifi
 	$(INSTALL_DIR) $(1)/usr/var/wifi
 	$(INSTALL_DATA) $(PKG_INSTALL_DIR)/var/wifi/startup_db $(1)/usr/var/wifi/
 	$(INSTALL_DIR) $(1)/usr/share/openconfig
-	unzip $(DL_DIR)/master.zip -d $(1)/usr/share/openconfig
-	mv $(1)/usr/share/openconfig/public-master $(1)/usr/share/openconfig/public
+	unzip $(DL_DIR)/$(FILE) -d $(1)/usr/share/openconfig
+        cp -r $(1)/usr/share/openconfig/openconfig-public-* $(1)/usr/share/openconfig/public
 
 endef
 
