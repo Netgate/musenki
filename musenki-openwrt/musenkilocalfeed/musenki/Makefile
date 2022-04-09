@@ -67,30 +67,24 @@ define Build/Configure
 endef
 
 # Check out all example but build only musenki
-MAKE_PATH:=musenki-wifi/src
+MAKE_PATH:=musenki-wifi
 define Build/Compile
 	$(call Build/Compile/Default, DESTDIR="$(PKG_INSTALL_DIR)")
 endef
 
 define Package/musenki/install
-        # wifi.xml needs path patch /usr/local -> /usr/
-	sed -i -e 's/\/usr\/local\/etc\/wifi.xml/\/etc\/wifi.xml/g' $(PKG_INSTALL_DIR)/etc/wifi.xml
-	sed -i -e 's/\/usr\/local\//\/usr\//g' $(PKG_INSTALL_DIR)/etc/wifi.xml
-	sed -i -e 's/<CLICON_SOCK_GROUP>clicon/<CLICON_SOCK_GROUP>root/g' $(PKG_INSTALL_DIR)/etc/wifi.xml
-	sed -i -e 's/<CLICON_RESTCONF_USER>www-data/<CLICON_RESTCONF_USER>root/g' $(PKG_INSTALL_DIR)/etc/wifi.xml
-	sed -i -e 's/<CLICON_RESTCONF_PRIVILEGES>drop_perm/<CLICON_RESTCONF_PRIVILEGES>none/g' $(PKG_INSTALL_DIR)/etc/wifi.xml
-	sed -i -e 's/<port>80<\/port>/<port>8080<\/port>/g' $(PKG_INSTALL_DIR)/var/wifi/startup_db
+	# musenki.xml needs path patch /usr/local -> /usr/
 	$(INSTALL_DIR) $(1)/etc
-	$(INSTALL_DATA) $(PKG_INSTALL_DIR)/etc/wifi.xml $(1)/etc/clixon.xml
-	$(INSTALL_DIR) $(1)/usr/lib/wifi/clispec
-	$(INSTALL_DATA) $(PKG_INSTALL_DIR)/usr/lib/wifi/clispec/*.cli $(1)/usr/lib/wifi/clispec/
-	$(INSTALL_DIR) $(1)/usr/lib/wifi/backend
-	$(INSTALL_DATA) $(PKG_INSTALL_DIR)/usr/lib/wifi/backend/*.so $(1)/usr/lib/wifi/backend/
+	$(INSTALL_DATA) $(PKG_INSTALL_DIR)/etc/musenki.xml $(1)/etc/clixon.xml
+	$(INSTALL_DIR) $(1)/usr/lib/musenki/clispec
+	$(INSTALL_DATA) $(PKG_INSTALL_DIR)/usr/lib/musenki/clispec/*.cli $(1)/usr/lib/musenki/clispec/
+	$(INSTALL_DIR) $(1)/usr/lib/musenki/backend
+	$(INSTALL_DATA) $(PKG_INSTALL_DIR)/usr/lib/musenki/backend/*.so $(1)/usr/lib/musenki/backend/
 	$(INSTALL_DIR) $(1)/usr/share/clixon
 	$(INSTALL_DATA) $(PKG_INSTALL_DIR)/usr/share/clixon/*.yang $(1)/usr/share/clixon/
-        # Cant install dir into $(1)/var/wifi
-	$(INSTALL_DIR) $(1)/usr/var/wifi
-	$(INSTALL_DATA) $(PKG_INSTALL_DIR)/var/wifi/startup_db $(1)/usr/var/wifi/
+	# Cant install dir into $(1)/var/musenki
+	$(INSTALL_DIR) $(1)/usr/var/musenki
+	$(INSTALL_DATA) $(PKG_INSTALL_DIR)/var/musenki/startup_db $(1)/usr/var/musenki/
 	$(INSTALL_DIR) $(1)/usr/share/openconfig
 	unzip $(DL_DIR)/$(FILE) -d $(1)/usr/share/openconfig
         cp -r $(1)/usr/share/openconfig/openconfig-public-* $(1)/usr/share/openconfig/public
