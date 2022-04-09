@@ -144,5 +144,7 @@ AC_MSG_RESULT(Clixon yang files are installed in ${YANG_INSTALLDIR})
 # Dummy to disable native language support (nls) to remove warnings in buildroot
 AC_ARG_ENABLE(nls)
 
-AC_OUTPUT([musenki-wifi/src/Makefile
+AC_OUTPUT([musenki-wifi/Makefile
+           musenki-wifi/wifi/Makefile
+           musenki-wifi/system/Makefile
 ])

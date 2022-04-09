@@ -15,13 +15,11 @@
 #include <clixon/clixon_xml.h>
 #include <clixon/clixon_xpath.h>
 
-#include "uthash.h"
-
 #include "wifi.h"
 
 static clixon_plugin_api api =
 {
-     .ca_name = "wifi backend",
+     .ca_name = "musenki wifi backend",
      .ca_init = clixon_plugin_init,
 
      /* all transaction stages */

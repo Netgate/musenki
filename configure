@@ -4313,7 +4313,7 @@ if test "${enable_nls+set}" = set; then :
 fi
 
 
-ac_config_files="$ac_config_files musenki-wifi/src/Makefile"
+ac_config_files="$ac_config_files musenki-wifi/Makefile musenki-wifi/wifi/Makefile musenki-wifi/system/Makefile"
 
 cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure
@@ -5021,7 +5021,9 @@ cat >>$CONFIG_STATUS <<\_ACEOF || ac_write_fail=1
 for ac_config_target in $ac_config_targets
 do
   case $ac_config_target in
-    "musenki-wifi/src/Makefile") CONFIG_FILES="$CONFIG_FILES musenki-wifi/src/Makefile" ;;
+    "musenki-wifi/Makefile") CONFIG_FILES="$CONFIG_FILES musenki-wifi/Makefile" ;;
+    "musenki-wifi/wifi/Makefile") CONFIG_FILES="$CONFIG_FILES musenki-wifi/wifi/Makefile" ;;
+    "musenki-wifi/system/Makefile") CONFIG_FILES="$CONFIG_FILES musenki-wifi/system/Makefile" ;;
 
   *) as_fn_error $? "invalid argument: \`$ac_config_target'" "$LINENO" 5;;
   esac

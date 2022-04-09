@@ -1,7 +1,7 @@
 #
 # ***** BEGIN LICENSE BLOCK *****
 # 
-# Copyright (C) 2020 Olof Hagsand and Rubicon Communications, LLC
+# Copyright (C) 2022 Olof Hagsand and Rubicon Communications, LLC
 #
 # This file is part of CLIXON
 #
@@ -55,61 +55,62 @@ YANG_INSTALLDIR  = @YANG_INSTALLDIR@
 # Local yang files to install
 YANGSPECS	 = yang/musenki-wifi@2022-03-24.yang
 
-# Example backend plugin
-# There may also be restconf/cli/netconf plugins which are not covered here, see
-# eg clixon main example
-PLUGIN       = wifi_backend_plugin.so
-PLUGIN_SRC   = wifi_init.c do_command.c uci_interface.c wifi_controls.c \
-	       wifi_state_data.c wifi_transaction_begin.c wifi_transaction_commit.c \
-	       wifi_transaction_end.c wifi_transaction_validate.c
+CLISPECS = musenki_cli.cli
 
-PLUGIN_OBJ   = $(PLUGIN_SRC:%.c=%.o)
+XMLCONFIG = musenki.xml
+
+SUBDIRS = wifi system
 
 .SUFFIXES: .c .o
 
-# implicit rule
-.c.o:
-	$(CC) $(INCLUDES) $(CPPFLAGS) $(CFLAGS) -c $<
+.PHONY: all clean depend install $(SUBDIRS) TAGS
 
-.PHONY: all clean depend install 
-all: $(PLUGIN)
+all:	$(SUBDIRS)
 
-$(PLUGIN): $(PLUGIN_OBJ)
-	$(CC) -Wall -shared $(LDFLAGS) -o $@ -lc $(PLUGIN_OBJ) -lclixon -lclixon_backend
-
-CLISPECS = wifi_cli.cli
+$(SUBDIRS): 
+	(cd $@ && $(MAKE) $(MFLAGS) all)
 
 clean:
-	rm -f $(PLUGIN) $(PLUGIN_OBJ)
+	for i in $(SUBDIRS); \
+	do (cd $$i && $(MAKE) $(MFLAGS) $@); done; 
 
 distclean: clean
-	rm -f Makefile *~ .depend
+	rm -f TAGS Makefile *~ .depend
+	for i in $(SUBDIRS); \
+		do (cd $$i && $(MAKE) $(MFLAGS) $@); done
 
-install: $(CLISPECS) wifi.xml clixon $(PLUGIN)
+install: $(XMLCONFIG) $(CLISPECS) clixon startup_db $(YANGSPECS)
+	install -d -m 0755 $(DESTDIR)$(libdir)/musenki
+	install -d -m 0755 $(DESTDIR)$(libdir)/musenki/clispec
+	install -m 0644 $(CLISPECS) $(DESTDIR)$(libdir)/musenki/clispec
 	install -d -m 0755 $(DESTDIR)$(sysconfdir)
-	install -m 0644 wifi.xml $(DESTDIR)$(sysconfdir)
+	install -m 0644 $(XMLCONFIG) $(DESTDIR)$(sysconfdir)
 	install -d -m 0755 $(DESTDIR)$(sysconfdir)/init.d
 	install -m 0755 clixon $(DESTDIR)$(sysconfdir)/init.d/
-	install -d -m 0755 $(DESTDIR)$(libdir)/wifi
-	install -d -m 0755 $(DESTDIR)$(libdir)/wifi/clispec
-	install -d -m 0755 $(DESTDIR)$(libdir)/wifi/backend
-	install -m 0644 $(CLISPECS) $(DESTDIR)$(libdir)/wifi/clispec
 	install -d -m 0755 $(DESTDIR)$(localstatedir)
-	install -d -m 0755 $(DESTDIR)$(localstatedir)/wifi
-	install -m 0644 startup_db $(DESTDIR)$(localstatedir)/wifi/
+	install -d -m 0755 $(DESTDIR)$(localstatedir)/musenki
+	install -m 0644 startup_db $(DESTDIR)$(localstatedir)/musenki/
 	install -d -m 0755 $(DESTDIR)$(YANG_INSTALLDIR)
 	install -m 0644 $(YANGSPECS) $(DESTDIR)$(YANG_INSTALLDIR)
-	install -m 0644 $(INSTALLFLAGS) $(PLUGIN) $(DESTDIR)$(libdir)/wifi/backend
+	for i in $(SUBDIRS); \
+	do (cd $$i; $(MAKE) $(MFLAGS) $@)||exit 1; done; 
 
 uninstall: 
-	rm -rf $(DESTDIR)$(sysconfdir)/wifi.xml
-	rm -rf $(DESTDIR)$(libdir)/wifi
-	rm -rf $(DESTDIR)$(localstatedir)/wifi
+	rm -rf $(DESTDIR)$(libdir)/wifi/clispec
+	rm -rf $(DESTDIR)$(sysconfdir)/$(XMLCONFIG)
+	rm -rf $(DESTDIR)$(sysconfdir)/init.d/clixon
+	rm -rf $(DESTDIR)$(localstatedir)/musenki/startup_db
 	for i in $(YANGSPEC) ; \
 	do rm $(DESTDIR)$(YANG_INSTALLDIR)/$$i; done
+	for i in $(SUBDIRS); \
+	do (cd $$i && $(MAKE) $(MFLAGS) $@)||exit 1; done; 
 
 depend:
+	for i in $(SUBDIRS); \
+	do (cd $$i && $(MAKE) $(MFLAGS) $@); done
 	$(CC) $(DEPENDFLAGS) $(INCLUDES) $(CFLAGS) -MM $(SRC) > .depend
 
 #include .depend
 
+TAGS:
+	find $(srcdir) -name '*.[ch]' -type f | etags -

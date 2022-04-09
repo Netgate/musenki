@@ -229,6 +229,44 @@ wifi_reload(clicon_handle h)
     return do_command (WIFI_CMD, argv, 10, NULL);
 }
 
+/*! Maybe move to own subdir */
+static int
+do_system(cvec  *nsc,
+	    cxobj *xmlconfig)
+{
+    int   retval = -1;
+    char *hostname = NULL;
+    cxobj *cx;
+    char *argv[] = { "reload", NULL };
+
+    /* get hostname */
+    if ((cx = xpath_first(xmlconfig, nsc, PROV_PATH "/ap-manager:hostname")) != NULL)
+	hostname = xml_body(cx);
+    if (hostname == NULL)
+	goto ok; 	/* nothing defined, bail happy */
+
+    clicon_log (LOG_NOTICE, "%s: hostname: '%s'", __func__, hostname);
+
+    if (uci_set("system.@system[0].hostname", hostname, NULL) < 0)
+	goto done;
+
+    if ((cx = xpath_first(xmlconfig, 0, "oc-sys:system/oc-sys:aaa/oc-sys:authentication/oc-sys:users/oc-sys:user[oc-sys:username='root']/oc-sys:config/oc-sys:ssh-key")) != NULL){
+	xml_body(cx);
+	    /* XXX Append it to /etc/dropbear/authorized_keys.  */
+    }
+
+    
+    if (uci_commit ("system", NULL) < 0)
+	goto done;    
+
+    if (do_command("/etc/init.d/system", argv, 10, NULL) < 0)
+	goto done;
+ ok:
+    retval = 0;
+ done:
+    return retval;
+}
+
 int
 wifi_transaction_commit(clicon_handle    h,
 			transaction_data td)
@@ -236,34 +274,28 @@ wifi_transaction_commit(clicon_handle    h,
     int   retval = -1;
     cxobj *xmlconfig;
     cvec *nsc;
-    cxobj *cx;
-    char *hostname = NULL;
     
-    clicon_log (LOG_NOTICE, "called %s", __func__);
+    clicon_log(LOG_NOTICE, "called %s", __func__);
 
     /* XXX NEED TO FILTER OTHER COMMITS OUT */
     
-    nsc = clicon_nsctx_global_get (h);
+    nsc = clicon_nsctx_global_get(h);
     if (nsc == NULL) {
 	/* crash protection */
-	clicon_err (OE_FATAL, 0, "bad global namespace context");
+	clicon_err(OE_FATAL, 0, "bad global namespace context");
 	goto done;
     }
 
-    xmlconfig = transaction_target (td);
+    xmlconfig = transaction_target(td);
     if (xmlconfig == NULL) {
 	/* crash protection */
-	clicon_err (OE_FATAL, 0, "bad target DB pointer");
+	clicon_err(OE_FATAL, 0, "bad target DB pointer");
 	goto done;
     }
     
-    /* get hostname */
-    if ((cx = xpath_first (xmlconfig, nsc, PROV_PATH "/ap-manager:hostname")) != NULL)
-	hostname = xml_body(cx);
-    if (hostname == NULL)
-	goto ok; 	/* nothing defined, bail happy */
-    clicon_log (LOG_NOTICE, "%s: hostname: '%s'", __func__, hostname);
-    
+    if (do_system(nsc, xmlconfig) < 0)
+	goto done;
+	
     /* delete the existing configuration */
     if (uci_delete ("wireless.radio0", NULL, NULL) < 0)
 	goto done;
@@ -286,7 +318,6 @@ wifi_transaction_commit(clicon_handle    h,
     if (wifi_reload(h) < 0)
 	goto done;
 
- ok:
     retval = 0;
  done:
     return retval;

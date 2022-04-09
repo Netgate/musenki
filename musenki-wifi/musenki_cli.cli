@@ -9,17 +9,14 @@ top, cli_auto_top("datamodel");
 set @datamodel, cli_auto_set();
 merge @datamodel, cli_auto_merge();
 create @datamodel, cli_auto_create();
+shell("System command"), cli_start_shell();{
+  <source:rest>("Single shell command"), cli_start_shell();
+}
 delete("Delete a configuration item") {
       @datamodel, cli_auto_del(); 
       all("Delete whole candidate configuration"), delete_all("candidate");
 }
 
-# Alt2: top-edit mode
-# Reference generated data model
-#set @datamodel, cli_set();
-#merge @datamodel, cli_merge();
-#create @datamodel, cli_create();
-#delete("Delete a configuration item") @datamodel, cli_del();
 
 validate("Validate changes"), cli_validate();
 commit("Commit the changes"), cli_commit();

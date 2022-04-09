@@ -11,6 +11,7 @@ If an OpenConfig model is close, please use YANG `augment`. Completely new model
 be scrutinized and should match the OpenConfig models structure and style.
 
 Directories:
+- docs 
 - musenki-dhcp - DHCP management plugin
 - musenki-openwrt - Build scripts for Musenki on openwrt
 - musenki-wifi - Wifi management plugin
