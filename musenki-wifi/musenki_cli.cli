@@ -1,6 +1,6 @@
-CLICON_MODE="wifi";
+CLICON_MODE="musenki";
 #CLICON_PROMPT="%U@%H %W> ";
-CLICON_PROMPT="wifi %W> ";
+CLICON_PROMPT="musenki %W> ";
 
 # Al11: Auto edit mode
 mode @datamodel, cli_auto_edit("datamodel");

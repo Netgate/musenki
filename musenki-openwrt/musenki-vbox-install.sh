@@ -111,7 +111,6 @@ opkg update || true
 opkg install shadow-useradd
 useradd -M -U clicon || true
 useradd www-data -g clicon || true
-/etc/init.d/clixon start
 EOF
 chmod 755 ${builddir}/setup.sh
 

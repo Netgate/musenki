@@ -112,7 +112,7 @@ make download
 
 echo "Make"
 echo "===="
-make -j${NCPUS}
+make -j${NCPUS} V=s
 
 if false; then # Already compiled but may be useful for incremental builds
     echo "Compile musenki app"
