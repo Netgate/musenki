@@ -1,7 +1,7 @@
 #
 # ***** BEGIN LICENSE BLOCK *****
 # 
-# Copyright (C) 2022 Olof Hagsand and Rubicon Communications, LLC
+# Copyright (C) 2022-2023 Olof Hagsand and Rubicon Communications, LLC
 #
 # This file is part of CLIXON
 #
@@ -83,8 +83,10 @@ install: $(XMLCONFIG) $(CLISPECS) clixon startup_db $(YANGSPECS)
 	install -d -m 0755 $(DESTDIR)$(libdir)/musenki
 	install -d -m 0755 $(DESTDIR)$(libdir)/musenki/clispec
 	install -m 0644 $(CLISPECS) $(DESTDIR)$(libdir)/musenki/clispec
-	install -d -m 0755 $(DESTDIR)$(sysconfdir)
-	install -m 0644 $(XMLCONFIG) $(DESTDIR)$(sysconfdir)
+	install -d -m 0755 $(DESTDIR)$(sysconfdir)/clixon
+	install -d -m 0755 $(DESTDIR)$(sysconfdir)/clixon/musenki
+	install -m 0644 $(XMLCONFIG) $(DESTDIR)$(sysconfdir)/clixon
+	install -m 0644 autocli.xml $(DESTDIR)$(sysconfdir)/clixon/musenki
 	install -d -m 0755 $(DESTDIR)$(sysconfdir)/init.d
 	install -m 0755 clixon $(DESTDIR)$(sysconfdir)/init.d/
 	install -d -m 0755 $(DESTDIR)$(localstatedir)
@@ -97,7 +99,8 @@ install: $(XMLCONFIG) $(CLISPECS) clixon startup_db $(YANGSPECS)
 
 uninstall: 
 	rm -rf $(DESTDIR)$(libdir)/wifi/clispec
-	rm -rf $(DESTDIR)$(sysconfdir)/$(XMLCONFIG)
+	rm -f $(DESTDIR)$(sysconfdir)/clixon/$(XMLCONFIG)
+	rm -rf $(DESTDIR)$(sysconfdir)/clixon/musenki
 	rm -rf $(DESTDIR)$(sysconfdir)/init.d/clixon
 	rm -rf $(DESTDIR)$(localstatedir)/musenki/startup_db
 	for i in $(YANGSPEC) ; \
