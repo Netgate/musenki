@@ -648,6 +648,12 @@ ac_subst_vars='LTLIBOBJS
 LIBOBJS
 YANG_INSTALLDIR
 CPP
+SBINDIR
+LOCALSTATEDIR
+LIBEXECDIR
+LIBDIR
+DATADIR
+SYSCONFDIR
 SH_SUFFIX
 INSTALLFLAGS
 INSTALL
@@ -3677,6 +3683,13 @@ test -z "$INSTALL_DATA" && INSTALL_DATA='${INSTALL} -m 644'
 
 
 
+# Used in expansion in, e.g., musenki-wifi/musenki.xml.in
+
+
+
+
+
+
 
 #
 ac_ext=c
@@ -4782,6 +4795,16 @@ then :
 fi
 
 
+# Expand for easy replacement in musenki-wifi/musenki.xml.in
+# Special case is $libdir, which is composed from $exec_prefix
+test "x$prefix" = xNONE && prefix=$ac_default_prefix
+SYSCONFDIR=`eval echo $sysconfdir`
+DATADIR=`eval echo \`eval echo $datadir\``
+LIBDIR=`eval echo $libdir`
+LIBEXECDIR=`eval echo $libexecdir`
+LOCALSTATEDIR=`eval echo $localstatedir`
+SBINDIR=`eval echo $sbindir`
+
 cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure
 # tests run on this system so they can be shared between configure
@@ -5505,6 +5528,6 @@ if test -n "$ac_unrecognized_opts" && test "$enable_option_checking" != no; then
 printf "%s\n" "$as_me: WARNING: unrecognized options: $ac_unrecognized_opts" >&2;}
 fi
 
-ac_config_files="$ac_config_files musenki-wifi/Makefile musenki-wifi/wifi/Makefile musenki-wifi/system/Makefile"
+ac_config_files="$ac_config_files musenki-wifi/Makefile musenki-wifi/musenki.xml musenki-wifi/wifi/Makefile musenki-wifi/system/Makefile"
 
 

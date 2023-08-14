@@ -1,7 +1,7 @@
 #
 # ***** BEGIN LICENSE BLOCK *****
 # 
-# Copyright (C) 2020-2022 Olof Hagsand and Rubicon Communications, LLC
+# Copyright (C) 2020-2023 Olof Hagsand and Rubicon Communications, LLC
 #
 # This file is part of CLIXON
 #
@@ -74,6 +74,13 @@ AC_SUBST(INSTALL_PROGRAM)
 AC_SUBST(INSTALLFLAGS)
 AC_SUBST(LIBS)
 AC_SUBST(SH_SUFFIX)
+# Used in expansion in, e.g., musenki-wifi/musenki.xml.in
+AC_SUBST(SYSCONFDIR)
+AC_SUBST(DATADIR)
+AC_SUBST(LIBDIR)
+AC_SUBST(LIBEXECDIR)
+AC_SUBST(LOCALSTATEDIR)
+AC_SUBST(SBINDIR)
 
 #
 AC_PROG_CC()
@@ -144,9 +151,20 @@ AC_MSG_RESULT(Clixon yang files are installed in ${YANG_INSTALLDIR})
 # Dummy to disable native language support (nls) to remove warnings in buildroot
 AC_ARG_ENABLE(nls)
 
+# Expand for easy replacement in musenki-wifi/musenki.xml.in
+# Special case is $libdir, which is composed from $exec_prefix
+test "x$prefix" = xNONE && prefix=$ac_default_prefix
+SYSCONFDIR=`eval echo $sysconfdir`
+DATADIR=`eval echo \`eval echo $datadir\``
+LIBDIR=`eval echo $libdir`
+LIBEXECDIR=`eval echo $libexecdir`
+LOCALSTATEDIR=`eval echo $localstatedir`
+SBINDIR=`eval echo $sbindir`
+
 AC_OUTPUT()
 AC_CONFIG_FILES([
            musenki-wifi/Makefile
+           musenki-wifi/musenki.xml
            musenki-wifi/wifi/Makefile
            musenki-wifi/system/Makefile
 ])
