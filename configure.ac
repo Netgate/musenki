@@ -1,7 +1,7 @@
 #
 # ***** BEGIN LICENSE BLOCK *****
 # 
-# Copyright (C) 2020-2022 Olof Hagsand and Rubicon Communications, LLC
+# Copyright (C) 2020-2023 Olof Hagsand and Rubicon Communications, LLC
 #
 # This file is part of CLIXON
 #
@@ -36,7 +36,7 @@
 # in the directory containing this script.
 #
 
-AC_INIT(musenki-wifi/src/wifi.xml, 0.1)
+AC_INIT([musenki], [0.1])
 
 # Default CFLAGS and INSTALLFLAGS unless set by environment
 : ${CFLAGS="-O2 -Wall"}
@@ -74,6 +74,13 @@ AC_SUBST(INSTALL_PROGRAM)
 AC_SUBST(INSTALLFLAGS)
 AC_SUBST(LIBS)
 AC_SUBST(SH_SUFFIX)
+# Used in expansion in, e.g., musenki-wifi/musenki.xml.in
+AC_SUBST(SYSCONFDIR)
+AC_SUBST(DATADIR)
+AC_SUBST(LIBDIR)
+AC_SUBST(LIBEXECDIR)
+AC_SUBST(LOCALSTATEDIR)
+AC_SUBST(SBINDIR)
 
 #
 AC_PROG_CC()
@@ -124,6 +131,25 @@ if test "${with_clixon}"; then
   test -d "$with_clixon" && CLIXON_PREFIX="$with_clixon"
 fi
 
+# who we run as
+CLICON_USER="clicon"
+AC_ARG_WITH([clicon-user], [AS_HELP_STRING([--with-clicon-user=user], [Run as this user in configuration files])], [
+  CLICON_USER="$withval"
+])
+AC_SUBST(CLICON_USER)
+if test -n "${CLICON_USER}"; then
+    echo "Using CLICON_USER here: ${CLICON_USER}"
+fi
+
+CLICON_GROUP="clicon"
+AC_ARG_WITH([clicon-group], [AS_HELP_STRING([--with-clicon-group=group], [Run as this group in configuration files])], [
+  CLICON_GROUP="$withval"
+])
+AC_SUBST(CLICON_GROUP)
+if test -n "${CLICON_GROUP}"; then
+    echo "Using CLICON_GROUP here: ${CLICON_GROUP}"
+fi
+
 AC_CHECK_HEADERS(cligen/cligen.h,, AC_MSG_ERROR(cligen missing. Try: git clone https://github.com/olofhagsand/cligen.git))
 
 AC_CHECK_LIB(cligen, cligen_init,, AC_MSG_ERROR([CLIgen missing. Try: git clone https://github.com/olofhagsand/cligen.git]))
@@ -144,7 +170,20 @@ AC_MSG_RESULT(Clixon yang files are installed in ${YANG_INSTALLDIR})
 # Dummy to disable native language support (nls) to remove warnings in buildroot
 AC_ARG_ENABLE(nls)
 
-AC_OUTPUT([musenki-wifi/Makefile
+# Expand for easy replacement in musenki-wifi/musenki.xml.in
+# Special case is $libdir, which is composed from $exec_prefix
+test "x$prefix" = xNONE && prefix=$ac_default_prefix
+SYSCONFDIR=`eval echo $sysconfdir`
+DATADIR=`eval echo \`eval echo $datadir\``
+LIBDIR=`eval echo $libdir`
+LIBEXECDIR=`eval echo $libexecdir`
+LOCALSTATEDIR=`eval echo $localstatedir`
+SBINDIR=`eval echo $sbindir`
+
+AC_OUTPUT()
+AC_CONFIG_FILES([
+           musenki-wifi/Makefile
+           musenki-wifi/musenki.xml
            musenki-wifi/wifi/Makefile
            musenki-wifi/system/Makefile
 ])
