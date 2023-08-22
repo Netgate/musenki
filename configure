@@ -4843,7 +4843,7 @@ LIBEXECDIR=`eval echo $libexecdir`
 LOCALSTATEDIR=`eval echo $localstatedir`
 SBINDIR=`eval echo $sbindir`
 
-ac_config_files="$ac_config_files musenki-wifi/Makefile musenki-wifi/musenki.xml musenki-wifi/wifi/Makefile musenki-wifi/system/Makefile"
+ac_config_files="$ac_config_files musenki-wifi/Makefile musenki-wifi/musenki.xml musenki-wifi/autocli.xml musenki-wifi/restconf.xml musenki-wifi/nacm.xml musenki-wifi/wifi/Makefile musenki-wifi/system/Makefile"
 
 cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure
@@ -5548,6 +5548,9 @@ do
   case $ac_config_target in
     "musenki-wifi/Makefile") CONFIG_FILES="$CONFIG_FILES musenki-wifi/Makefile" ;;
     "musenki-wifi/musenki.xml") CONFIG_FILES="$CONFIG_FILES musenki-wifi/musenki.xml" ;;
+    "musenki-wifi/autocli.xml") CONFIG_FILES="$CONFIG_FILES musenki-wifi/autocli.xml" ;;
+    "musenki-wifi/restconf.xml") CONFIG_FILES="$CONFIG_FILES musenki-wifi/restconf.xml" ;;
+    "musenki-wifi/nacm.xml") CONFIG_FILES="$CONFIG_FILES musenki-wifi/nacm.xml" ;;
     "musenki-wifi/wifi/Makefile") CONFIG_FILES="$CONFIG_FILES musenki-wifi/wifi/Makefile" ;;
     "musenki-wifi/system/Makefile") CONFIG_FILES="$CONFIG_FILES musenki-wifi/system/Makefile" ;;
 

@@ -55,9 +55,11 @@ YANG_INSTALLDIR  = @YANG_INSTALLDIR@
 # Local yang files to install
 YANGSPECS	 = yang/musenki-wifi@2022-03-24.yang
 
-CLISPECS = musenki_cli.cli
+APPNAME = musenki
+CLISPECS = $(APPNAME)_cli.cli
 
-XMLCONFIG = musenki.xml
+XMLCONFIG = $(APPNAME).xml
+SUBCONFIGS = $(filter-out $(XMLCONFIG),$(wildcard *.xml))
 
 SUBDIRS = wifi system
 
@@ -79,17 +81,16 @@ distclean: clean
 	for i in $(SUBDIRS); \
 		do (cd $$i && $(MAKE) $(MFLAGS) $@); done
 
-install: $(XMLCONFIG) $(CLISPECS) startup_db $(YANGSPECS)
-	install -d -m 0755 $(DESTDIR)$(libdir)/musenki
-	install -d -m 0755 $(DESTDIR)$(libdir)/musenki/clispec
-	install -m 0644 $(CLISPECS) $(DESTDIR)$(libdir)/musenki/clispec
+install: $(XMLCONFIG) $(SUBCONFIGS) $(CLISPECS) $(YANGSPECS)
+	install -d -m 0755 $(DESTDIR)$(libdir)/$(APPNAME)
+	install -d -m 0755 $(DESTDIR)$(libdir)/$(APPNAME)/clispec
+	install -m 0644 $(CLISPECS) $(DESTDIR)$(libdir)/$(APPNAME)/clispec
 	install -d -m 0755 $(DESTDIR)$(sysconfdir)/clixon
-	install -d -m 0755 $(DESTDIR)$(sysconfdir)/clixon/musenki
+	install -d -m 0755 $(DESTDIR)$(sysconfdir)/clixon/$(APPNAME)
 	install -m 0644 $(XMLCONFIG) $(DESTDIR)$(sysconfdir)/clixon
-	install -m 0644 autocli.xml $(DESTDIR)$(sysconfdir)/clixon/musenki
+	install -m 0644 $(SUBCONFIGS) $(DESTDIR)$(sysconfdir)/clixon/$(APPNAME)
 	install -d -m 0755 $(DESTDIR)$(localstatedir)
-	install -d -m 0755 $(DESTDIR)$(localstatedir)/musenki
-	install -m 0644 startup_db $(DESTDIR)$(localstatedir)/musenki/
+	install -d -m 0755 $(DESTDIR)$(localstatedir)/$(APPNAME)
 	install -d -m 0755 $(DESTDIR)$(YANG_INSTALLDIR)
 	install -m 0644 $(YANGSPECS) $(DESTDIR)$(YANG_INSTALLDIR)
 	for i in $(SUBDIRS); \
@@ -98,8 +99,7 @@ install: $(XMLCONFIG) $(CLISPECS) startup_db $(YANGSPECS)
 uninstall: 
 	rm -rf $(DESTDIR)$(libdir)/wifi/clispec
 	rm -f $(DESTDIR)$(sysconfdir)/clixon/$(XMLCONFIG)
-	rm -rf $(DESTDIR)$(sysconfdir)/clixon/musenki
-	rm -rf $(DESTDIR)$(localstatedir)/musenki/startup_db
+	rm -rf $(DESTDIR)$(sysconfdir)/clixon/$(APPNAME)
 	for i in $(YANGSPEC) ; \
 	do rm $(DESTDIR)$(YANG_INSTALLDIR)/$$i; done
 	for i in $(SUBDIRS); \

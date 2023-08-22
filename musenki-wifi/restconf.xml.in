@@ -1,0 +1,18 @@
+<clixon-config xmlns="http://clicon.org/config">
+  <restconf>
+    <enable>true</enable>
+    <auth-type>client-certificate</auth-type>
+    <pretty>true</pretty>
+    <debug>0</debug>
+    <log-destination>file</log-destination>
+    <server-key-path>/etc/ssl/private/srv_key.pem</server-key-path>
+    <server-cert-path>/etc/ssl/certs/srv_cert.pem</server-cert-path>
+    <server-ca-cert-path>/etc/ssl/certs/ca_cert.pem</server-ca-cert-path>
+    <socket>
+      <namespace>default</namespace>
+      <address>0.0.0.0</address>
+      <port>443</port>
+      <ssl>true</ssl>
+    </socket>
+  </restconf>
+</clixon-config>

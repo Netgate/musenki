@@ -1,8 +1,9 @@
 # Clixon wifi application
 
 * `musenki.xml` the XML configuration file of the application holding Clixon options
-* `startup_db`: The startup datastore. This content may be in flux
-* `clixon`: Openwrt init.d start script
+* `autocli.xml` the XML configuration file for the CLI
+* `restconf.xml` the XML configuration file for the RESTCONF backend
+* `nacm.xml` the XML configuration file for the NETCONF backend
 * [Wifi plugins](wifi)
 * [System plugins](system)
 
@@ -21,11 +22,11 @@ Before you start,
 ```
 Start backend in the background:
 ```
-    sudo clixon_backend -f /usr/local/etc/wifi.xml -s startup
+    sudo clixon_backend -f /usr/local/etc/clixon/musenki.xml -s startup
 ```
 Note: use `-s init` instead if you want to start Clixon without the preconfigured restconf daemon
 
 Start cli:
 ```
-    clixon_cli -f /usr/local/etc/wifi.xml
+    clixon_cli -f /usr/local/etc/clixon/musenki.xml
 ```
