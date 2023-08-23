@@ -59,7 +59,7 @@ APPNAME = musenki
 CLISPECS = $(APPNAME)_cli.cli
 
 XMLCONFIG = $(APPNAME).xml
-SUBCONFIGS = $(filter-out $(XMLCONFIG),$(wildcard *.xml))
+SUBCONFIGS = $(filter-out $(XMLCONFIG) nacm.xml,$(wildcard *.xml))
 
 SUBDIRS = wifi system
 
@@ -86,9 +86,11 @@ install: $(XMLCONFIG) $(SUBCONFIGS) $(CLISPECS) $(YANGSPECS)
 	install -d -m 0755 $(DESTDIR)$(libdir)/$(APPNAME)/clispec
 	install -m 0644 $(CLISPECS) $(DESTDIR)$(libdir)/$(APPNAME)/clispec
 	install -d -m 0755 $(DESTDIR)$(sysconfdir)/clixon
+	install -d -m 0755 $(DESTDIR)$(sysconfdir)/clixon/extras
 	install -d -m 0755 $(DESTDIR)$(sysconfdir)/clixon/$(APPNAME)
 	install -m 0644 $(XMLCONFIG) $(DESTDIR)$(sysconfdir)/clixon
 	install -m 0644 $(SUBCONFIGS) $(DESTDIR)$(sysconfdir)/clixon/$(APPNAME)
+	install -m 0644 nacm.xml $(DESTDIR)$(sysconfdir)/clixon/extras
 	install -d -m 0755 $(DESTDIR)$(localstatedir)
 	install -d -m 0755 $(DESTDIR)$(localstatedir)/$(APPNAME)
 	install -d -m 0755 $(DESTDIR)$(YANG_INSTALLDIR)
@@ -99,6 +101,7 @@ install: $(XMLCONFIG) $(SUBCONFIGS) $(CLISPECS) $(YANGSPECS)
 uninstall: 
 	rm -rf $(DESTDIR)$(libdir)/wifi/clispec
 	rm -f $(DESTDIR)$(sysconfdir)/clixon/$(XMLCONFIG)
+	rm -f $(DESTDIR)$(sysconfdir)/clixon/extras/nacm.xml
 	rm -rf $(DESTDIR)$(sysconfdir)/clixon/$(APPNAME)
 	for i in $(YANGSPEC) ; \
 	do rm $(DESTDIR)$(YANG_INSTALLDIR)/$$i; done
