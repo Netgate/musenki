@@ -1,4 +1,4 @@
-<clixon-config xmlns="http://clicon.org/config">
+<config>
   <restconf>
     <enable>true</enable>
     <auth-type>client-certificate</auth-type>
@@ -15,4 +15,4 @@
       <ssl>true</ssl>
     </socket>
   </restconf>
-</clixon-config>
+</config>

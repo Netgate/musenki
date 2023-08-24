@@ -184,7 +184,6 @@ AC_CONFIG_FILES([
            musenki-wifi/Makefile
            musenki-wifi/musenki.xml
            musenki-wifi/autocli.xml
-           musenki-wifi/restconf.xml
            musenki-wifi/nacm.xml
            musenki-wifi/wifi/Makefile
            musenki-wifi/system/Makefile

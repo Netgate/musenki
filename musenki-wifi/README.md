@@ -1,6 +1,7 @@
 # Clixon wifi application
 
 * `musenki.xml` the XML configuration file of the application holding Clixon options
+* `startup_db`: The startup datastore. This content may be in flux
 * `autocli.xml` the XML configuration file for the CLI
 * `restconf.xml` the XML configuration file for the RESTCONF backend
 * `nacm.xml` the XML configuration file for the NETCONF backend
