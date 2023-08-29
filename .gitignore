@@ -3,5 +3,7 @@ config.log
 config.status
 autom4te.cache/
 musenki-openwrt/openwrt
+musenki-wifi/Makefile
+musenki-wifi/*.xml
 musenki-wifi/*/Makefile
 .idea/

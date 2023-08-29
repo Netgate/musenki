@@ -180,10 +180,12 @@ LIBEXECDIR=`eval echo $libexecdir`
 LOCALSTATEDIR=`eval echo $localstatedir`
 SBINDIR=`eval echo $sbindir`
 
-AC_OUTPUT()
 AC_CONFIG_FILES([
            musenki-wifi/Makefile
            musenki-wifi/musenki.xml
+           musenki-wifi/autocli.xml
+           musenki-wifi/nacm.xml
            musenki-wifi/wifi/Makefile
            musenki-wifi/system/Makefile
 ])
+AC_OUTPUT()

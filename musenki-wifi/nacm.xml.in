@@ -1,0 +1,44 @@
+<clixon-config xmlns="http://clicon.org/config">
+  <nacm xmlns="urn:ietf:params:xml:ns:yang:ietf-netconf-acm">
+    <enable-nacm>true</enable-nacm>
+    <read-default>permit</read-default>
+    <write-default>deny</write-default>
+    <exec-default>deny</exec-default>
+    <groups>
+      <group>
+        <name>admin</name>
+        <user-name>root</user-name>
+      </group>
+      <group>
+        <name>guest</name>
+        <user-name>guest</user-name>
+      </group>
+    </groups>
+    <rule-list>
+      <name>guest-acl</name>
+      <group>guest</group>
+      <rule>
+        <name>deny-ncm</name>
+        <module-name>*</module-name>
+        <access-operations>*</access-operations>
+        <action>deny</action>
+        <comment>
+          Do not allow guests any access to the NETCONF
+        </comment>
+      </rule>
+    </rule-list>
+    <rule-list>
+      <name>admin-acl</name>
+      <group>admin</group>
+      <rule>
+        <name>permit-all</name>
+        <module-name>*</module-name>
+        <access-operations>*</access-operations>
+        <action>permit</action>
+        <comment>
+          Allow the 'admin' group complete access to all operations and data.
+        </comment>
+      </rule>
+    </rule-list>
+  </nacm>
+</clixon-config>
